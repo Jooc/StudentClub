@@ -9,7 +9,7 @@
 import Foundation
 import SwiftUI
 
-class CalendarViewModel{
+struct CalendarViewModel{
     let calendar = Calendar()
     
     var months = [EMonthViewModel]()
@@ -24,11 +24,13 @@ class CalendarViewModel{
     init() {
         self.generateVMs()
         self.updateEvents(with: Event.all)
+        
+        self.clickDayCell(dayViewModel: self.months[3].weeks[2].days[3])
     }
 }
 
 extension CalendarViewModel{
-    func clickDayCell(dayViewModel: EDayViewModel) {
+    mutating func clickDayCell(dayViewModel: EDayViewModel) {
         if selectedDay == nil{
             selectedDay = dayViewModel
             selectedDayPreState = selectedDay!.state
@@ -47,14 +49,14 @@ extension CalendarViewModel{
         }
     }
     
-    func nextMonth(){
+    mutating func nextMonth(){
         if currentMonth == 12{
             return
         }
-        self.currentMonth += 1
+        currentMonth += 1
     }
     
-    func lastMonth() {
+    mutating func lastMonth() {
         if currentMonth == 1{
             return
         }
@@ -65,7 +67,7 @@ extension CalendarViewModel{
 extension CalendarViewModel{
     // Based on the year
     // Generate all viewModels of the whole year
-    private func generateVMs() {
+    private mutating func generateVMs() {
         for month in 1...12{
             let newMonthViewModel = EMonthViewModel(month: month)
             var preMonth = month - 2
@@ -80,7 +82,7 @@ extension CalendarViewModel{
                 baseWeekday: beginWeekDaySymbol,
                 preCount: calendar.daysCounts[preMonth],
                 curCount: calendar.daysCounts[curMonth])
-            self.months.append(newMonthViewModel)
+            months.append(newMonthViewModel)
         }
     }
     

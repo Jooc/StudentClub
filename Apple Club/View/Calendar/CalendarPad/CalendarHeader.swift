@@ -19,18 +19,18 @@ struct CalendarHeader: View {
     
     var body: some View {
         HStack(spacing: 30){
-            Button(action: {
-                self.store.dispatch(.lastPage)
-            }){
-                Image(systemName: "chevron.left")
-            }
+//            Button(action: {
+//                self.store.dispatch(.lastPage)
+//            }){
+//                Image(systemName: "chevron.left")
+//            }
             Text(MonthSymbol(rawValue: currentMonth)!.text)
                 .frame(width: screen.width*0.3)
-            Button(action: {
-                self.store.dispatch(.nextPage)
-            }){
-                Image(systemName: "chevron.right")
-            }
+//            Button(action: {
+//                self.store.dispatch(.nextPage)
+//            }){
+//                Image(systemName: "chevron.right")
+//            }
         }
         .frame(width: screen.width, height: 50)
     }

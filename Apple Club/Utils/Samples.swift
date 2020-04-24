@@ -50,7 +50,10 @@ extension EDayViewModel{
         switch state {
         case .uncover: return EDayViewModel(model: EDay(year: 2020, month: 1, date: date ?? 31), state: .uncover)
         case .available: return EDayViewModel(model: EDay(year: 2020, month: 1, date: date ?? 1), state: .available)
-        case .selected: return EDayViewModel(model: EDay(year: 2020, month: 1, date: date ?? 2), state: .selected)
+        case .selected:
+            let viewModel = EDayViewModel(model: EDay(year: 2020, month: 1, date: date ?? 2), state: .selected)
+            viewModel.events.append(Event.all[0])
+            return viewModel
         case .unavailable: return EDayViewModel(model: EDay(year: 2020, month: 1, date: date ?? 3), state: .unavailable)
         }
     }
@@ -80,8 +83,10 @@ extension EMonthViewModel{
 
 extension CalendarViewModel{
     static func Sample() -> CalendarViewModel{
-        let viewModel = CalendarViewModel()
-        
+        var viewModel = CalendarViewModel()
+        viewModel.selectedDay = viewModel.months[3].weeks[2].days[3]
+        viewModel.selectedDayPreState = EDayState.available
+
         return viewModel
     }
 }

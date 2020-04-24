@@ -11,13 +11,13 @@ import SwiftUI
 struct CalendarPad: View {
     @EnvironmentObject var store: Store
     
-//    var activePageIndex: Int{
-//        self.store.appState.calendarState.calendarViewModel.currentMonth - 1
-//    }
-//
-//    var itemCount: Int{
-//        self.store.appState.calendarState.monthCount
-//    }
+    var activePageIndex: Int{
+        self.store.appState.calendarState.calendarViewModel.currentMonth - 1
+    }
+
+    var itemCount: Int{
+        self.store.appState.calendarState.monthCount
+    }
     
     @State var currentScrollOffset: CGFloat = 0
     @State var dragOffset: CGFloat = 0

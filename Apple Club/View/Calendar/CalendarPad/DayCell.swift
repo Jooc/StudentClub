@@ -14,14 +14,23 @@ struct DayCell: View {
     var viewModel: EDayViewModel
     
     var body: some View {
-        Text(viewModel.getStringDate())
-            .frame(width: viewModel.size.width, height: viewModel.size.height)
-            .background(viewModel.backGroundColor)
-            .foregroundColor(viewModel.fontColor)
-            .clipShape(Circle())
-            .onTapGesture {
-                self.store.dispatch(.clickDayCell(day: self.viewModel))
-        }
+        VStack(spacing: 5) {
+            Text(viewModel.getStringDate())
+                .frame(width: viewModel.size.width, height: viewModel.size.height)
+                .background(viewModel.backGroundColor)
+                .foregroundColor(viewModel.fontColor)
+                .clipShape(Circle())
+                .onTapGesture {
+                    self.store.dispatch(.clickDayCell(day: self.viewModel))
+            }
+            HStack(spacing: 2){
+                ForEach(0..<self.viewModel.events.count) { item in
+                    Circle()
+                        .frame(width: 3, height: 3)
+                        .foregroundColor(Color.red)
+                }
+            }
+        }.frame(width: 38, height: 45, alignment: .top)
     }
 }
 

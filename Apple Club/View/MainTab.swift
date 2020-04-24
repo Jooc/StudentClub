@@ -23,6 +23,10 @@ struct MainTab: View {
                     Image(systemName: "calendar")
                     Text("Activity")
                 }
+                MePage(viewModel: MeViewModel.Sample()).tabItem{
+                    Image(systemName: "person.circle")
+                    Text("Me")
+                }
             }.edgesIgnoringSafeArea(.top)
             
             if store.appState.loginState.showLoginPage{
@@ -35,6 +39,9 @@ struct MainTab: View {
 
 struct MainTab_Previews: PreviewProvider {
     static var previews: some View {
-        MainTab().environmentObject(Store.Sample())
+        Group {
+            MainTab().environmentObject(Store.Sample())
+            MainTab().environmentObject(Store.Sample()).previewDevice("iPhone 8")
+        }
     }
 }
