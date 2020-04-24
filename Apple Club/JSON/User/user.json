@@ -1,0 +1,17 @@
+{
+    "password": "这个值只是逗逗你",
+    "university": {
+        "code": -1,
+        "name": "苹果官方",
+        "icon": "http://iosclub-resources.oss-cn-hangzhou.aliyuncs.com/university_icon/avatar.png",
+        "description": "苹果官方",
+        "rank": -1,
+        "email": ""
+    },
+    "description": "excellent!",
+    "position": "官方",
+    "avatar": "http://iosclub-resources.oss-cn-hangzhou.aliyuncs.com/avatar/avatar.png",
+    "email": "b",
+    "username": "b",
+    "userPrivilege": 3
+}

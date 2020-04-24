@@ -1,0 +1,30 @@
+{
+    "iov": 0,
+    "images": [
+        "http://iosclub-resources.oss-cn-hangzhou.aliyuncs.com/news_images/1579141747494.jpg"
+    ],
+    "id": 1,
+    "time": "2020-01-16 10:29:15",
+    "video": "",
+    "title": "长沙师范学院学生沙龙",
+    "user": {
+        "password": "这个值只是逗逗你",
+        "university": {
+            "code": -1,
+            "name": "苹果官方",
+            "icon": "http://iosclub-resources.oss-cn-hangzhou.aliyuncs.com/university_icon/avatar.png",
+            "description": "苹果官方",
+            "rank": -1,
+            "email": ""
+        },
+        "description": "Stay hungry, stay foolish!",
+        "position": "官方",
+        "avatar": "http://iosclub-resources.oss-cn-hangzhou.aliyuncs.com/avatar/avatar.png",
+        "email": "a",
+        "username": "官方",
+        "userPrivilege": 3
+    },
+    "content": "2019年长沙师范学院学生沙龙圆满举办",
+    "tags": [],
+    "newsPrivilege": 1
+}
