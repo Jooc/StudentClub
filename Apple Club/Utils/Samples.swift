@@ -10,7 +10,10 @@ import Foundation
 
 extension Store{
     static func Sample() -> Store{
-        return Store()
+        let store = Store()
+        store.appState.newsState.newsListViewModel.updateNews(newsList: News.all)
+        store.appState.calendarState.calendarViewModel.updateEvents(with: Event.all)
+        return store
     }
 }
 
@@ -18,6 +21,13 @@ extension News{
     static func Sample(id: Int) -> News{
         return FileHelper.loadBundleJSON(file: "news-\(id)")
     }
+    
+    static var all: [News] = {
+        (1...5).map{ id in
+            let news = News.Sample(id: id)
+            return news
+        }
+    }()
 }
 
 extension NewsViewModel{
@@ -29,15 +39,21 @@ extension NewsViewModel{
     }()
     
     static func Sample(id: Int) -> NewsViewModel{
-        return NewsViewModel(news: News.Sample(id: 1))
+        return NewsViewModel(news: News.Sample(id: id))
     }
 }
 
 extension User{
     static func Sample() -> User{
-        return FileHelper.loadBundleJSON(file: "user")
+        return FileHelper.loadBundleJSON(file: "user-sample")
     }
 }
+
+//extension UserInfo{
+//    static func Sample() -> UserInfo{
+//        return UserInfo(id: 0, userName: "Jooc", avatar: "http://iosclub-resources.oss-cn-hangzhou.aliyuncs.com/avatar/avatar.png", universityCode: 0)
+//    }
+//}
 
 extension MeViewModel{
     static func Sample() -> MeViewModel{

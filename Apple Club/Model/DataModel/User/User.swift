@@ -9,26 +9,27 @@
 import Foundation
 
 struct User: Codable {
-    var userPrivilege: Int
-    var username: String
-    var email: String
+    var id: Int
+    var userName: String
     var avatar: String
-    var position: String
     var description: String
-    var university: University
+    var universityCode: Int
+    var userPrivilege: Int
+    
+    var loginEmail: String
     var password: String
+    
+    var contactEmail: String
+    var phoneNumber: String
 }
 
-struct User_New: Codable {
-    var id: Int
-    var user_name: String
-    var avatar: String?
-    var description: String
-    
-    var contact: Contact
-    var university: University
-    
-    var user_privilege: Int
-    var login_email: String
-//    var login_password: String
+extension User{
+    static func defaultUser() -> User{
+        return User(
+            id: -1, userName: "123",
+            avatar: "", description: "",
+            universityCode: -1, userPrivilege: -1,
+            loginEmail: "", password: "",
+            contactEmail: "", phoneNumber: "")
+    }
 }

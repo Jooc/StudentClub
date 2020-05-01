@@ -36,9 +36,12 @@ struct LoginPage: View {
             .offset(y: self.store.appState.loginState.isInputting ? -screen.height*0.4 : 0)
             .animation(.easeInOut)
             .onTapGesture {
-                self.store.dispatch(.finishInput)
+                self.store.dispatch(.inputDone)
                 self.hideKeyBoard()
             }
+        }
+        .alert(item: loginBinding.loginError){error in
+            Alert(title: Text(error.localizedDescription))
         }
     }
     
@@ -46,9 +49,9 @@ struct LoginPage: View {
         VStack {
             HStack {
                 Spacer()
-                CircleButton(icon: "text.justify")
-                    .padding(20)
-                    .offset(y: screen.height * 0.06)
+//                CircleButton(icon: "text.justify")
+//                    .padding(20)
+//                    .offset(y: screen.height * 0.06)
             }
             Spacer()
         }
@@ -81,10 +84,12 @@ struct LoginPage: View {
                     .foregroundColor(Color.gray)
                     .padding(.leading)
                 Button(action: {
-                    print("login")
-                    self.store.dispatch(.finishInput)
+                    #if DEBUG
+                    print("Login Button Clicked")
+                    #endif
+                    self.store.dispatch(.inputDone)
                     self.hideKeyBoard()
-                    self.store.dispatch(.showLogin)
+                    self.store.dispatch(.login(accout: self.store.appState.loginState.loginAccount))
                 }){
                     Text("Login")
                         .foregroundColor(.white)
@@ -115,19 +120,3 @@ struct LoginPage_Previews: PreviewProvider {
         }
     }
 }
-
-
-//                ZStack {
-//                    RoundedRectangle(cornerRadius: 30)
-//                        .fill(
-//                            RadialGradient(
-//                                gradient: Gradient(colors: [Color("LoginButton_green"), Color("Logo_purple")]),
-//                                center: .bottomLeading,
-//                                startRadius: 15,
-//                                endRadius: 600)
-//                    )
-//                        .frame(width: screen.width*0.4, height: screen.width*0.15)
-//                        .shadow(radius: 5)
-//                    Text("Login")
-//                        .font(.system(size: 20, weight: .regular, design: .default))
-//                        .foregroundColor(.white)

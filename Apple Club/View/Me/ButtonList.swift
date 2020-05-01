@@ -9,64 +9,83 @@
 import SwiftUI
 
 struct ButtonList: View {
+    @EnvironmentObject var store: Store
     @State var show = false
     
+    var showMe: Bool{
+        self.store.appState.showMe
+    }
+    
     var body: some View{
-        VStack(spacing: 60){
-            VStack(spacing: 20) {
-                Button(action: {self.show.toggle()}){
-                    ButtonLabel(icon: "person.circle.fill", text: "名片")
-                }
-                .sheet(isPresented: $show){
-                    Text("123123123")
-                        .onTapGesture {
-                            self.show.toggle()
+        ZStack {
+            VStack {
+                GeometryReader { proxy in
+                    VStack(spacing: 30){
+                        VStack(spacing: 0) {
+                            Button(action:{}){
+                                ButtonLabel(icon: "person.circle.fill", text: "名片")
+                            }
+                            Button(action: {}){
+                                ButtonLabel(icon: "tray.full.fill", text: "新闻库")
+                            }
+                            Button(action: {}){
+                                ButtonLabel(icon: "book.circle.fill", text: "Blog")
+                            }
+                        }.frame(width: proxy.size.width, height: proxy.size.height*0.6)
+                        
+                        VStack(spacing: 20) {
+                            HStack{
+                                Button(action:{}){
+                                    ButtonLabel(icon: "person.2.fill", text: "俱乐部")
+                                }
+                                Button(action:{}){
+                                    ButtonLabel(icon:"person.2.square.stack.fill", text: "")
+                                        .frame(width: 70)
+                                }
+                            }
+                        }.frame(width: proxy.size.width, height: proxy.size.height*0.2)
+                        
+                        VStack(){
+                            Button(action: {
+                                self.store.dispatch(.logout)
+                            }){
+                                Text("退出登录")
+                                    .font(.system(size: 20))
+                                    .fontWeight(.regular)
+                                    .foregroundColor(Color.red)
+                                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
+                                    .background(Color.white)
+                                    .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+                                    .padding(.vertical)
+                                    .shadow(color: Color.red.opacity(0.1), radius: 5)
+                                    .shadow(radius: 5)
+                            }
+                        }.frame(width: proxy.size.width, height: proxy.size.height*0.2)
                     }
-                }
-                
-                Button(action: {}){
-                    ButtonLabel(icon: "tray.full.fill", text: "新闻库")
-                }
-                Button(action: {}){
-                    ButtonLabel(icon: "book.circle.fill", text: "Blog")
+                    .frame(width: self.showMe ? screen.width*0.9:0, height: self.showMe ? 500 : 0, alignment: .top)
                 }
             }
-            VStack(spacing: 20) {
-                HStack{
-                    Button(action:{}){
-                        ButtonLabel(icon: "person.2.fill", text: "俱乐部")
-                    }
-                    Button(action:{}){
-                        ButtonLabel(icon:"person.2.square.stack.fill", text: "")
-                            .frame(width: 70)
-                    }
-                }
-            }
-            VStack(){
-                Button(action: {}){
-                    Text("退出登录")
-                        .font(.system(size: 20))
-                        .fontWeight(.regular)
-                        .foregroundColor(Color.red)
-                        .frame(height: 70)
-                        .frame(maxWidth: .infinity)
-                        .background(Color.white)
-                        .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
-                        .shadow(color: Color.red.opacity(0.1), radius: 5)
-                        .shadow(radius: 5)
-                        .padding(.top, 100)
-                }
-            }
+            .frame(width: self.showMe ? screen.width*0.9 : 0, height: self.showMe ? screen.height * 0.6 : 0, alignment: .top)
+            
+//            Button(action:{
+//                self.store.appState.showMe.toggle()
+//            }){
+//                Text("Button")
+//                .frame(width: 150, height: 70)
+//                    .background(Color("Base"))
+//                    .clipShape(RoundedRectangle(cornerRadius: 10))
+//            }
         }
-        .frame(width: screen.width*0.9, height: 500, alignment: .top)
-        .padding()
-        .padding(.top, 40)
     }
 }
 
 struct ButtonList_Previews: PreviewProvider {
     static var previews: some View {
-        ButtonList()
+        Group {
+            ButtonList().environmentObject(Store())
+            ButtonList().environmentObject(Store()).previewDevice("iPhone 8")
+        }
+
     }
 }
 
@@ -75,22 +94,22 @@ struct ButtonLabel: View {
     var text: String
     
     var body: some View {
-        HStack {
-            Image(systemName: icon)
-                .foregroundColor(Color.black.opacity(0.7))
-                .font(.system(size: 22))
-                .padding()
-                .padding(.leading, 10)
-            
-            Text(text)
-                .font(.system(size: 22))
-                .fontWeight(.regular)
-                .foregroundColor(Color.black.opacity(0.6))
+            HStack {
+                Image(systemName: self.icon)
+                    .foregroundColor(Color.black.opacity(0.7))
+                    .font(.system(size: 22))
+                    .padding()
+                    .padding(.leading, 10)
+                
+                Text(self.text)
+                    .font(.system(size: 22))
+                    .fontWeight(.regular)
+                    .foregroundColor(Color.black.opacity(0.6))
+            }
+            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .leading)
+            .background(Color.white)
+            .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+            .padding(.vertical)
+            .shadow(radius: 5)
         }
-        .frame(height: 70)
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .background(Color.white)
-        .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
-        .shadow(radius: 5)
-    }
 }

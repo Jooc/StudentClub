@@ -10,13 +10,15 @@ import SwiftUI
 import KingfisherSwiftUI
 
 struct NewsCell: View {
-    var news: NewsViewModel
+    @EnvironmentObject var store: Store
+    var viewModel: NewsViewModel
     
     var body: some View {
+        
         VStack(alignment: .leading, spacing: 0){
             HStack{
-//                Image(uiImage: #imageLiteral(resourceName: "avatar-1"))
-                KFImage(URL(string: news.news.user.avatar))
+                //                Image(uiImage: #imageLiteral(resourceName: "avatar-1"))
+                KFImage(URL(string: viewModel.news.newsPublisher.avatar))
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .clipShape(Circle())
@@ -38,48 +40,31 @@ struct NewsCell: View {
             .frame(height: 60)
             .padding(5)
             
-//            Image(uiImage: #imageLiteral(resourceName: "news-1"))
-            KFImage(URL(string: news.news.images![0]))
+            //            Image(uiImage: #imageLiteral(resourceName: "news-1"))
+            KFImage(URL(string: viewModel.news.images[0]))
                 .resizable()
                 .aspectRatio(contentMode: .fill)
                 .frame(width: screen.width*0.9, height: 330)
                 .clipShape(Rectangle())
         }
         .background(Color.white)
+        .frame(width: screen.width*0.9)
         .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
-        .frame(width: screen.width*0.9, height: 400)
-        .shadow(radius: 30)
+        .onTapGesture {
+            self.store.dispatch(.clickNewsCell(news: self.viewModel))
+        }
+        
     }
+    //        .shadow(radius: 30)
 }
 
 
 struct NewsCell_Previews: PreviewProvider {
     static var previews: some View {
-        NewsCell(news: NewsViewModel.Sample(id: 1))
+        ZStack {
+            Color("Base")
+                .edgesIgnoringSafeArea(.all)
+            NewsCell(viewModel: NewsViewModel.Sample(id: 1)).environmentObject(Store())
+        }
     }
 }
-
-
-//VStack {
-//    HStack {
-//        VStack {
-//            KFImage(URL(string: news.news.user.avatar))
-//                .resizable()
-//                .cornerRadius(20)
-//                .aspectRatio(contentMode: .fit)
-//                .frame(maxHeight: 70)
-//        }
-//        VStack(alignment: .leading) {
-//            Text(news.news.user.username)
-//                .font(Font.headline)
-//                .foregroundColor(.blue)
-//            Text(news.news.title)
-//                .font(Font.subheadline)
-//            Text(news.news.content)
-//                .font(.subheadline)
-//                .lineLimit(1)
-//        }
-//        .padding(.leading, 5)
-//    }
-//    .frame(maxWidth: screen.width, maxHeight: 300, alignment: .leading)
-//}

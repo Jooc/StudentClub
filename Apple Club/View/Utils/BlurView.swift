@@ -8,6 +8,7 @@
 
 import SwiftUI
 
+/// Custom BlurView Background
 struct BlurView: UIViewRepresentable {
     typealias UIViewType = UIView
     var style: UIBlurEffect.Style

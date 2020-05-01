@@ -25,12 +25,12 @@ struct Email_Password: View {
                     .clipShape(RoundedRectangle(cornerRadius: 15, style: .continuous))
                     .shadow(color: Color.black.opacity(0.15), radius: 5, x: 0, y:5)
                     .padding(.leading)
-                TextField("EMAIL".uppercased(), text: loginBinding.account.email)
+                TextField("EMAIL".uppercased(), text: loginBinding.loginAccount.email)
                     .keyboardType(.emailAddress)
                     .font(.subheadline)
                     .padding(.leading)
                     .onTapGesture {
-                        self.store.dispatch(.beginInput)
+                        self.store.dispatch(.input)
                 }
                 Spacer()
             }
@@ -45,12 +45,12 @@ struct Email_Password: View {
                     .clipShape(RoundedRectangle(cornerRadius: 15, style: .continuous))
                     .shadow(color: Color.black.opacity(0.15), radius: 5, x: 0, y:5)
                     .padding(.leading)
-                SecureField("PASSWORD".uppercased(), text: loginBinding.account.password)
+                SecureField("PASSWORD".uppercased(), text: loginBinding.loginAccount.password)
                     .keyboardType(.default)
                     .font(.subheadline)
                     .padding(.leading)
                     .onTapGesture {
-                        self.store.dispatch(.beginInput)
+                        self.store.dispatch(.input)
                 }
                 Spacer()
             }

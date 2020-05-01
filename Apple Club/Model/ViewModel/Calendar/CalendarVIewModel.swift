@@ -23,7 +23,6 @@ struct CalendarViewModel{
     
     init() {
         self.generateVMs()
-        self.updateEvents(with: Event.all)
         
         self.clickDayCell(dayViewModel: self.months[3].weeks[2].days[3])
     }

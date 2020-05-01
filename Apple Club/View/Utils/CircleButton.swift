@@ -19,7 +19,7 @@ struct CircleButton: View {
         .frame(width: 44, height: 44)
         .background(Color.white)
         .cornerRadius(30)
-        .shadow(radius: 10)
+        .shadow(color: Color.gray.opacity(0.5), radius: 15, y: 15)
     }
 }
 

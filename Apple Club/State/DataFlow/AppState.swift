@@ -8,25 +8,55 @@
 
 import Foundation
 import Combine
+import SwiftUI
 
 struct AppState{
+    @FileStorage(directory: .documentDirectory, fileName: "user.json")
+    var user: User?
+    
     var loginState = LoginState()
+    var newsState = NewsState()
     var meState = MeState()
     var calendarState = CalendarState()
     
+    var showMe = false
+    var closed = true
+    var dragPosition = CGSize.zero
+    
+    init() {
+        self.user = User.Sample()
+    }
 }
 
 extension AppState{
     struct LoginState{
         class LoginAccount {
-            @Published var email = ""
-            @Published var password = ""
+            var email = ""
+            var password = ""
         }
         
-        var showLoginPage = false
+//        var showLoginPage = false
         var isInputting = false
+        var isLogining = false
+        var loginAccount = LoginAccount()
+        var loginError: AppError?
+    }
+}
+
+extension AppState{
+    struct NewsState {
+        var newsListViewModel  = NewsListViewModel()
         
-        var account = LoginAccount()
+        var showAddButtons = false
+        var pickImageActionSheet = false
+        
+        var detailedNews: NewsViewModel? = nil
+        var isLoading = false
+        var loadNewsError: AppError?
+        
+        mutating func showNewsDetail(news: NewsViewModel) {
+            self.detailedNews = news
+        }
     }
 }
 
@@ -41,5 +71,7 @@ extension AppState{
         var calendarViewModel = CalendarViewModel()
         
         var monthCount = 12
+        var isLoading = false
+        var loadEventError: AppError?
     }
 }

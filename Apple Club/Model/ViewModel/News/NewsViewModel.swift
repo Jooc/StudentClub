@@ -10,5 +10,6 @@ import Foundation
 
 struct NewsViewModel: Identifiable, Codable {
     var id:Int {news.id}
+    
     var news: News
 }

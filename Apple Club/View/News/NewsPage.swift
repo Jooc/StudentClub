@@ -10,16 +10,45 @@ import SwiftUI
 
 struct NewsPage: View {
     @EnvironmentObject var store: Store
+    var viewModel: NewsListViewModel{
+        self.store.appState.newsState.newsListViewModel
+    }
     
     var body: some View {
         ZStack {
             Color("Base")
                 .edgesIgnoringSafeArea(.all)
-            List(NewsViewModel.all) { item in
-                NewsCell(news: item)
-                    .padding(.vertical, 30)
+            VStack(spacing: 0) {
+                ScrollView(showsIndicators: false) {
+                    header
+                    ForEach(viewModel.newsList){item in
+                        NewsCell(viewModel: item)
+                            .padding(.vertical, 20)
+                    }
+                }
+                
+//                List(viewModel.newsList) { item in
+//                    NewsCell(viewModel: item)
+//                        .padding(.vertical, 30)
+//                }
             }
         }
+    }
+
+    var header: some View{
+        HStack {
+            VStack(alignment: .leading, spacing: 15) {
+                Text("4月27日 星期一")
+                    .font(.system(size: 25))
+                Image(uiImage: #imageLiteral(resourceName: "News-Title"))
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(height: screen.height*0.05)
+            }
+            .padding()
+            .padding(.leading, 5)
+            
+        }.frame(width: screen.width, alignment: .topLeading)
     }
 }
 
@@ -29,18 +58,3 @@ struct NewsPage_Previews: PreviewProvider {
     }
 }
 
-
-//NavigationView {
-//    List(NewsViewModel.all){ news in
-//        NavigationLink(destination:
-//        Text(news.news.content)
-//            .onTapGesture {
-//                self.store.dispatch(.showLogin)
-//            }
-//        ) {
-//            NewsCell(news: news)
-//                .padding(.vertical)
-//        }
-//    }
-//    .navigationBarTitle(Text("News"))
-//}

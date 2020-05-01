@@ -11,58 +11,68 @@ import SwiftUI
 
 struct MePage: View {
     
-    @State var closed = true
-    @State var opened = false
-    @State  var dragPosition = CGSize.zero
+    //    @State var closed = true
+    //    @State  var dragPosition = CGSize.zero
     
     @EnvironmentObject var store: Store
+    
+    var closed: Bool{
+        self.store.appState.closed
+    }
+    
+    var dragPosition: CGSize{
+        self.store.appState.dragPosition
+    }
+    
+    var showMe: Bool{
+        self.store.appState.showMe
+    }
+    
     var viewModel: MeViewModel
     
     var body: some View {
-        ZStack() {
-            Color("Base")
-                .edgesIgnoringSafeArea(.all)
+        ZStack {
+            ZStack {
+                Color("Base")
+                    .edgesIgnoringSafeArea(.all)
+                
+                ButtonList()
+                    .offset(y: 0)
+                    .offset(y: self.closed ? 195 : 0)
+                    .offset(y: self.showMe ? 0 : -300)
+                    .animation(.spring(response: 0.55, dampingFraction: 0.825, blendDuration: 0))
+                
+                profile
+                    .edgesIgnoringSafeArea(.all)
+                    .offset(y: -screen.height*0.85)
+                    .offset(y: self.closed ? screen.height*0.85 : 0)
+                    .offset(y: self.closed ? min(0, self.dragPosition.height) : self.dragPosition.height)
+                    .animation(.spring(response: 0.55, dampingFraction: 0.9, blendDuration: 10))
+                    .gesture(
+                        DragGesture().onChanged(){ value in
+                            self.store.appState.dragPosition = value.translation
+                        }
+                        .onEnded(){ value in
+                            if value.predictedEndTranslation.height < -300{
+                                self.store.appState.closed = false
+                            }
+                            if value.predictedEndTranslation.height > 200{
+                                self.store.appState.closed = true
+                            }
+                            self.store.appState.dragPosition = .zero
+                        }
+                )
+            }
+//            .frame(width: showMe ? screen.width : 0, height: showMe ? screen.height : 0)
+//            .offset(y: self.showMe ? 0 : 310)
             
-            ButtonList()
-                .offset(y: 550)
-                .offset(y: self.closed ? 195 : 0)
-                .offset(y: self.opened ? -580 : 0)
-                .offset(y: self.dragPosition.height*0.5)
             
-            profile
-                .offset(y: -200)
-                .offset(y: self.closed ? 195 : 0)
-                .offset(y: self.opened ? -580 : 0)
-                .offset(y: self.dragPosition.height)
-
-            avatar
-                .offset(y: 60)
-                .offset(y: self.closed ? 195 : 0)
-                .offset(y: self.opened ? -400 : 0)
-                .offset(y: self.dragPosition.height)
-            
+            //            avatar
+            //                .offset(y: -340)
+            //                .offset(y: self.closed ? 650 : 0)
+            //                .offset(y: self.dragPosition.height/2)
+            //                .animation(.spring())
         }
-        .animation(.spring(response: 0.5, dampingFraction: 0.8, blendDuration: 2))
-        .gesture(
-            DragGesture().onChanged(){ value in
-                self.dragPosition = value.translation
-            }
-            .onEnded(){ value in
-                if value.translation.height < -300{
-                    self.opened = true
-                    self.closed = false
-                }
-                else if value.translation.height > 200{
-                    self.opened = false
-                    self.closed = true
-                }
-                else{
-                    self.opened = false
-                    self.closed = false
-                }
-                self.dragPosition = .zero
-            }
-        )
     }
     
     var avatar: some View{
@@ -72,27 +82,26 @@ struct MePage: View {
                 .foregroundColor(Color.white)
                 .shadow(radius: 10)
             Image(uiImage: #imageLiteral(resourceName: "avatar-1"))
-                       .resizable()
-                       .aspectRatio(contentMode: .fit)
-                       .frame(width: 100, height: 100)
-                       .clipShape(Circle())
-                   Text(viewModel.user.username)
-                       .offset(y:70)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 100, height: 100)
+                .clipShape(Circle())
+                .onTapGesture {
+                    self.store.appState.showMe.toggle()
+            }
+            //            Text(viewModel.user.userName)
+            //                .offset(y:70)
         }
     }
     
     var profile: some View{
-        VStack{
-            ZStack {
-                //KFImage(URL(string: me.avatar))
-                Image(uiImage: #imageLiteral(resourceName: "back-1"))
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: screen.width, height: screen.height)
-                    .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous))
-                    .shadow(radius: 10, x: 0, y: 5)
-//                    .offset(y: self.closed ? 0 : -screen.height*0.3)
-            }
+        GeometryReader { proxy in
+            Image(uiImage: #imageLiteral(resourceName: "back-1"))
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(width: proxy.size.width, height: proxy.size.height)
+                .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous))
+                .shadow(radius: 10, x: 0, y: 5)
         }
     }
 }
@@ -101,7 +110,7 @@ struct MePage_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             MePage(viewModel: MeViewModel.Sample()).environmentObject(Store.Sample())
-//            MePage(viewModel: MeViewModel.Sample()).environmentObject(Store.Sample()).previewDevice("iPhone 8")
+            //            MePage(viewModel: MeViewModel.Sample()).environmentObject(Store.Sample()).previewDevice("iPhone 8")
         }
     }
 }
