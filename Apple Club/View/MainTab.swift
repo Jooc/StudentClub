@@ -10,42 +10,41 @@ import SwiftUI
 
 struct MainTab: View {
     @EnvironmentObject var store: Store
-    //    @State var showMe = false
-    
-//    @State var showAddPage = false
+
     var showAddButtons: Bool{
         self.store.appState.newsState.showAddButtons
     }
+    
     var pickImageActionSheet: Binding<Bool>{
         self.$store.appState.newsState.pickImageActionSheet
     }
-    
-    @State var expand1 = false
-    @State var expand2 = false
-    
-    @State var showDetailedNews = false
     
     var closed: Bool{
         self.store.appState.closed
     }
     
     var dragPosition: CGSize{
-        self.store.appState.dragPosition
+        self.store.appState.calendarState.calendarViewModel.dragPosition
     }
     
     var showMe: Bool{
         self.store.appState.showMe
     }
     
+    @State var showCamera = false
+    @State var showPhotoLibrary = false
+    @State var image: Image?
+    
+    @State var showPostNewsPage = false
+    @State var showDetailedNews = false
+    
+
+    
     var body: some View {
         ZStack {
             ZStack() {
-                ZStack {
-                    tableView
-                    PostButton()
-                }
-                
-                
+                tableView
+
                 if self.showMe{
                     MePage(viewModel: MeViewModel.Sample())
                         .animation(.spring())
@@ -64,14 +63,30 @@ struct MainTab: View {
                 if store.appState.user == nil{
                     LoginPage()
                 }
+                
+                if self.showCamera{
+                    ImagerPickeView(isShown: $showCamera, image: $image, sourceType: .camera)
+                        .edgesIgnoringSafeArea(.all)
+                        .onDisappear(){ self.showPostNewsPage = true }
+                }
+                
+                if self.showPhotoLibrary{
+                    ImagerPickeView(isShown: $showPhotoLibrary, image: $image, sourceType: .photoLibrary)
+                        .edgesIgnoringSafeArea(.all)
+                        .onDisappear(){ self.showPostNewsPage = true }
+                }
+                
+                if self.showPostNewsPage{
+                    PostNewsPage()
+                }
             }
             .actionSheet(isPresented: pickImageActionSheet){
                 ActionSheet(title: Text("Photos"), buttons: [
                     ActionSheet.Button.default(Text("Camera")){
-                        
+                        self.showCamera = true
                     },
                     ActionSheet.Button.default(Text("Choose from Album")){
-                        
+                        self.showPhotoLibrary = true
                     },
                     ActionSheet.Button.cancel()
                 ])
@@ -126,34 +141,3 @@ struct MainTab_Previews: PreviewProvider {
         }
     }
 }
-
-
-//            VStack{
-//                Text("123")
-//            }
-//            .frame(width: self.expand1 ? screen.width : 200, height: self.expand1 ? screen.height : 100)
-//            .background(Color("Logo_green"))
-//            .clipShape(RoundedRectangle(cornerRadius: 10))
-//            .onTapGesture {
-//                self.expand1.toggle()
-//            }
-//            .shadow(color: Color("Base"), radius: 20, x: 0, y: 0)
-//            .offset(x: self.showAddPage ? 0 : 400, y: self.expand1 ? 0 : -100)
-//            .animation(.spring(response: 0.60, dampingFraction: 1, blendDuration: 0))
-//
-//            VStack{
-//                Text("123")
-//            }
-//            .frame(width: 200, height: 100)
-//            .onTapGesture {
-//                self.expand1 = true
-//            }
-//            .frame(width: self.expand2 ? screen.width : 200, height: self.expand2 ? screen.height : 100)
-//            .background(Color("Logo_purple"))
-//            .clipShape(RoundedRectangle(cornerRadius: 10))
-//            .onTapGesture {
-//                self.expand2.toggle()
-//            }
-//            .shadow(color: Color("Base"), radius: 20, x: 0, y: 0)
-//            .offset(x: self.showAddPage ? 0 : 400, y: self.expand2 ? 0 : 100)
-//            .animation(.spring(response: 0.55, dampingFraction: 0.825, blendDuration: 0))

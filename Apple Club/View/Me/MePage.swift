@@ -21,7 +21,7 @@ struct MePage: View {
     }
     
     var dragPosition: CGSize{
-        self.store.appState.dragPosition
+        self.store.appState.calendarState.calendarViewModel.dragPosition
     }
     
     var showMe: Bool{
@@ -50,7 +50,8 @@ struct MePage: View {
                     .animation(.spring(response: 0.55, dampingFraction: 0.9, blendDuration: 10))
                     .gesture(
                         DragGesture().onChanged(){ value in
-                            self.store.appState.dragPosition = value.translation
+                            // TODO: Maybe a better place for dragPosition
+                            self.store.appState.calendarState.calendarViewModel.dragPosition = value.translation
                         }
                         .onEnded(){ value in
                             if value.predictedEndTranslation.height < -300{
@@ -59,7 +60,7 @@ struct MePage: View {
                             if value.predictedEndTranslation.height > 200{
                                 self.store.appState.closed = true
                             }
-                            self.store.appState.dragPosition = .zero
+                            self.store.appState.calendarState.calendarViewModel.dragPosition = .zero
                         }
                 )
             }

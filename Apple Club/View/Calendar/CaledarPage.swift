@@ -13,7 +13,7 @@ struct CalendarPage: View {
     @State var showAddPage = false
     
     var selectedDay: EDayViewModel?{
-        self.store.appState.calendarState.calendarViewModel.selectedDay
+        self.store.appState.calendarState.selectedDay
     }
     
     var body: some View {

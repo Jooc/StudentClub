@@ -16,12 +16,12 @@ struct AppState{
     
     var loginState = LoginState()
     var newsState = NewsState()
+    var postState = PostState()
     var meState = MeState()
     var calendarState = CalendarState()
     
     var showMe = false
     var closed = true
-    var dragPosition = CGSize.zero
     
     init() {
         self.user = User.Sample()
@@ -54,9 +54,19 @@ extension AppState{
         var isLoading = false
         var loadNewsError: AppError?
         
+        
         mutating func showNewsDetail(news: NewsViewModel) {
             self.detailedNews = news
         }
+    }
+}
+
+extension AppState{
+    struct PostState {
+        var title: String = ""
+        var content: String = ""
+        var image: Image? = nil
+        var location: String = ""
     }
 }
 
@@ -73,5 +83,44 @@ extension AppState{
         var monthCount = 12
         var isLoading = false
         var loadEventError: AppError?
+        
+        var currentMonth: Int = 4
+        var selectedDay: EDayViewModel? = nil
+        var selectedDayPreState: EDayState = .uncover
+    }
+}
+
+extension AppState.CalendarState{
+    mutating func clickDayCell(dayViewModel: EDayViewModel) {
+        if selectedDay == nil{
+            selectedDay = dayViewModel
+            selectedDayPreState = selectedDay!.state
+            selectedDay!.state = .selected
+        }
+        else{
+            selectedDay?.state = selectedDayPreState
+            if dayViewModel == selectedDay{
+                selectedDay = nil
+                selectedDayPreState = .uncover
+            }else{
+                selectedDayPreState = dayViewModel.state
+                selectedDay = dayViewModel
+                selectedDay?.state = .selected
+            }
+        }
+    }
+    
+    mutating func nextMonth(){
+        if currentMonth == 12{
+            return
+        }
+        currentMonth += 1
+    }
+    
+    mutating func lastMonth() {
+        if currentMonth == 1{
+            return
+        }
+        self.currentMonth -= 1
     }
 }

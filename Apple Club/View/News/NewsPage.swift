@@ -18,6 +18,7 @@ struct NewsPage: View {
         ZStack {
             Color("Base")
                 .edgesIgnoringSafeArea(.all)
+            
             VStack(spacing: 0) {
                 ScrollView(showsIndicators: false) {
                     header
@@ -37,16 +38,20 @@ struct NewsPage: View {
 
     var header: some View{
         HStack {
-            VStack(alignment: .leading, spacing: 15) {
-                Text("4月27日 星期一")
-                    .font(.system(size: 25))
-                Image(uiImage: #imageLiteral(resourceName: "News-Title"))
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(height: screen.height*0.05)
+            ZStack(alignment: .topLeading) {
+                VStack(alignment: .leading, spacing: 15) {
+                    Text("4月27日 星期一")
+                        .font(.system(size: 25))
+                    Image(uiImage: #imageLiteral(resourceName: "News-Title"))
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(height: screen.height*0.05)
+                }
+                .padding()
+                .padding(.leading, 5)
+                
+                PostButton()
             }
-            .padding()
-            .padding(.leading, 5)
             
         }.frame(width: screen.width, alignment: .topLeading)
     }

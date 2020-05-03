@@ -11,15 +11,13 @@ import Photos
 
 struct PostNews: View {
     var showPicker = false
-    var photos:
     
     var body: some View {
         VStack {
             Text("123")
-            Button("Photos")
+            Button("Photos"){
+            }
         }
-        
-        
     }
 }
 

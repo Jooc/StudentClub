@@ -99,11 +99,10 @@ extension EMonthViewModel{
 
 extension CalendarViewModel{
     static func Sample() -> CalendarViewModel{
-        var viewModel = CalendarViewModel()
-        viewModel.selectedDay = viewModel.months[3].weeks[2].days[3]
-        viewModel.selectedDayPreState = EDayState.available
-
-        return viewModel
+//        var viewModel = CalendarViewModel()
+//        viewModel.selectedDay = viewModel.months[3].weeks[2].days[3]
+//        viewModel.selectedDayPreState = EDayState.available
+        return CalendarViewModel()
     }
 }
 

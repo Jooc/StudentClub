@@ -91,17 +91,17 @@ class Store: ObservableObject{
             }
             
         case .clickDayCell(let day):
-            appState.calendarState.calendarViewModel.clickDayCell(dayViewModel: day)
+            appState.calendarState.clickDayCell(dayViewModel: day)
         case .clickNewsCell(let news):
             appState.newsState.showNewsDetail(news: news)
         case .closeNewsDetail:
             appState.newsState.detailedNews = nil
         case .nextPage:
-            appState.calendarState.calendarViewModel.nextMonth()
+            appState.calendarState.nextMonth()
         case .lastPage:
-            appState.calendarState.calendarViewModel.lastMonth()
+            appState.calendarState.lastMonth()
         case .selectMonth(let month):
-            appState.calendarState.calendarViewModel.currentMonth = month
+            appState.calendarState.currentMonth = month
         }
         
         return (appState, appCommand)

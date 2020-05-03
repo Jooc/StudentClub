@@ -23,7 +23,9 @@ struct PostButton: View {
                 Spacer()
                 ZStack(alignment: .topTrailing) {
                     HStack {
-                        Button(action:{}){
+                        Button(action:{
+                            
+                        }){
                             VStack {
                                 Image(systemName: "calendar.badge.plus")
                                     .font(.system(size: 15, weight: .light))
@@ -38,6 +40,7 @@ struct PostButton: View {
                     }
                     .frame(width: 90, alignment: .leading)
                     .rotationEffect(Angle(degrees: self.showAddButtons ? 0 : 90), anchor: .topTrailing)
+                    .scaleEffect(self.showAddButtons ? 1 : 0)
                     .animation(.spring(response: 0.35, dampingFraction: 0.825, blendDuration: 0))
                     
                     VStack {
@@ -58,6 +61,7 @@ struct PostButton: View {
                     }
                     .frame(height: 90, alignment: .bottom)
                     .rotationEffect(Angle(degrees: self.showAddButtons ? 0 : 180), anchor: .top)
+                    .scaleEffect(self.showAddButtons ? 1 : 0)
                     .animation(.spring(response: 0.45, dampingFraction: 0.825, blendDuration: 0))
                     
                     postButton

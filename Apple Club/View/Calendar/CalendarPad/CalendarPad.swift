@@ -12,7 +12,7 @@ struct CalendarPad: View {
     @EnvironmentObject var store: Store
     
     var activePageIndex: Int{
-        self.store.appState.calendarState.calendarViewModel.currentMonth - 1
+        self.store.appState.calendarState.currentMonth - 1
     }
 
     var itemCount: Int{
@@ -39,7 +39,7 @@ struct CalendarPad: View {
     }
     
     func computeScrollOffset() -> CGFloat{
-        return self.offsetForPageIndex(self.store.appState.calendarState.calendarViewModel.currentMonth - 1) + self.dragOffset
+        return self.offsetForPageIndex(self.store.appState.calendarState.currentMonth - 1) + self.dragOffset
     }
     
     func logicalScrollOffset(trueOffset: CGFloat) -> CGFloat{
@@ -57,7 +57,7 @@ struct CalendarPad: View {
                 }
             }
             .onAppear{
-                self.currentScrollOffset = self.offsetForPageIndex(self.store.appState.calendarState.calendarViewModel.currentMonth - 1)
+                self.currentScrollOffset = self.offsetForPageIndex(self.store.appState.calendarState.currentMonth - 1)
             }
             .background(Color("Base"))
             .offset(x: self.currentScrollOffset)

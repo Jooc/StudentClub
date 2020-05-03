@@ -12,7 +12,7 @@ struct CalendarHeader: View {
     @EnvironmentObject var store: Store
     
     var currentMonth: Int{
-        self.store.appState.calendarState.calendarViewModel.currentMonth
+        self.store.appState.calendarState.currentMonth
     }
     
     var screen = UIScreen.main.bounds

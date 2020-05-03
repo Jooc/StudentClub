@@ -11,61 +11,21 @@ import SwiftUI
 
 struct CalendarViewModel{
     let calendar = Calendar()
-    
     var months = [EMonthViewModel]()
     var events = Dictionary<Int, Event>()
     
-    var currentMonth: Int = 4
-    var selectedDay: EDayViewModel? = nil
-    var selectedDayPreState: EDayState = .uncover
-
     var currentScrollOffset: CGFloat = 0
     
     init() {
         self.generateVMs()
-        
-        self.clickDayCell(dayViewModel: self.months[3].weeks[2].days[3])
     }
+    
+    
+    var dragPosition = CGSize.zero
 }
 
 extension CalendarViewModel{
-    mutating func clickDayCell(dayViewModel: EDayViewModel) {
-        if selectedDay == nil{
-            selectedDay = dayViewModel
-            selectedDayPreState = selectedDay!.state
-            selectedDay!.state = .selected
-        }
-        else{
-            selectedDay?.state = selectedDayPreState
-            if dayViewModel == selectedDay{
-                selectedDay = nil
-                selectedDayPreState = .uncover
-            }else{
-                selectedDayPreState = dayViewModel.state
-                selectedDay = dayViewModel
-                selectedDay?.state = .selected
-            }
-        }
-    }
     
-    mutating func nextMonth(){
-        if currentMonth == 12{
-            return
-        }
-        currentMonth += 1
-    }
-    
-    mutating func lastMonth() {
-        if currentMonth == 1{
-            return
-        }
-        self.currentMonth -= 1
-    }
-}
-
-extension CalendarViewModel{
-    // Based on the year
-    // Generate all viewModels of the whole year
     private mutating func generateVMs() {
         for month in 1...12{
             let newMonthViewModel = EMonthViewModel(month: month)
@@ -84,6 +44,9 @@ extension CalendarViewModel{
             months.append(newMonthViewModel)
         }
     }
+    
+    // Based on the year
+    // Generate all viewModels of the whole year
     
     // TODO: get events from server
     private func generateEventFromResponse(response: Event) {
