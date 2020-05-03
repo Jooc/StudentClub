@@ -10,12 +10,10 @@ import SwiftUI
 
 struct PostButton: View {
     @EnvironmentObject var store: Store
-//    @State var showAddButton = true
+
     var showAddButtons: Bool{
         self.store.appState.newsState.showAddButtons
     }
-    
-//    @State var press = false
     
     var body: some View {
         VStack {

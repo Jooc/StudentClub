@@ -21,7 +21,13 @@ struct AppState{
     var calendarState = CalendarState()
     
     var showMe = false
-    var closed = true
+    
+    var showCamera = false
+    var showPhotoLibrary = false
+    var image: Image?
+    
+    var showPostNewsPage = false
+    var showDetailedNews = false
     
     init() {
         self.user = User.Sample()
@@ -72,7 +78,7 @@ extension AppState{
 
 extension AppState{
     struct MeState{
-        
+        var closed = true
     }
 }
 

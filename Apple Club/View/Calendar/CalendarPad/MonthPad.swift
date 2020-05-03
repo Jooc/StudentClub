@@ -10,8 +10,6 @@ import SwiftUI
 
 struct MonthPad: View {
     @EnvironmentObject var store: Store
-    
-    var screen = UIScreen.main.bounds
     var viewModel: EMonthViewModel
     
     var body: some View {

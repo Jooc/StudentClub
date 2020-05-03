@@ -10,83 +10,58 @@ import SwiftUI
 
 struct MainTab: View {
     @EnvironmentObject var store: Store
-
-    var showAddButtons: Bool{
-        self.store.appState.newsState.showAddButtons
-    }
     
     var pickImageActionSheet: Binding<Bool>{
         self.$store.appState.newsState.pickImageActionSheet
     }
-    
-    var closed: Bool{
-        self.store.appState.closed
-    }
-    
-    var dragPosition: CGSize{
-        self.store.appState.calendarState.calendarViewModel.dragPosition
-    }
-    
-    var showMe: Bool{
-        self.store.appState.showMe
-    }
-    
-    @State var showCamera = false
-    @State var showPhotoLibrary = false
-    @State var image: Image?
-    
-    @State var showPostNewsPage = false
-    @State var showDetailedNews = false
-    
-
     
     var body: some View {
         ZStack {
             ZStack() {
                 tableView
 
-                if self.showMe{
+                if self.store.appState.showMe{
                     MePage(viewModel: MeViewModel.Sample())
                         .animation(.spring())
                 }
                 
                 avatar
                     .offset(y: screen.height*0.42)
-                    .offset(y: self.showMe ? self.closed ? -50 : -screen.height*0.8 : 0)
-                    .offset(y: self.dragPosition.height/2)
+                    .offset(y: self.store.appState.showMe ? self.store.appState.meState.closed ? -50 : -screen.height*0.8 : 0)
+                    .offset(y: self.store.appState.calendarState.calendarViewModel.dragPosition.height/2)
                     .animation(.spring())
                 
                 if store.appState.newsState.detailedNews != nil{
-                    NewsDetail(viewModel: self.store.appState.newsState.detailedNews!, show: $showDetailedNews)
+                    NewsDetail(viewModel: self.store.appState.newsState.detailedNews!, show: self.$store.appState.showDetailedNews)
                 }
                 
                 if store.appState.user == nil{
                     LoginPage()
                 }
                 
-                if self.showCamera{
-                    ImagerPickeView(isShown: $showCamera, image: $image, sourceType: .camera)
+                if self.store.appState.showCamera{
+                    ImagerPickeView(isShown: self.$store.appState.showCamera, image: self.$store.appState.image, sourceType: .camera)
                         .edgesIgnoringSafeArea(.all)
-                        .onDisappear(){ self.showPostNewsPage = true }
+                        .onDisappear(){ self.store.appState.showPostNewsPage = true }
                 }
                 
-                if self.showPhotoLibrary{
-                    ImagerPickeView(isShown: $showPhotoLibrary, image: $image, sourceType: .photoLibrary)
+                if self.store.appState.showPhotoLibrary{
+                    ImagerPickeView(isShown: self.$store.appState.showPhotoLibrary, image: self.$store.appState.image, sourceType: .photoLibrary)
                         .edgesIgnoringSafeArea(.all)
-                        .onDisappear(){ self.showPostNewsPage = true }
+                        .onDisappear(){ self.store.appState.showPostNewsPage = true }
                 }
                 
-                if self.showPostNewsPage{
+                if self.store.appState.showPostNewsPage{
                     PostNewsPage()
                 }
             }
             .actionSheet(isPresented: pickImageActionSheet){
                 ActionSheet(title: Text("Photos"), buttons: [
                     ActionSheet.Button.default(Text("Camera")){
-                        self.showCamera = true
+                        self.store.appState.showCamera = true
                     },
                     ActionSheet.Button.default(Text("Choose from Album")){
-                        self.showPhotoLibrary = true
+                        self.store.appState.showPhotoLibrary = true
                     },
                     ActionSheet.Button.cancel()
                 ])
@@ -124,12 +99,12 @@ struct MainTab: View {
                     .frame(width: proxy.size.width*0.90, height: proxy.size.height*0.90)
                     .clipShape(Circle())
                     .onTapGesture {
-                        if self.closed{
+                        if self.store.appState.meState.closed{
                             self.store.appState.showMe.toggle()
                         }
                 }
             }
-        }.frame(width: self.showMe ? 110 : 85, height: self.showMe ? 110 : 85)
+        }.frame(width: self.store.appState.showMe ? 110 : 85, height: self.store.appState.showMe ? 110 : 85)
     }
 }
 

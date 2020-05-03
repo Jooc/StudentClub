@@ -10,14 +10,10 @@ import SwiftUI
 //import KingfisherSwiftUI
 
 struct MePage: View {
-    
-    //    @State var closed = true
-    //    @State  var dragPosition = CGSize.zero
-    
     @EnvironmentObject var store: Store
     
     var closed: Bool{
-        self.store.appState.closed
+        self.store.appState.meState.closed
     }
     
     var dragPosition: CGSize{
@@ -55,10 +51,10 @@ struct MePage: View {
                         }
                         .onEnded(){ value in
                             if value.predictedEndTranslation.height < -300{
-                                self.store.appState.closed = false
+                                self.store.appState.meState.closed = false
                             }
                             if value.predictedEndTranslation.height > 200{
-                                self.store.appState.closed = true
+                                self.store.appState.meState.closed = true
                             }
                             self.store.appState.calendarState.calendarViewModel.dragPosition = .zero
                         }

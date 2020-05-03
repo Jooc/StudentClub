@@ -15,8 +15,6 @@ struct CalendarHeader: View {
         self.store.appState.calendarState.currentMonth
     }
     
-    var screen = UIScreen.main.bounds
-    
     var body: some View {
         HStack(spacing: 30){
 //            Button(action: {
