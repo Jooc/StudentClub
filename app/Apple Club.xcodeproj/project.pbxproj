@@ -431,15 +431,11 @@
 			isa = PBXGroup;
 			children = (
 				F151F679244C71B7001B2C58 /* Enum */,
+				F1E82E9D246945BA00A81564 /* Entity */,
 				F151F671244C715C001B2C58 /* EDay.swift */,
 				F151F673244C7168001B2C58 /* Calendar.swift */,
-				F151F675244C717D001B2C58 /* Event.swift */,
-				F18B2886243C7916004BBAC9 /* User.swift */,
 				F1D29BE824546DEF0083F556 /* UserInfo.swift */,
 				F160C49D2440745200596EBF /* LoginCount.swift */,
-				F18B2888243C791B004BBAC9 /* News.swift */,
-				F1049B86245EF87E0078CDA3 /* Blog.swift */,
-				F16FD4E6243C834B0008ADAD /* University.swift */,
 			);
 			path = DataModel;
 			sourceTree = "<group>";
@@ -541,6 +537,18 @@
 				F101F0F8245C675D00FDB4EC /* PostNewsPage.swift */,
 			);
 			path = Post;
+			sourceTree = "<group>";
+		};
+		F1E82E9D246945BA00A81564 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				F151F675244C717D001B2C58 /* Event.swift */,
+				F18B2886243C7916004BBAC9 /* User.swift */,
+				F18B2888243C791B004BBAC9 /* News.swift */,
+				F1049B86245EF87E0078CDA3 /* Blog.swift */,
+				F16FD4E6243C834B0008ADAD /* University.swift */,
+			);
+			path = Entity;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
