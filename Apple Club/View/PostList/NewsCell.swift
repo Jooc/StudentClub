@@ -11,10 +11,13 @@ import KingfisherSwiftUI
 
 struct NewsCell: View {
     @EnvironmentObject var store: Store
-    var viewModel: NewsViewModel
+    var newsIndex: (Int, Int)
+    
+    var viewModel: NewsViewModel{
+        self.store.appState.postListState.postListViewModel.dailyPostList[newsIndex.0].newsList[newsIndex.1]
+    }
     
     var body: some View {
-        
         VStack(alignment: .leading, spacing: 0){
             HStack{
                 //                Image(uiImage: #imageLiteral(resourceName: "avatar-1"))
@@ -64,7 +67,7 @@ struct NewsCell_Previews: PreviewProvider {
         ZStack {
             Color("Base")
                 .edgesIgnoringSafeArea(.all)
-            NewsCell(viewModel: NewsViewModel.Sample(id: 1)).environmentObject(Store())
+            NewsCell(newsIndex: (0,0)).environmentObject(Store())
         }
     }
 }

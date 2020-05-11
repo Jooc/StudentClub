@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import LinkPresentation
 
 enum AppAction {
     
@@ -19,10 +20,13 @@ enum AppAction {
     case logout
     
     // MARK: Loading
-    case loadNews
-    case loadNewsDone(result: Result<[News], AppError>)
+    case loadNews // case loadPost
+    case loadNewsDone(result: Result<[News], AppError>) // case loadPostDone
+    
     case loadEvents
     case loadEventsDone(result: Result<[Event], AppError>)
+    case loadBlogLPMetaData(blogIndex: (Int, Int))
+    case loadBlogLPMetaDataDone(blogIndex: (Int, Int), result: Result<LPLinkMetadata, AppError>)
     
     // MARK: UI Event
     case clickDayCell(day: EDayViewModel)
@@ -33,4 +37,6 @@ enum AppAction {
     case nextPage
     case lastPage
     
+//    case postNews
+//    case postNewsDone
 }

@@ -36,7 +36,7 @@ struct NewsDetail: View {
                         }
                         .background(Color.white)
                         .frame(height: screen.height*0.4)
-                        .clipShape(RoundedRectangle(cornerRadius: 30))
+                        .clipShape(RoundedRectangle(cornerRadius: 5))
                         .shadow(radius: 10)
                         .edgesIgnoringSafeArea(.top)
                         
@@ -52,7 +52,6 @@ struct NewsDetail: View {
                             Spacer()
                             Button(action: {
                                 self.store.dispatch(.closeNewsDetail)
-                                print(self.store.appState.newsState.detailedNews)
                             }){
                                 HStack {
                                     Image(systemName: "multiply")

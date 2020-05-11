@@ -12,7 +12,7 @@ struct PostButton: View {
     @EnvironmentObject var store: Store
 
     var showAddButtons: Bool{
-        self.store.appState.newsState.showAddButtons
+        self.store.appState.postListState.showAddButtons
     }
     
     var body: some View {
@@ -42,10 +42,12 @@ struct PostButton: View {
                     .animation(.spring(response: 0.35, dampingFraction: 0.825, blendDuration: 0))
                     
                     VStack {
-                        Button(action:{
-                            // TODO: dispatch
-                            self.store.appState.newsState.pickImageActionSheet=true
-                        }){
+                        NavigationLink(
+                            destination: PostNewsPage()
+                                .navigationBarTitle("")
+                                .navigationBarHidden(true),
+                            isActive: self.$store.appState.showPostNewsPage)
+                        {
                             VStack {
                                 Image(systemName: "text.badge.plus")
                                     .font(.system(size: 15, weight: .light))
@@ -94,7 +96,7 @@ struct PostButton: View {
                 .gesture(
                     TapGesture()
                         .onEnded{ value in
-                            self.store.appState.newsState.showAddButtons.toggle()
+                            self.store.appState.postListState.showAddButtons.toggle()
                 })
                 .animation(.spring(response: 0.65, dampingFraction: 0.825, blendDuration: 0))
     }

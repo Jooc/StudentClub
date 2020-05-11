@@ -21,16 +21,16 @@ struct LoginAppCommand: AppCommand {
         store.dispatch(.inputDone)
         let token = SubscriptionToken()
         LoginRequest(email: email, password: password)
-        .publisher
-        .sink(receiveCompletion: { complete in
-            if case .failure(let error) = complete{
-                store.dispatch(.accountBehaviorDone(result: .failure(error)))
-            }
-            token.unseal()
-        }, receiveValue: { user in
-            store.dispatch(.accountBehaviorDone(result: .success(user)))
-//            store.dispatch(.loadNews)
-        }).seal(in: token)
+            .publisher
+            .sink(receiveCompletion: { complete in
+                if case .failure(let error) = complete{
+                    store.dispatch(.accountBehaviorDone(result: .failure(error)))
+                }
+                token.unseal()
+            }, receiveValue: { user in
+                store.dispatch(.accountBehaviorDone(result: .success(user)))
+                //            store.dispatch(.loadNews)
+            }).seal(in: token)
     }
 }
 
@@ -58,15 +58,39 @@ struct LoadEventsAppCommand: AppCommand {
     func excute(in store: Store) {
         let token = SubscriptionToken()
         LoadEventssRequest(userID: userID)
-        .publisher
-        .sink(receiveCompletion: { complete in
-            if case .failure(let error) = complete{
-                store.dispatch(.loadEventsDone(result: .failure(error)))
-            }
-            token.unseal()
-        }, receiveValue: { events in
-            store.dispatch(.loadEventsDone(result: .success(events)))
-        }).seal(in: token)
+            .publisher
+            .sink(receiveCompletion: { complete in
+                if case .failure(let error) = complete{
+                    store.dispatch(.loadEventsDone(result: .failure(error)))
+                }
+                token.unseal()
+            }, receiveValue: { events in
+                store.dispatch(.loadEventsDone(result: .success(events)))
+            }).seal(in: token)
+    }
+}
+
+struct LoadLPMetaDataAppCommand: AppCommand {
+    let blogIndex: (Int,Int)
+
+    func excute(in store: Store) {
+        let blogViewModel = store.appState.postListState.postListViewModel.dailyPostList[blogIndex.0].blogList[blogIndex.1]
+        let token = SubscriptionToken()
+        guard let url = URL(string: blogViewModel.blog.url) else{
+            print("Unavailable URL String @ Blog #\(blogViewModel.blog.id)")
+            return
+        }
+
+        LoadLPMetaDataRequest(url: url)
+            .publisher
+            .sink(receiveCompletion: { complete in
+                if case .failure(let error) = complete{
+                    store.dispatch(.loadBlogLPMetaDataDone(blogIndex: self.blogIndex, result: .failure(error)))
+                }
+                token.unseal()
+            }, receiveValue: { data in
+                store.dispatch(.loadBlogLPMetaDataDone(blogIndex: self.blogIndex, result: .success(data)))
+            }).seal(in: token)
     }
 }
 

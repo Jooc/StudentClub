@@ -69,7 +69,6 @@ struct CalendarPad: View {
                 }
                 .onEnded{ value in
                     let velocityDiff = (value.predictedEndTranslation.width - self.dragOffset)
-                    print(velocityDiff)
                     let newPageindex = self.pageIndexForOffset(offset: self.currentScrollOffset + velocityDiff)
                     self.dragOffset = 0
                     withAnimation(.spring()){

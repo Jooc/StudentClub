@@ -15,19 +15,19 @@ struct AppState{
     var user: User?
     
     var loginState = LoginState()
-    var newsState = NewsState()
+    var postListState = PostListState()
     var postState = PostState()
     var meState = MeState()
     var calendarState = CalendarState()
     
     var showMe = false
     
-    var showCamera = false
-    var showPhotoLibrary = false
-    var image: Image?
+//    var pickedImage: Image?
     
     var showPostNewsPage = false
     var showDetailedNews = false
+    
+    var showNav1 = false
     
     init() {
         self.user = User.Sample()
@@ -50,16 +50,14 @@ extension AppState{
 }
 
 extension AppState{
-    struct NewsState {
-        var newsListViewModel  = NewsListViewModel()
+    struct PostListState {
+        var postListViewModel  = PostListViewModel()
         
         var showAddButtons = false
-        var pickImageActionSheet = false
         
         var detailedNews: NewsViewModel? = nil
         var isLoading = false
         var loadNewsError: AppError?
-        
         
         mutating func showNewsDetail(news: NewsViewModel) {
             self.detailedNews = news
@@ -69,9 +67,14 @@ extension AppState{
 
 extension AppState{
     struct PostState {
+        var showCamera = false
+        var showPhotoLibrary = false
+        
+        var pickImageActionSheet = false
+        
         var title: String = ""
         var content: String = ""
-        var image: Image? = nil
+        var image: Image?
         var location: String = ""
     }
 }
@@ -79,6 +82,17 @@ extension AppState{
 extension AppState{
     struct MeState{
         var closed = true
+        
+        var isProfileActive = false
+        var isNewsPostActive = false
+        var isBlogPostActive = false
+        var isClubInfoActive = false
+        var isClubListActive = false
+        
+        var editAvatar: Bool = false
+        var editUserName: Bool = false
+        var editPhoneNumber: Bool = false
+        var editContactEmail: Bool = false
     }
 }
 

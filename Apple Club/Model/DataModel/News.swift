@@ -9,7 +9,6 @@
 import Foundation
 
 struct News: Codable {
-
     var id: Int
     var postTime: String
     

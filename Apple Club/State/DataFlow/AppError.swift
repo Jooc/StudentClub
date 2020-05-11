@@ -19,6 +19,7 @@ enum AppError: Int, Error, Identifiable{
     // LoadError
     case loadNewsError = 0201
     case loadEventError = 0202
+    case loadLinkPresentation = 0203
 }
 
 extension AppError: LocalizedError{
@@ -27,6 +28,7 @@ extension AppError: LocalizedError{
         case .passwordWrong: return "密码错误"
         case .loadNewsError: return "加载新闻失败"
         case .loadEventError: return "加载时间失败"
+        case .loadLinkPresentation: return "加载Blog失败"
         }
     }
     

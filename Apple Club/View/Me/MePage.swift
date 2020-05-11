@@ -15,6 +15,7 @@ struct MePage: View {
     var closed: Bool{
         self.store.appState.meState.closed
     }
+    //    @State var closed = false
     
     var dragPosition: CGSize{
         self.store.appState.calendarState.calendarViewModel.dragPosition
@@ -33,11 +34,11 @@ struct MePage: View {
                     .edgesIgnoringSafeArea(.all)
                 
                 ButtonList()
-                    .offset(y: 0)
+                    .offset(y: -45)
                     .offset(y: self.closed ? 195 : 0)
                     .offset(y: self.showMe ? 0 : -300)
                     .animation(.spring(response: 0.55, dampingFraction: 0.825, blendDuration: 0))
-                
+
                 profile
                     .edgesIgnoringSafeArea(.all)
                     .offset(y: -screen.height*0.85)
@@ -57,37 +58,17 @@ struct MePage: View {
                                 self.store.appState.meState.closed = true
                             }
                             self.store.appState.calendarState.calendarViewModel.dragPosition = .zero
-                        }
-                )
+                    })
             }
-//            .frame(width: showMe ? screen.width : 0, height: showMe ? screen.height : 0)
-//            .offset(y: self.showMe ? 0 : 310)
+            .scaleEffect(self.showMe ? 1 : 0)
+            .offset(y: self.showMe ? 0 : 1000)
             
-            
-            //            avatar
-            //                .offset(y: -340)
-            //                .offset(y: self.closed ? 650 : 0)
-            //                .offset(y: self.dragPosition.height/2)
-            //                .animation(.spring())
-        }
-    }
-    
-    var avatar: some View{
-        ZStack {
-            Circle()
-                .frame(width: 110, height: 110)
-                .foregroundColor(Color.white)
-                .shadow(radius: 10)
-            Image(uiImage: #imageLiteral(resourceName: "avatar-1"))
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 100, height: 100)
-                .clipShape(Circle())
-                .onTapGesture {
-                    self.store.appState.showMe.toggle()
-            }
-            //            Text(viewModel.user.userName)
-            //                .offset(y:70)
+            avatar
+                .offset(y: -30)
+                .offset(y: screen.height*0.42)
+                .offset(y: self.store.appState.showMe ? self.store.appState.meState.closed ? -50 : -screen.height*0.8 : 0)
+                .offset(y: self.store.appState.calendarState.calendarViewModel.dragPosition.height/2)
+                .animation(.spring())
         }
     }
     
@@ -100,6 +81,27 @@ struct MePage: View {
                 .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous))
                 .shadow(radius: 10, x: 0, y: 5)
         }
+    }
+    
+    var avatar: some View{
+        GeometryReader { proxy in
+            ZStack(alignment: .center) {
+                Circle()
+                    .frame(width: proxy.size.width, height: proxy.size.height)
+                    .foregroundColor(Color.white)
+                    .shadow(radius: 10)
+                Image(uiImage: #imageLiteral(resourceName: "avatar-1"))
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: proxy.size.width*0.90, height: proxy.size.height*0.90)
+                    .clipShape(Circle())
+                    .onTapGesture {
+                        if self.store.appState.meState.closed{
+                            self.store.appState.showMe.toggle()
+                        }
+                }
+            }
+        }.frame(width: self.store.appState.showMe ? 110 : 85, height: self.store.appState.showMe ? 110 : 85)
     }
 }
 

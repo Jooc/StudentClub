@@ -8,6 +8,7 @@
 
 import Foundation
 import Combine
+import SwiftUI
 
 class Store: ObservableObject{
     @Published var appState = AppState()
@@ -57,21 +58,21 @@ class Store: ObservableObject{
             appState.user = nil
             
         case .loadNews:
-            guard !appState.newsState.isLoading else{
+            guard !appState.postListState.isLoading else{
                 break
             }
-            appState.newsState.isLoading = true
+            appState.postListState.isLoading = true
             appCommand = LoadNewsAppCommand(userPrivilege: appState.user?.userPrivilege ?? 0)
         case .loadNewsDone(let result):
-            appState.newsState.isLoading = false
+            appState.postListState.isLoading = false
             switch result {
             case .success(let newsList):
-                appState.newsState.newsListViewModel.updateNews(newsList: newsList)
+//                appState.postListState.postListViewModel.updateNews(newsList: newsList)
                 // TODO: Maybe this should be placed in .accountBehaviorDone
                 // TODO: OR simply combined with loadNews
                 appCommand = LoadEventsAppCommand(userID: appState.user!.id)
             case .failure(let error):
-                appState.newsState.loadNewsError = error
+                appState.postListState.loadNewsError = error
                 print("[ERROR]: \(error.localizedDescription)")
             }
         case .loadEvents:
@@ -89,19 +90,34 @@ class Store: ObservableObject{
                 appState.calendarState.loadEventError = error
                 print("[ERROR]: \(error.localizedDescription)")
             }
+        case .loadBlogLPMetaData(blogIndex: let index):
+            appCommand = LoadLPMetaDataAppCommand(blogIndex: index)
+        case .loadBlogLPMetaDataDone(blogIndex: let index, result: let result):
+            switch result{
+            case .success(let data):
+                appState.postListState.postListViewModel.dailyPostList[index.0].blogList[index.1].metaData = data
+            case .failure(let error):
+                print("[ERROR]: \(error.localizedDescription)")
+            }
             
         case .clickDayCell(let day):
             appState.calendarState.clickDayCell(dayViewModel: day)
         case .clickNewsCell(let news):
-            appState.newsState.showNewsDetail(news: news)
+            appState.postListState.showNewsDetail(news: news)
         case .closeNewsDetail:
-            appState.newsState.detailedNews = nil
+            appState.postListState.detailedNews = nil
         case .nextPage:
             appState.calendarState.nextMonth()
         case .lastPage:
             appState.calendarState.lastMonth()
         case .selectMonth(let month):
             appState.calendarState.currentMonth = month
+        
+//        case .postNews:
+//            appState.showPostNewsPage = true
+//        case .postNewsDone:
+//            break
+            
         }
         
         return (appState, appCommand)

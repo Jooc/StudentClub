@@ -8,10 +8,24 @@
 
 import Foundation
 
+enum Gender: CaseIterable{
+    case undefined, Male, Female
+    
+    var text: String{
+        switch self {
+        case .undefined: return "未定义"
+        case .Male: return "男"
+        case .Female: return "女"
+        }
+    }
+}
+
 struct User: Codable {
     var id: Int
     var userName: String
     var avatar: String
+    //TODO: var gender: Gender
+    var gender: String
     var description: String
     var universityCode: Int
     var userPrivilege: Int
@@ -27,7 +41,8 @@ extension User{
     static func defaultUser() -> User{
         return User(
             id: -1, userName: "123",
-            avatar: "", description: "",
+            avatar: "", gender: "Male",
+            description: "",
             universityCode: -1, userPrivilege: -1,
             loginEmail: "", password: "",
             contactEmail: "", phoneNumber: "")

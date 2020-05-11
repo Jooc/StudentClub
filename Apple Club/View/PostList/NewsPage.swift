@@ -10,28 +10,26 @@ import SwiftUI
 
 struct NewsPage: View {
     @EnvironmentObject var store: Store
-    var viewModel: NewsListViewModel{
-        self.store.appState.newsState.newsListViewModel
+    
+    var viewModel: PostListViewModel{
+        self.store.appState.postListState.postListViewModel
     }
     
     var body: some View {
-        ZStack {
-            Color("Base")
-                .edgesIgnoringSafeArea(.all)
-            
-            VStack(spacing: 0) {
-                ScrollView(showsIndicators: false) {
-                    header
-                    ForEach(viewModel.newsList){item in
-                        NewsCell(viewModel: item)
-                            .padding(.vertical, 20)
+        NavigationView {
+            ZStack {
+                Color("Base")
+                    .edgesIgnoringSafeArea(.all)
+                VStack(spacing: 0) {
+                    ScrollView(showsIndicators: false) {
+                        header
+                        
+                        ForEach(viewModel.dailyPostList.indices){index in
+                            DailyPostCell(dailyPostIndex: index)
+                                .padding(.vertical)
+                        }
                     }
                 }
-                
-//                List(viewModel.newsList) { item in
-//                    NewsCell(viewModel: item)
-//                        .padding(.vertical, 30)
-//                }
             }
         }
     }
