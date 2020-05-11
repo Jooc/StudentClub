@@ -27,7 +27,7 @@ struct User: Codable {
     //TODO: var gender: Gender
     var gender: String
     var description: String
-    var universityCode: Int
+    var clubInfo: ClubInfo
     var userPrivilege: Int
     
     var loginEmail: String
@@ -35,6 +35,12 @@ struct User: Codable {
     
     var contactEmail: String
     var phoneNumber: String
+    
+    struct ClubInfo: Codable {
+        var clubCode: Int
+        var clubName: String
+        var clubAvatar: String
+    }
 }
 
 extension User{
