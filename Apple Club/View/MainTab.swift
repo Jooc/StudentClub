@@ -28,21 +28,6 @@ struct MainTab: View {
                     NewsDetail(viewModel: self.store.appState.postListState.detailedNews!, show: self.$store.appState.showDetailedNews)
                 }
                 
-                if self.store.appState.postState.showCamera{
-                    ImagePickerView(
-                        isPresented: self.$store.appState.postState.showCamera,
-                        image: self.$store.appState.postState.image,
-                        sourceType: .camera)
-                        .edgesIgnoringSafeArea(.all)
-                }
-                if self.store.appState.postState.showPhotoLibrary{
-                    ImagePickerView(
-                        isPresented: self.$store.appState.postState.showPhotoLibrary,
-                        image: self.$store.appState.postState.image,
-                        sourceType: .photoLibrary)
-                        .edgesIgnoringSafeArea(.all)
-                }
-                
                 if store.appState.user == nil{
                     LoginPage()
                 }
@@ -53,8 +38,6 @@ struct MainTab: View {
     var tableView: some View{
         TabView{
             NewsPage()
-                .navigationBarTitle("News")
-                .navigationBarHidden(true)
                 .tabItem{
                     VStack {
                         Image(systemName: "message.fill")
@@ -63,8 +46,6 @@ struct MainTab: View {
             }
             
             CalendarPage()
-                .navigationBarTitle("Activity")
-                .navigationBarHidden(true)
                 .tabItem{
                     VStack {
                         Image(systemName: "calendar")

@@ -100,7 +100,7 @@ struct MePage: View {
                         }
                 }
             }
-        }.frame(width: self.store.appState.showMe ? 95 : 75, height: self.store.appState.showMe ? 95 : 75)
+        }.frame(width: self.store.appState.showMe ? 90 : 75, height: self.store.appState.showMe ? 90 : 75)
     }
 }
 

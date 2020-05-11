@@ -40,6 +40,20 @@ struct PostNewsPage: View {
                 Spacer()
             }
             
+            if self.store.appState.postState.showCamera{
+                ImagePickerView(
+                    isPresented: self.$store.appState.postState.showCamera,
+                    image: self.$store.appState.postState.image,
+                    sourceType: .camera)
+                    .edgesIgnoringSafeArea(.all)
+            }
+            if self.store.appState.postState.showPhotoLibrary{
+                ImagePickerView(
+                    isPresented: self.$store.appState.postState.showPhotoLibrary,
+                    image: self.$store.appState.postState.image,
+                    sourceType: .photoLibrary)
+                    .edgesIgnoringSafeArea(.all)
+            }
         }
         .actionSheet(isPresented: pickImageActionSheet){
             ActionSheet(title: Text("Photos"), buttons: [

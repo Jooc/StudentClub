@@ -44,8 +44,7 @@ struct PostButton: View {
                     VStack {
                         NavigationLink(
                             destination: PostNewsPage()
-                                .navigationBarTitle("PostNewsPage")
-                                .navigationBarHidden(false),
+                            .navigationBarHidden(true),
                             isActive: self.$store.appState.showPostNewsPage)
                         {
                             VStack {
