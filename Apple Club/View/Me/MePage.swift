@@ -34,15 +34,15 @@ struct MePage: View {
                     .edgesIgnoringSafeArea(.all)
                 
                 ButtonList()
-                    .offset(y: -45)
+                    .offset(y: -20)
                     .offset(y: self.closed ? 195 : 0)
                     .offset(y: self.showMe ? 0 : -300)
                     .animation(.spring(response: 0.55, dampingFraction: 0.825, blendDuration: 0))
 
                 profile
                     .edgesIgnoringSafeArea(.all)
-                    .offset(y: -screen.height*0.85)
-                    .offset(y: self.closed ? screen.height*0.85 : 0)
+                    .offset(y: -screen.height*0.9)
+                    .offset(y: self.closed ? screen.height*0.9 : 0)
                     .offset(y: self.closed ? min(0, self.dragPosition.height) : self.dragPosition.height)
                     .animation(.spring(response: 0.55, dampingFraction: 0.9, blendDuration: 10))
                     .gesture(
@@ -64,9 +64,8 @@ struct MePage: View {
             .offset(y: self.showMe ? 0 : 1000)
             
             avatar
-                .offset(y: -30)
-                .offset(y: screen.height*0.42)
-                .offset(y: self.store.appState.showMe ? self.store.appState.meState.closed ? -50 : -screen.height*0.8 : 0)
+                .offset(y: 230)
+                .offset(y: self.showMe ? self.closed ? -50 : -screen.height*0.85 : 0)
                 .offset(y: self.store.appState.calendarState.calendarViewModel.dragPosition.height/2)
                 .animation(.spring())
         }
@@ -78,7 +77,7 @@ struct MePage: View {
                 .resizable()
                 .aspectRatio(contentMode: .fill)
                 .frame(width: proxy.size.width, height: proxy.size.height)
-                .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous))
+                .clipShape(RoundedRectangle(cornerRadius: self.closed ? 0 : 30, style: .continuous))
                 .shadow(radius: 10, x: 0, y: 5)
         }
     }
@@ -93,7 +92,7 @@ struct MePage: View {
                 Image(uiImage: #imageLiteral(resourceName: "avatar-1"))
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: proxy.size.width*0.90, height: proxy.size.height*0.90)
+                    .frame(width: proxy.size.width*0.92, height: proxy.size.height*0.92)
                     .clipShape(Circle())
                     .onTapGesture {
                         if self.store.appState.meState.closed{
@@ -101,7 +100,7 @@ struct MePage: View {
                         }
                 }
             }
-        }.frame(width: self.store.appState.showMe ? 110 : 85, height: self.store.appState.showMe ? 110 : 85)
+        }.frame(width: self.store.appState.showMe ? 95 : 75, height: self.store.appState.showMe ? 95 : 75)
     }
 }
 

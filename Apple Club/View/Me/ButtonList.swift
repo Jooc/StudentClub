@@ -10,6 +10,7 @@ import SwiftUI
 
 struct ButtonList: View {
     @EnvironmentObject var store: Store
+
     
     var showMe: Bool{
         self.store.appState.showMe
@@ -21,7 +22,7 @@ struct ButtonList: View {
                 VStack(spacing: 30){
                     VStack(spacing: 0) {
                         NavigationLink(
-                            destination: ProfileInfo().offset(y: -20),
+                            destination: ProfileInfo().offset(y: -40),
                             isActive: self.$store.appState.meState.isProfileActive){
                                 ButtonLabel(icon: "person.circle.fill", text: "名片")
                         }
@@ -38,7 +39,7 @@ struct ButtonList: View {
                         }
                     }.frame(width: proxy.size.width, height: proxy.size.height*0.6)
                     
-                    VStack(spacing: 20) {
+                    VStack() {
                         HStack{
                             NavigationLink(
                                 destination: ClubInfo().offset(y: -20),
@@ -48,8 +49,21 @@ struct ButtonList: View {
                             NavigationLink(
                                 destination: ClubList(),
                                 isActive: self.$store.appState.meState.isClubListActive){
-                                    ButtonLabel(icon:"person.2.square.stack.fill", text: "")
-                                        .frame(width: 70)
+                                    HStack {
+                                        Image(systemName: "person.2.square.stack.fill")
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fit)
+                                            .frame(width: 20, height: 20, alignment: .leading)
+                                            .foregroundColor(Color.black.opacity(0.7))
+                                            .padding(.horizontal, 10)
+                                            .padding(.leading, 5)
+                                    }
+                                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
+                                    .background(Color.white)
+                                    .clipShape(RoundedRectangle(cornerRadius: 15, style: .continuous))
+                                    .padding(.vertical, 12)
+                                    .shadow(radius: 5)
+                                    .frame(width: 55, alignment: .center)
                             }
                         }
                     }.frame(width: proxy.size.width, height: proxy.size.height*0.2)
@@ -59,17 +73,18 @@ struct ButtonList: View {
                             self.store.dispatch(.logout)
                         }){
                             Text("退出登录")
-                                .font(.system(size: 20))
+                                .font(.system(size: 18))
                                 .fontWeight(.regular)
                                 .foregroundColor(Color.red)
                                 .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
                                 .background(Color.white)
-                                .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+                                .clipShape(RoundedRectangle(cornerRadius: 15, style: .continuous))
                                 .padding(.vertical)
                                 .shadow(color: Color.red.opacity(0.1), radius: 5)
                                 .shadow(radius: 5)
                         }
                     }.frame(width: proxy.size.width, height: proxy.size.height*0.2)
+                        .padding(.top, 40)
                 }
                 .frame(width: self.showMe ? screen.width*0.9:0, height: self.showMe ? 500 : 0, alignment: .top)
             }
@@ -95,20 +110,22 @@ struct ButtonLabel: View {
     var body: some View {
         HStack {
             Image(systemName: self.icon)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 20, height: 20, alignment: .leading)
                 .foregroundColor(Color.black.opacity(0.7))
-                .font(.system(size: 22))
-                .padding()
-                .padding(.leading, 10)
+                .padding(.horizontal, 10)
+                .padding(.leading, 5)
             
             Text(self.text)
-                .font(.system(size: 22))
+                .font(.system(size: 16))
                 .fontWeight(.regular)
                 .foregroundColor(Color.black.opacity(0.6))
         }
         .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .leading)
         .background(Color.white)
-        .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
-        .padding(.vertical)
+        .clipShape(RoundedRectangle(cornerRadius: 15, style: .continuous))
+        .padding(.vertical, 12)
         .shadow(radius: 5)
     }
 }

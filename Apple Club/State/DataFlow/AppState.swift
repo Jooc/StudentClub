@@ -20,14 +20,12 @@ struct AppState{
     var meState = MeState()
     var calendarState = CalendarState()
     
-    var showMe = false
+    var showMe = true
     
 //    var pickedImage: Image?
     
     var showPostNewsPage = false
     var showDetailedNews = false
-    
-    var showNav1 = false
     
     init() {
         self.user = User.Sample()
@@ -81,7 +79,7 @@ extension AppState{
 
 extension AppState{
     struct MeState{
-        var closed = true
+        var closed = false
         
         var isProfileActive = false
         var isNewsPostActive = false

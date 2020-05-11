@@ -16,24 +16,22 @@ struct NewsPage: View {
     }
     
     var body: some View {
-        NavigationView {
-            ZStack {
-                Color("Base")
-                    .edgesIgnoringSafeArea(.all)
-                VStack(spacing: 0) {
-                    ScrollView(showsIndicators: false) {
-                        header
-                        
-                        ForEach(viewModel.dailyPostList.indices){index in
-                            DailyPostCell(dailyPostIndex: index)
-                                .padding(.vertical)
-                        }
+        ZStack {
+            Color("Base")
+                .edgesIgnoringSafeArea(.all)
+            VStack(spacing: 0) {
+                ScrollView(showsIndicators: false) {
+                    header
+                    
+                    ForEach(viewModel.dailyPostList.indices){index in
+                        DailyPostCell(dailyPostIndex: index)
+                            .padding(.vertical)
                     }
                 }
             }
         }
     }
-
+    
     var header: some View{
         HStack {
             ZStack(alignment: .topLeading) {

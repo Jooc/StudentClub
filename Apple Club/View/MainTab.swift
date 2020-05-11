@@ -59,7 +59,7 @@ struct MainTab: View {
                     VStack {
                         Image(systemName: "message.fill")
                         Text("News")
-                    }
+                    }.padding(.trailing, 50)
             }
             
             CalendarPage()
