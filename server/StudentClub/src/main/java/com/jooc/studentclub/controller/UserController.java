@@ -22,6 +22,11 @@ public class UserController {
         return userService.getUserById(id);
     }
 
+    @GetMapping("/getUserInfoById")
+    public Object getUserInfoById(int id){
+        return userService.getUserInfoById(id);
+    }
+
     @PostMapping("/login")
     public Object login(@RequestBody HashMap<String, Object> req) throws InterruptedException{
         return userService.login(req);

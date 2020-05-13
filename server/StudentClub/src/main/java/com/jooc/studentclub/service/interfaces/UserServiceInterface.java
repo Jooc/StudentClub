@@ -5,6 +5,7 @@ import java.util.HashMap;
 public interface UserServiceInterface{
 
     Object getUserById(int id);
+    Object getUserInfoById(int id);
     Object getIdByEmail(String email);
 
     Object register(HashMap<String, Object> req);

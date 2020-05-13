@@ -1,5 +1,6 @@
 package com.jooc.studentclub.mapper;
 
+import com.jooc.studentclub.model.UserInfoModel;
 import com.jooc.studentclub.model.UserModel;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -27,5 +28,8 @@ public interface UserMapper {
                     @Param("privilege") int privilege,
                     @Param("login_email") String login_email,
                     @Param("password") String password);
+
+    @Select("select id,name,avatar from user where id=#{id}")
+    UserInfoModel getUserInfoById(int id);
 
 }

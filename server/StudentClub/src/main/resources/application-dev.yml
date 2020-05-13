@@ -18,3 +18,12 @@ spring:
 #    mapperLocations: classpath:mapper/*.xml
 #    config-location: classpath:mybatis-config.xml
 #    typeAliasesPackage: com.example.domain
+
+aliyun:
+  oss:
+    access-id: LTAI4G1vT51hqgFohKJ4rJ6t
+    access-key: zIOoNFLwKBEXp1gEQOLolGnpByOTpH
+    bucket: jooc-studentclub
+    endpoint: oss-cn-huhehaote.aliyuncs.com
+    dir: studentclub
+    expire:

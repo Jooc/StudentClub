@@ -2,6 +2,7 @@ package com.jooc.studentclub.service;
 
 import com.jooc.studentclub.mapper.UserMapper;
 import com.jooc.studentclub.model.ClubInfoModel;
+import com.jooc.studentclub.model.UserInfoModel;
 import com.jooc.studentclub.model.UserModel;
 import com.jooc.studentclub.service.interfaces.UserServiceInterface;
 
@@ -21,6 +22,22 @@ public class UserService implements UserServiceInterface {
     public Object getUserById(int id){
         UserModel userModel = userMapper.getUserById(id);
         return packUser(userModel);
+    }
+
+    public Object getUserInfoById(int id){
+        HashMap<String, Object> res = new HashMap<>();
+
+        UserInfoModel userInfoModel = userMapper.getUserInfoById(id);
+        if (userInfoModel == null){
+            res.put("code", -1);
+            res.put("msg", "用户不存在");
+            res.put("userInfo", null);
+        }else{
+            res.put("code", 0);
+            res.put("msg", "查询成功");
+            res.put("userInfo", userInfoModel);
+        }
+        return res;
     }
 
     public Object getIdByEmail(String email){

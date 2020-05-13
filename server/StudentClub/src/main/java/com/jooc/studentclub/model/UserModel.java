@@ -17,8 +17,6 @@ public class UserModel {
     public String contact_email;
     public String phone_number;
 
-    public UserModel() { }
-
     public int getId() {
         return id;
     }
