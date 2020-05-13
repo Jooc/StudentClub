@@ -1,13 +1,19 @@
 package com.jooc.studentclub.service.interfaces;
 
+import com.jooc.studentclub.model.BlogModel;
+import com.jooc.studentclub.model.DBModel.DBBlogModel;
+
+import java.util.List;
+
 public interface BlogServiceInterface {
 
-    Object getAllBlog();
-    Object getById(int id);
-    Object getByUserId(int user_id);
+    List<BlogModel> getAllBlog();
+    BlogModel getById(int id);
+    List<BlogModel> getByPrivilege(int privilege);
+    List<BlogModel> getByUserId(int user_id);
 
-    Object insertBlog();
+    void insert(DBBlogModel db);
 
-    void deleteById(int id);
+    void delete(int id);
 
 }

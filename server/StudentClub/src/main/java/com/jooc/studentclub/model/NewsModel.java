@@ -1,8 +1,7 @@
 package com.jooc.studentclub.model;
 
+import com.jooc.studentclub.model.DBModel.DBNewsModel;
 import com.jooc.studentclub.utils.Common;
-
-import java.util.ArrayList;
 
 public class NewsModel {
     int id;
@@ -13,7 +12,7 @@ public class NewsModel {
 //    public String video;
     public int privilege;
 
-    public UserInfoModel userInfoModel;
+    public UserInfoModel publisherInfo;
 
     public String tags;
 
@@ -28,7 +27,7 @@ public class NewsModel {
             this.images[i] = Common.oss_path + this.images[i];
         }
         this.privilege = dbNewsModel.privilege;
-        this.userInfoModel = new UserInfoModel(dbNewsModel.publisher_id, dbNewsModel.publisher_name, dbNewsModel.publisher_avatar);
+        this.publisherInfo = new UserInfoModel(dbNewsModel.publisher_id, dbNewsModel.publisher_name, dbNewsModel.publisher_avatar);
         this.tags = dbNewsModel.tags;
     }
 
@@ -80,12 +79,12 @@ public class NewsModel {
         this.privilege = privilege;
     }
 
-    public UserInfoModel getUserInfoModel() {
-        return userInfoModel;
+    public UserInfoModel getPublisherInfo() {
+        return publisherInfo;
     }
 
-    public void setUserInfoModel(UserInfoModel userInfoModel) {
-        this.userInfoModel = userInfoModel;
+    public void setPublisherInfo(UserInfoModel publisherInfo) {
+        this.publisherInfo = publisherInfo;
     }
 
     public String getTags() {

@@ -2,7 +2,7 @@ package com.jooc.studentclub.service;
 
 import com.jooc.studentclub.mapper.NewsMapper;
 import com.jooc.studentclub.mapper.UserMapper;
-import com.jooc.studentclub.model.DBNewsModel;
+import com.jooc.studentclub.model.DBModel.DBNewsModel;
 import com.jooc.studentclub.model.NewsModel;
 import com.jooc.studentclub.model.UserInfoModel;
 import com.jooc.studentclub.service.interfaces.NewsServiceInterface;

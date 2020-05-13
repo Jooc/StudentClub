@@ -1,7 +1,6 @@
 package com.jooc.studentclub.mapper;
 
-import com.jooc.studentclub.model.DBNewsModel;
-import com.jooc.studentclub.model.NewsModel;
+import com.jooc.studentclub.model.DBModel.DBNewsModel;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
