@@ -8,7 +8,6 @@ import com.jooc.studentclub.model.DBModel.DBBlogModel;
 import com.jooc.studentclub.model.UserInfoModel;
 import com.jooc.studentclub.model.UserModel;
 import com.jooc.studentclub.service.BlogService;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

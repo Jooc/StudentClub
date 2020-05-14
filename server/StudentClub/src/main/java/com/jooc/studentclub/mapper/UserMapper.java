@@ -32,4 +32,7 @@ public interface UserMapper {
     @Select("select id,name,avatar from user where id=#{id}")
     UserInfoModel getUserInfoById(int id);
 
+
+    @Select("select club_code from User where id=#{id}")
+    int getClubCodeByUserId(int user_id);
 }
