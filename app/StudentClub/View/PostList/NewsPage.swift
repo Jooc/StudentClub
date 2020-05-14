@@ -41,7 +41,7 @@ struct NewsPage: View {
                     Image(uiImage: #imageLiteral(resourceName: "News-Title"))
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .frame(height: screen.height*0.05)
+                        .frame(height: Globals.screen.height*0.05)
                 }
                 .padding()
                 .padding(.leading, 5)
@@ -49,7 +49,7 @@ struct NewsPage: View {
                 PostButton()
             }
             
-        }.frame(width: screen.width, alignment: .topLeading)
+        }.frame(width: Globals.screen.width, alignment: .topLeading)
     }
 }
 

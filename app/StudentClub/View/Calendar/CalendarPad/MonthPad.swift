@@ -18,7 +18,7 @@ struct MonthPad: View {
                 WeekRow(viewModel: week)
             }
         }
-        .frame(width: screen.width)
+        .frame(width: Globals.screen.width)
 //        .padding(.vertical)
     }
 }

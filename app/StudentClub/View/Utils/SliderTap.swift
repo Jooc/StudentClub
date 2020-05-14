@@ -11,7 +11,7 @@ import SwiftUI
 struct SliderTap: View {
     var body: some View {
         RoundedRectangle(cornerRadius: 10)
-            .frame(width: screen.width*0.3, height: 4)
+            .frame(width: Globals.screen.width*0.3, height: 4)
             .foregroundColor(Color.gray.opacity(0.5))
     }
 }

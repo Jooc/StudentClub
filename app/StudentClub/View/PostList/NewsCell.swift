@@ -47,11 +47,11 @@ struct NewsCell: View {
             KFImage(URL(string: viewModel.news.images[0]))
                 .resizable()
                 .aspectRatio(contentMode: .fill)
-                .frame(width: screen.width*0.9, height: 330)
+                .frame(width: Globals.screen.width*0.9, height: 330)
                 .clipShape(Rectangle())
         }
         .background(Color.white)
-        .frame(width: screen.width*0.9)
+        .frame(width: Globals.screen.width*0.9)
         .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
         .onTapGesture {
             self.store.dispatch(.clickNewsCell(news: self.viewModel))

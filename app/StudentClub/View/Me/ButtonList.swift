@@ -86,10 +86,10 @@ struct ButtonList: View {
                     }.frame(width: proxy.size.width, height: proxy.size.height*0.2)
                         .padding(.top, 40)
                 }
-                .frame(width: self.showMe ? screen.width*0.9:0, height: self.showMe ? 500 : 0, alignment: .top)
+                .frame(width: self.showMe ? Globals.screen.width*0.9:0, height: self.showMe ? 500 : 0, alignment: .top)
             }
         }
-        .frame(width: self.showMe ? screen.width*0.9 : 0, height: self.showMe ? screen.height * 0.6 : 0, alignment: .top)
+        .frame(width: self.showMe ? Globals.screen.width*0.9 : 0, height: self.showMe ? Globals.screen.height * 0.6 : 0, alignment: .top)
     }
 }
 

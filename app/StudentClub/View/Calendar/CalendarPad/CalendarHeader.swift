@@ -23,14 +23,14 @@ struct CalendarHeader: View {
 //                Image(systemName: "chevron.left")
 //            }
             Text(MonthSymbol(rawValue: currentMonth)!.text)
-                .frame(width: screen.width*0.3)
+                .frame(width: Globals.screen.width*0.3)
 //            Button(action: {
 //                self.store.dispatch(.nextPage)
 //            }){
 //                Image(systemName: "chevron.right")
 //            }
         }
-        .frame(width: screen.width, height: 50)
+        .frame(width: Globals.screen.width, height: 50)
     }
 }
 

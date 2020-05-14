@@ -28,7 +28,7 @@
 		F1EBCFE1246B9D3400C1D603 /* FileHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1EBCF77246B9D3400C1D603 /* FileHelper.swift */; };
 		F1EBCFE2246B9D3400C1D603 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1EBCF78246B9D3400C1D603 /* Helpers.swift */; };
 		F1EBCFE3246B9D3400C1D603 /* Samples.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1EBCF79246B9D3400C1D603 /* Samples.swift */; };
-		F1EBCFE4246B9D3400C1D603 /* GlobalParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1EBCF7B246B9D3400C1D603 /* GlobalParameters.swift */; };
+		F1EBCFE4246B9D3400C1D603 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1EBCF7B246B9D3400C1D603 /* Globals.swift */; };
 		F1EBCFE5246B9D3400C1D603 /* EventsPad.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1EBCF7F246B9D3400C1D603 /* EventsPad.swift */; };
 		F1EBCFE6246B9D3400C1D603 /* CaledarPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1EBCF80246B9D3400C1D603 /* CaledarPage.swift */; };
 		F1EBCFE7246B9D3400C1D603 /* CalendarHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1EBCF82246B9D3400C1D603 /* CalendarHeader.swift */; };
@@ -62,7 +62,7 @@
 		F1EBD004246B9D3400C1D603 /* NewsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1EBCFA4246B9D3400C1D603 /* NewsPage.swift */; };
 		F1EBD005246B9D3400C1D603 /* DailyPostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1EBCFA5246B9D3400C1D603 /* DailyPostCell.swift */; };
 		F1EBD006246B9D3400C1D603 /* LoginPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1EBCFA7246B9D3400C1D603 /* LoginPage.swift */; };
-		F1EBD007246B9D3400C1D603 /* Email&Password.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1EBCFA8246B9D3400C1D603 /* Email&Password.swift */; };
+		F1EBD007246B9D3400C1D603 /* LoginPad.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1EBCFA8246B9D3400C1D603 /* LoginPad.swift */; };
 		F1EBD008246B9D3400C1D603 /* MainTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1EBCFA9246B9D3400C1D603 /* MainTab.swift */; };
 		F1EBD009246B9D3400C1D603 /* PostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1EBCFAD246B9D3400C1D603 /* PostViewModel.swift */; };
 		F1EBD00A246B9D3400C1D603 /* PostListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1EBCFAE246B9D3400C1D603 /* PostListViewModel.swift */; };
@@ -91,6 +91,7 @@
 		F1EBD026246B9D3400C1D603 /* news-2.json in Resources */ = {isa = PBXBuildFile; fileRef = F1EBCFD2246B9D3400C1D603 /* news-2.json */; };
 		F1EBD027246B9D3400C1D603 /* event-2.json in Resources */ = {isa = PBXBuildFile; fileRef = F1EBCFD4246B9D3400C1D603 /* event-2.json */; };
 		F1EBD028246B9D3400C1D603 /* event-1.json in Resources */ = {isa = PBXBuildFile; fileRef = F1EBCFD5246B9D3400C1D603 /* event-1.json */; };
+		F1F42385246D43230024FB46 /* RegisterPad.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F42384246D43230024FB46 /* RegisterPad.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -116,7 +117,7 @@
 		F1EBCF77246B9D3400C1D603 /* FileHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileHelper.swift; sourceTree = "<group>"; };
 		F1EBCF78246B9D3400C1D603 /* Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		F1EBCF79246B9D3400C1D603 /* Samples.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Samples.swift; sourceTree = "<group>"; };
-		F1EBCF7B246B9D3400C1D603 /* GlobalParameters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalParameters.swift; sourceTree = "<group>"; };
+		F1EBCF7B246B9D3400C1D603 /* Globals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		F1EBCF7F246B9D3400C1D603 /* EventsPad.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventsPad.swift; sourceTree = "<group>"; };
 		F1EBCF80246B9D3400C1D603 /* CaledarPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaledarPage.swift; sourceTree = "<group>"; };
 		F1EBCF82246B9D3400C1D603 /* CalendarHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarHeader.swift; sourceTree = "<group>"; };
@@ -150,7 +151,7 @@
 		F1EBCFA4246B9D3400C1D603 /* NewsPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsPage.swift; sourceTree = "<group>"; };
 		F1EBCFA5246B9D3400C1D603 /* DailyPostCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DailyPostCell.swift; sourceTree = "<group>"; };
 		F1EBCFA7246B9D3400C1D603 /* LoginPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginPage.swift; sourceTree = "<group>"; };
-		F1EBCFA8246B9D3400C1D603 /* Email&Password.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Email&Password.swift"; sourceTree = "<group>"; };
+		F1EBCFA8246B9D3400C1D603 /* LoginPad.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginPad.swift; sourceTree = "<group>"; };
 		F1EBCFA9246B9D3400C1D603 /* MainTab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTab.swift; sourceTree = "<group>"; };
 		F1EBCFAD246B9D3400C1D603 /* PostViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostViewModel.swift; sourceTree = "<group>"; };
 		F1EBCFAE246B9D3400C1D603 /* PostListViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostListViewModel.swift; sourceTree = "<group>"; };
@@ -179,6 +180,7 @@
 		F1EBCFD2246B9D3400C1D603 /* news-2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "news-2.json"; sourceTree = "<group>"; };
 		F1EBCFD4246B9D3400C1D603 /* event-2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "event-2.json"; sourceTree = "<group>"; };
 		F1EBCFD5246B9D3400C1D603 /* event-1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "event-1.json"; sourceTree = "<group>"; };
+		F1F42384246D43230024FB46 /* RegisterPad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterPad.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -258,11 +260,11 @@
 		F1EBCF68246B9D3400C1D603 /* DataFlow */ = {
 			isa = PBXGroup;
 			children = (
+				F1EBCF6D246B9D3400C1D603 /* Store.swift */,
 				F1EBCF69246B9D3400C1D603 /* AppState.swift */,
+				F1EBCF6C246B9D3400C1D603 /* AppAction.swift */,
 				F1EBCF6A246B9D3400C1D603 /* AppCommand.swift */,
 				F1EBCF6B246B9D3400C1D603 /* AppError.swift */,
-				F1EBCF6C246B9D3400C1D603 /* AppAction.swift */,
-				F1EBCF6D246B9D3400C1D603 /* Store.swift */,
 			);
 			path = DataFlow;
 			sourceTree = "<group>";
@@ -301,7 +303,7 @@
 		F1EBCF7A246B9D3400C1D603 /* Global */ = {
 			isa = PBXGroup;
 			children = (
-				F1EBCF7B246B9D3400C1D603 /* GlobalParameters.swift */,
+				F1EBCF7B246B9D3400C1D603 /* Globals.swift */,
 			);
 			path = Global;
 			sourceTree = "<group>";
@@ -415,7 +417,8 @@
 			isa = PBXGroup;
 			children = (
 				F1EBCFA7246B9D3400C1D603 /* LoginPage.swift */,
-				F1EBCFA8246B9D3400C1D603 /* Email&Password.swift */,
+				F1EBCFA8246B9D3400C1D603 /* LoginPad.swift */,
+				F1F42384246D43230024FB46 /* RegisterPad.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -645,7 +648,7 @@
 				F1EBD011246B9D3400C1D603 /* EDay.swift in Sources */,
 				F1EBCFDA246B9D3400C1D603 /* Store.swift in Sources */,
 				F1EBCFF0246B9D3400C1D603 /* CircleButton.swift in Sources */,
-				F1EBD007246B9D3400C1D603 /* Email&Password.swift in Sources */,
+				F1EBD007246B9D3400C1D603 /* LoginPad.swift in Sources */,
 				F1EBD017246B9D3400C1D603 /* WeekdaySymbol.swift in Sources */,
 				F1EBCFE7246B9D3400C1D603 /* CalendarHeader.swift in Sources */,
 				F1EBCFF6246B9D3400C1D603 /* MePage.swift in Sources */,
@@ -674,7 +677,7 @@
 				F1EBD009246B9D3400C1D603 /* PostViewModel.swift in Sources */,
 				F1EBD008246B9D3400C1D603 /* MainTab.swift in Sources */,
 				F1EBD003246B9D3400C1D603 /* BlogCell.swift in Sources */,
-				F1EBCFE4246B9D3400C1D603 /* GlobalParameters.swift in Sources */,
+				F1EBCFE4246B9D3400C1D603 /* Globals.swift in Sources */,
 				F1EBCFE2246B9D3400C1D603 /* Helpers.swift in Sources */,
 				F1EBCFE0246B9D3400C1D603 /* LoadRequest.swift in Sources */,
 				F1EBD00D246B9D3400C1D603 /* EMonthViewModel.swift in Sources */,
@@ -682,6 +685,7 @@
 				F1EBCFDD246B9D3400C1D603 /* LoadEvents.swift in Sources */,
 				F1EBCFD7246B9D3400C1D603 /* AppCommand.swift in Sources */,
 				F1EBCFEF246B9D3400C1D603 /* RichLinkView.swift in Sources */,
+				F1F42385246D43230024FB46 /* RegisterPad.swift in Sources */,
 				F1EBD004246B9D3400C1D603 /* NewsPage.swift in Sources */,
 				F1EBCFFC246B9D3400C1D603 /* EditContactEmail.swift in Sources */,
 				F1EBD000246B9D3400C1D603 /* PostButton.swift in Sources */,

@@ -18,13 +18,12 @@
         <java.version>1.8</java.version>
     </properties>
 
-    <mirror>
-        <id>nexus-aliyun</id>
-        <mirrorOf>central</mirrorOf>
-        <name>Nexus aliyun</name>
-        <url>http://maven.aliyun.com/nexus/content/groups/public</url>
-    </mirror>
-    #pom.xlm
+    <!--<mirror>-->
+        <!--<id>nexus-aliyun</id>-->
+        <!--<mirrorOf>central</mirrorOf>-->
+        <!--<name>Nexus aliyun</name>-->
+        <!--<url>http://maven.aliyun.com/nexus/content/groups/public</url>-->
+    <!--</mirror>-->
     <repositories>
         <repository>
             <id>nexus-aliyun</id>

@@ -9,6 +9,10 @@
 import Foundation
 import SwiftUI
 
-let screen = UIScreen.main.bounds
+class Globals {
+    static let screen = UIScreen.main.bounds
 
+    static let host = "localhost"
+    static let port = "8080"
+}
 

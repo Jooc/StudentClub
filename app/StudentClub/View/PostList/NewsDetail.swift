@@ -29,13 +29,13 @@ struct NewsDetail: View {
                                         KFImage(URL(string: image))
                                             .resizable()
                                             .aspectRatio(contentMode: .fit)
-                                    }.frame(width: screen.width)
+                                    }.frame(width: Globals.screen.width)
                                 }
                             }
                             .padding(.vertical, 20)
                         }
                         .background(Color.white)
-                        .frame(height: screen.height*0.4)
+                        .frame(height: Globals.screen.height*0.4)
                         .clipShape(RoundedRectangle(cornerRadius: 5))
                         .shadow(radius: 10)
                         .edgesIgnoringSafeArea(.top)

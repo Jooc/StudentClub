@@ -45,7 +45,7 @@ struct BlogCell: View {
             
             RichLickView(metaData: viewModel.metaData)
         }
-        .frame(width: screen.width*0.9)
+        .frame(width: Globals.screen.width*0.9)
         .background(Color.white)
         .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
         .onAppear(){

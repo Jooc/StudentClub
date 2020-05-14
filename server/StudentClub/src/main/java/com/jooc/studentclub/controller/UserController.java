@@ -4,6 +4,8 @@ import com.jooc.studentclub.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 
 @RestController
@@ -29,6 +31,10 @@ public class UserController {
 
     @PostMapping("/login")
     public Object login(@RequestBody HashMap<String, Object> req) throws InterruptedException{
+        Date d = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        System.out.println("" + sdf.format(d) + " [Request]: login for" + req.get("email"));
+
         return userService.login(req);
     }
 

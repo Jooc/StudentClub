@@ -33,18 +33,37 @@ struct AppState{
 }
 
 extension AppState{
-    struct LoginState{
-        class LoginAccount {
-            var email = ""
-            var password = ""
+        struct LoginState{
+            class LoginAccountChecker {
+                @Published var email = ""
+                @Published var password = ""
+                
+                var isEmailValid: AnyPublisher<Bool, Never>{
+                    $email.map{ $0.isValidEmailAddress }.eraseToAnyPublisher()
+                }
+            }
+            
+            class RegisterAccountChecker {
+                @Published var registerCode = ""
+                @Published var loginEmail = ""
+                @Published var userName = ""
+                @Published var password = ""
+                @Published var verifyPassword = ""
+                
+                var isEmailValid: AnyPublisher<Bool, Never>{
+                    $loginEmail.map{ $0.isValidEmailAddress }.eraseToAnyPublisher()
+                }
+            }
+            
+            var isInputting = false
+            var isLogining = false
+            var loginError: AppError?
+            
+            var loginAccountChecker = LoginAccountChecker()
+            var registerAccountChecker = RegisterAccountChecker()
+            var isLoginEmailValid: Bool = false
+            var isRegisterEmailValid: Bool = false
         }
-        
-//        var showLoginPage = false
-        var isInputting = false
-        var isLogining = false
-        var loginAccount = LoginAccount()
-        var loginError: AppError?
-    }
 }
 
 extension AppState{

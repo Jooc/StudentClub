@@ -29,7 +29,7 @@ struct CalendarPage: View {
                             Text(event.title)
                         }
                     }
-                    .frame(width: screen.width)
+                    .frame(width: Globals.screen.width)
                     .frame(maxHeight: .infinity)
                 }
                 

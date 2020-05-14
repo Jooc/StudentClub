@@ -12,6 +12,20 @@ import SwiftUI
 
 class Store: ObservableObject{
     @Published var appState = AppState()
+    private var disposeBag = Set<AnyCancellable>()
+    
+    init() {
+        setObservers()
+    }
+    
+    func setObservers(){
+        appState.loginState.loginAccountChecker.isEmailValid.sink{ isValid in
+            self.dispatch(.loginEmailValid(valid: isValid))
+        }.store(in: &disposeBag)
+        appState.loginState.registerAccountChecker.isEmailValid.sink{isValid in
+            self.dispatch(.registerEmailValid(valid: isValid))
+        }.store(in: &disposeBag)
+    }
     
     func dispatch(_ action: AppAction) {
         #if DEBUG
@@ -34,16 +48,20 @@ class Store: ObservableObject{
         var appCommand: AppCommand?
         
         switch action {
+        case .loginEmailValid(let valid):
+            appState.loginState.isLoginEmailValid = valid
+        case .registerEmailValid(let valid):
+            appState.loginState.isRegisterEmailValid = valid
         case .input:
             appState.loginState.isInputting = true
         case .inputDone:
             appState.loginState.isInputting = false
-        case .login(let account):
+        case .login(let email, let password):
             guard !appState.loginState.isLogining else{
                 break
             }
             appState.loginState.isLogining = true
-            appCommand = LoginAppCommand(email: account.email, password: account.password)
+            appCommand = LoginAppCommand(email: email, password: password)
         case .accountBehaviorDone(let result):
             appState.loginState.isLogining = false
             switch result {
@@ -117,7 +135,6 @@ class Store: ObservableObject{
 //            appState.showPostNewsPage = true
 //        case .postNewsDone:
 //            break
-            
         }
         
         return (appState, appCommand)

@@ -26,7 +26,7 @@
 //        }
 //        .padding(.vertical, 100)
 //        .padding(.horizontal, 20)
-//        .frame(width: screen.width*0.9, height: screen.height*0.9, alignment: .topLeading)
+//        .frame(width: Globals.screen.width*0.9, height: Globals.screen.height*0.9, alignment: .topLeading)
 //        .background(BlurView(style: .systemMaterial))
 //        .cornerRadius(20)
 //    }
@@ -98,7 +98,7 @@
 //                .offset(y: 30)
 //            }
 //        }
-//        .frame(width: screen.width*0.7, height: 500, alignment: .top)
+//        .frame(width: Globals.screen.width*0.7, height: 500, alignment: .top)
 //        .padding()
 //        .padding(.top, 40)
 //    }

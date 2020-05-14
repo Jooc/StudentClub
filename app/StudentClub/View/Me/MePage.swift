@@ -41,8 +41,8 @@ struct MePage: View {
 
                 profile
                     .edgesIgnoringSafeArea(.all)
-                    .offset(y: -screen.height*0.9)
-                    .offset(y: self.closed ? screen.height*0.9 : 0)
+                    .offset(y: -Globals.screen.height*0.9)
+                    .offset(y: self.closed ? Globals.screen.height*0.9 : 0)
                     .offset(y: self.closed ? min(0, self.dragPosition.height) : self.dragPosition.height)
                     .animation(.spring(response: 0.55, dampingFraction: 0.9, blendDuration: 10))
                     .gesture(
@@ -65,7 +65,7 @@ struct MePage: View {
             
             avatar
                 .offset(y: 230)
-                .offset(y: self.showMe ? self.closed ? -50 : -screen.height*0.85 : 0)
+                .offset(y: self.showMe ? self.closed ? -50 : -Globals.screen.height*0.85 : 0)
                 .offset(y: self.store.appState.calendarState.calendarViewModel.dragPosition.height/2)
                 .animation(.spring())
         }

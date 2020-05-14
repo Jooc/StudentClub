@@ -27,14 +27,14 @@ struct CalendarPad: View {
             return 0
         }
         
-        let floatIndex = (self.logicalScrollOffset(trueOffset: offset))/(screen.width)
+        let floatIndex = (self.logicalScrollOffset(trueOffset: offset))/(Globals.screen.width)
         var computedIndex = Int(round(floatIndex))
         computedIndex = max(computedIndex, 0)
         return min(computedIndex, self.store.appState.calendarState.monthCount-1)
     }
     
     func offsetForPageIndex(_ index: Int)->CGFloat {
-        let activePageOffset = CGFloat(index)*(screen.width)
+        let activePageOffset = CGFloat(index)*(Globals.screen.width)
         return 0 - activePageOffset
     }
     
@@ -65,7 +65,7 @@ struct CalendarPad: View {
                 DragGesture(minimumDistance: 1, coordinateSpace: .local)
                     .onChanged{ value in
                         self.dragOffset = value.translation.width
-                        self.currentScrollOffset = max(min(0, self.computeScrollOffset()), screen.width*(-11))
+                        self.currentScrollOffset = max(min(0, self.computeScrollOffset()), Globals.screen.width*(-11))
                 }
                 .onEnded{ value in
                     let velocityDiff = (value.predictedEndTranslation.width - self.dragOffset)

@@ -11,10 +11,13 @@ import LinkPresentation
 
 enum AppAction {
     
+    case loginEmailValid(valid: Bool)
+    case registerEmailValid(valid: Bool)
+    
     // MARK: Login
     case input
     case inputDone
-    case login(accout: AppState.LoginState.LoginAccount)
+    case login(emai: String, password: String)
     case accountBehaviorDone(result: Result<User, AppError>)
 //    case accountBehaviorDone(result: Result<UserResponse, AppError>)
     case logout
