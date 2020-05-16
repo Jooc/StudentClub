@@ -15,7 +15,7 @@ struct EditAvatar: View {
     @State var showPhotoPicker: Bool = false
     
     var user: User{
-        self.store.appState.user ?? User.Sample()
+        self.store.appState.loginState.user ?? User.Sample()
     }
     
     var body: some View {

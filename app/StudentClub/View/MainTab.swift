@@ -16,36 +16,52 @@ struct MainTab: View {
     }
     
     var body: some View {
-        NavigationView {
             ZStack {
                 
                 tableView
                 
-                MePage(viewModel: MeViewModel.Sample())
-                    .animation(.spring(response: 0.1))
+//                MePage()
+//                    .animation(.spring(response: 0.1))
+                
+                PostNewsPage()
+                    .offset(x:0, y: self.store.appState.showPostNewsPage ? 0 : -Globals.screen.height*2)
+                    .animation(.spring())
                 
                 if store.appState.postListState.detailedNews != nil{
                     NewsDetail(viewModel: self.store.appState.postListState.detailedNews!, show: self.$store.appState.showDetailedNews)
                 }
                 
-                if store.appState.user == nil{
+                if store.appState.loginState.user == nil{
                     LoginPage()
                 }
             }
-        }
     }
     
     var tableView: some View{
         TabView{
             NewsPage()
+                .navigationBarTitle("Post")
+                .navigationBarHidden(true)
                 .tabItem{
                     VStack {
                         Image(systemName: "message.fill")
-                        Text("News")
+                        Text("Post")
                     }.padding(.trailing, 50)
             }
-            
+
+            MePage()
+                .navigationBarTitle("Profile")
+                .navigationBarHidden(true)
+                .tabItem{
+                    VStack{
+                        Image(systemName: "person")
+                        Text("Profile")
+                    }
+            }
+
             CalendarPage()
+                .navigationBarTitle("Activity")
+                .navigationBarHidden(true)
                 .tabItem{
                     VStack {
                         Image(systemName: "calendar")
@@ -58,9 +74,7 @@ struct MainTab: View {
 
 struct MainTab_Previews: PreviewProvider {
     static var previews: some View {
-        Group {
-            MainTab().environmentObject(Store.Sample())
+        MainTab().environmentObject(Store())
             //            MainTab().environmentObject(Store.Sample()).previewDevice("iPhone 8")
-        }
     }
 }

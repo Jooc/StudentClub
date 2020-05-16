@@ -280,11 +280,11 @@
 		F1EBCF70246B9D3400C1D603 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				F1EBCF73246B9D3400C1D603 /* LoginRequest.swift */,
+				F1EBCF75246B9D3400C1D603 /* LoadRequest.swift */,
 				F1EBCF71246B9D3400C1D603 /* LoadLPMetaData.swift */,
 				F1EBCF72246B9D3400C1D603 /* LoadEvents.swift */,
-				F1EBCF73246B9D3400C1D603 /* LoginRequest.swift */,
 				F1EBCF74246B9D3400C1D603 /* LoadHistory.swift */,
-				F1EBCF75246B9D3400C1D603 /* LoadRequest.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -367,11 +367,11 @@
 		F1EBCF8F246B9D3400C1D603 /* Me */ = {
 			isa = PBXGroup;
 			children = (
+				F1EBCF93246B9D3400C1D603 /* MePage.swift */,
 				F1EBCF96246B9D3400C1D603 /* ProfileDetail */,
 				F1EBCF90246B9D3400C1D603 /* BlogPost.swift */,
 				F1EBCF91246B9D3400C1D603 /* MeSlidePage.swift */,
 				F1EBCF92246B9D3400C1D603 /* ClubList.swift */,
-				F1EBCF93246B9D3400C1D603 /* MePage.swift */,
 				F1EBCF94246B9D3400C1D603 /* ButtonList.swift */,
 				F1EBCF95246B9D3400C1D603 /* ProfileInfo.swift */,
 				F1EBCF9B246B9D3400C1D603 /* ClubInfo.swift */,
@@ -394,8 +394,8 @@
 		F1EBCF9D246B9D3400C1D603 /* PostList */ = {
 			isa = PBXGroup;
 			children = (
-				F1EBCF9E246B9D3400C1D603 /* NewsDetail.swift */,
 				F1EBCF9F246B9D3400C1D603 /* Post */,
+				F1EBCF9E246B9D3400C1D603 /* NewsDetail.swift */,
 				F1EBCFA2246B9D3400C1D603 /* NewsCell.swift */,
 				F1EBCFA3246B9D3400C1D603 /* BlogCell.swift */,
 				F1EBCFA4246B9D3400C1D603 /* NewsPage.swift */,
@@ -465,7 +465,6 @@
 		F1EBCFB5246B9D3400C1D603 /* DataModel */ = {
 			isa = PBXGroup;
 			children = (
-				F1EBCFB6246B9D3400C1D603 /* UserInfo.swift */,
 				F1EBCFB7246B9D3400C1D603 /* EDay.swift */,
 				F1EBCFB8246B9D3400C1D603 /* Entity */,
 				F1EBCFBE246B9D3400C1D603 /* Enum */,
@@ -478,6 +477,7 @@
 		F1EBCFB8246B9D3400C1D603 /* Entity */ = {
 			isa = PBXGroup;
 			children = (
+				F1EBCFB6246B9D3400C1D603 /* UserInfo.swift */,
 				F1EBCFB9246B9D3400C1D603 /* Blog.swift */,
 				F1EBCFBA246B9D3400C1D603 /* University.swift */,
 				F1EBCFBB246B9D3400C1D603 /* Event.swift */,
@@ -518,11 +518,11 @@
 			isa = PBXGroup;
 			children = (
 				F1EBCFCD246B9D3400C1D603 /* news-1.json */,
-				F1EBCFCE246B9D3400C1D603 /* news-5.json */,
-				F1EBCFCF246B9D3400C1D603 /* news-4.json */,
-				F1EBCFD0246B9D3400C1D603 /* news-3.json */,
-				F1EBCFD1246B9D3400C1D603 /* blog.json */,
 				F1EBCFD2246B9D3400C1D603 /* news-2.json */,
+				F1EBCFD0246B9D3400C1D603 /* news-3.json */,
+				F1EBCFCF246B9D3400C1D603 /* news-4.json */,
+				F1EBCFCE246B9D3400C1D603 /* news-5.json */,
+				F1EBCFD1246B9D3400C1D603 /* blog.json */,
 			);
 			path = News;
 			sourceTree = "<group>";

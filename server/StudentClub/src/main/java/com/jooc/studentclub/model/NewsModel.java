@@ -23,9 +23,6 @@ public class NewsModel {
         this.content = dbNewsModel.content;
 
         this.images = dbNewsModel.images.split(";");
-        for (int i = 0; i < images.length; i++){
-            this.images[i] = Common.oss_path + this.images[i];
-        }
         this.privilege = dbNewsModel.privilege;
         this.publisherInfo = new UserInfoModel(dbNewsModel.publisher_id, dbNewsModel.publisher_name, dbNewsModel.publisher_avatar);
         this.tags = dbNewsModel.tags;

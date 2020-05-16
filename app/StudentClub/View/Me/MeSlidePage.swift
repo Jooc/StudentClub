@@ -13,7 +13,7 @@
 //    @State var show = false
 //    
 //    var user: User{
-//        self.store.appState.user ?? User.defaultUser()
+//        self.store.appState.loginState.user ?? User.defaultUser()
 //    }
 //    
 //    var body: some View {

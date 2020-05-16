@@ -9,16 +9,14 @@
 import Foundation
 import LinkPresentation
 
-protocol PostViewModel { }
-
-struct BlogViewModel: Identifiable, PostViewModel {
+struct BlogViewModel: Identifiable {
     var id:Int {blog.id}
     
     var metaData = LPLinkMetadata()
     var blog: Blog
 }
 
-struct NewsViewModel: Identifiable, Codable, PostViewModel {
+struct NewsViewModel: Identifiable, Codable {
     var id:Int {news.id}
     
     var news: News

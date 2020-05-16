@@ -49,7 +49,9 @@ struct BlogCell: View {
         .background(Color.white)
         .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
         .onAppear(){
-//            self.store.dispatch(.loadBlogLPMetaData(blogIndex: self.blogIndex))
+            if self.viewModel.metaData.title == nil{
+                self.store.dispatch(.loadBlogLPMetaData(blogIndex: self.blogIndex))
+            }
         }
     }
 }

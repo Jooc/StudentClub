@@ -9,5 +9,5 @@
 import Foundation
 
 struct MeViewModel{
-    var user: User
+    var user: User?
 }

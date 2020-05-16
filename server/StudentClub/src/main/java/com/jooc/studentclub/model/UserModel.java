@@ -2,7 +2,7 @@ package com.jooc.studentclub.model;
 
 public class UserModel {
     public int id;
-    public String user_name;
+    public String name;
     public String avatar;
     public String gender;
     public String description;
@@ -25,12 +25,12 @@ public class UserModel {
         this.id = id;
     }
 
-    public String getUser_name() {
-        return user_name;
+    public String getName() {
+        return name;
     }
 
-    public void setUser_name(String user_name) {
-        this.user_name = user_name;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getAvatar() {

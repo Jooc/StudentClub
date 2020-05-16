@@ -8,18 +8,21 @@
 
 import Foundation
 
-enum AppError: Int, Error, Identifiable{
-    var id: Int{
-        self.rawValue
+enum AppError: Error, Identifiable{
+    var id: String{
+        localizedDescription
     }
 
     // LoginError
-    case passwordWrong = 0101
+    case passwordWrong
     
     // LoadError
-    case loadNewsError = 0201
-    case loadEventError = 0202
-    case loadLinkPresentation = 0203
+    case loadNewsError
+    case loadEventError
+    case loadLinkPresentation
+    
+    case networkFailed(Error)
+    case invalidURL
 }
 
 extension AppError: LocalizedError{
@@ -29,11 +32,18 @@ extension AppError: LocalizedError{
         case .loadNewsError: return "加载新闻失败"
         case .loadEventError: return "加载时间失败"
         case .loadLinkPresentation: return "加载Blog失败"
+        case .networkFailed(let error): return "网络连接错误: " + error.localizedDescription
+        case .invalidURL: return "URL 失效"
         }
     }
     
-    var errorCode: Int{
-        return id
-    }
+//    var errorCode: Int{
+//        switch <#value#> {
+//        case <#pattern#>:
+//            <#code#>
+//        default:
+//            <#code#>
+//        }
+//    }
 }
 

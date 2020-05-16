@@ -8,12 +8,12 @@
     "images": [
         "http://iosclub-resources.oss-cn-hangzhou.aliyuncs.com/news_images/1579141149423.jpeg"
     ],
-    "newsPublisher": {
+    "publisherInfo": {
         "id": 0,
         "userName": "Jooc",
         "avatar": "http://iosclub-resources.oss-cn-hangzhou.aliyuncs.com/avatar/avatar.png",
         "universityCode": 0
     },
-    "newsPrivilege": 1,
-    "tags": []
+    "privilege": 1,
+    "tags": "[]"
 }

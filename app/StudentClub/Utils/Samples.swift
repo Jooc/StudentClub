@@ -11,7 +11,7 @@ import Foundation
 extension Store{
     static func Sample() -> Store{
         let store = Store()
-        store.appState.user = User.Sample()
+        store.appState.loginState.user = User.Sample()
         for index in 0..<4{
             let dailyPost = DailyPostViewModel(date: "2020-05-0\(index)", blogList: [BlogViewModel.Sample()], newsList: [NewsViewModel.Sample(id: index+1)])
             store.appState.postListState.postListViewModel.dailyPostList.append(dailyPost)

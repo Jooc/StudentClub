@@ -11,16 +11,13 @@ import Combine
 import SwiftUI
 
 struct AppState{
-    @FileStorage(directory: .documentDirectory, fileName: "user.json")
-    var user: User?
-    
     var loginState = LoginState()
     var postListState = PostListState()
     var postState = PostState()
     var meState = MeState()
     var calendarState = CalendarState()
     
-    var showMe = false
+    var showMe = true
     
 //    var pickedImage: Image?
     
@@ -28,12 +25,23 @@ struct AppState{
     var showDetailedNews = false
     
     init() {
-        self.user = User.Sample()
     }
 }
 
 extension AppState{
         struct LoginState{
+            @FileStorage(directory: .documentDirectory, fileName: "user.json")
+             var user: User?
+            
+            var isInputting = false
+            var isLogining = false
+            var loginError: AppError?
+            
+            var loginAccountChecker = LoginAccountChecker()
+            var registerAccountChecker = RegisterAccountChecker()
+            var isLoginEmailValid: Bool = false
+            var isRegisterEmailValid: Bool = false
+            
             class LoginAccountChecker {
                 @Published var email = ""
                 @Published var password = ""
@@ -54,15 +62,6 @@ extension AppState{
                     $loginEmail.map{ $0.isValidEmailAddress }.eraseToAnyPublisher()
                 }
             }
-            
-            var isInputting = false
-            var isLogining = false
-            var loginError: AppError?
-            
-            var loginAccountChecker = LoginAccountChecker()
-            var registerAccountChecker = RegisterAccountChecker()
-            var isLoginEmailValid: Bool = false
-            var isRegisterEmailValid: Bool = false
         }
 }
 
@@ -98,6 +97,8 @@ extension AppState{
 
 extension AppState{
     struct MeState{
+        var viewModel = MeViewModel()
+        
         var closed = true
         
         var isProfileActive = false

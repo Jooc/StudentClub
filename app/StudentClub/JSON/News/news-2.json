@@ -11,12 +11,12 @@
         "http://iosclub-resources.oss-cn-hangzhou.aliyuncs.com/news_images/1579141706650.jpeg",
         "http://iosclub-resources.oss-cn-hangzhou.aliyuncs.com/news_images/1579141744541.jpeg"
     ],
-    "newsPublisher": {
+    "publisherInfo": {
         "id": 0,
         "userName": "Jooc",
         "avatar": "http://iosclub-resources.oss-cn-hangzhou.aliyuncs.com/avatar/avatar.png",
         "universityCode": 0
     },
-    "newsPrivilege": 2,
-    "tags": []
-    }
+    "privilege": 2,
+    "tags": "[]"
+}

@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 
 @RestController
@@ -42,6 +44,10 @@ public class NewsController {
 
     @GetMapping("/getByPrivilege")
     public Object getByPrivilege(int privilege){
+        Date d = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        System.out.println("" + sdf.format(d) + " [Request]: get news by privilege " + privilege);
+
         return newsService.getByPrivilege(privilege);
     }
 

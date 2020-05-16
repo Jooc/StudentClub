@@ -10,33 +10,49 @@ import Foundation
 import Combine
 
 struct LoginRequest {
-    let url = Globals.host + ":" + Globals.port
-    
     let email: String
     let password: String
-
+    
     var publisher: AnyPublisher<User, AppError>{
-        let requestBodyDic = ["emai": email, "password": password]
-        
-        var request = URLRequest(url: URL(string: url + "/user/login")!)
-        request.httpMethod = "Post"
-        
-        let postString = requestBodyDic.compactMap ({ (key,value) -> String? in
-           return "\(key)=\(value)"
-        }).joined(separator: "&")
-        
-        request.httpBody = postString.data(using: String.Encoding.utf8)
+        let requestBody = LoginRequestBody(email: self.email, password: self.password)
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = .prettyPrinted
+        let requestData = try! encoder.encode(requestBody)
 
-        
-        
-        URLSession.shared
+        var request = URLRequest(url: URL(string: Globals.serverUrl + "/user/login")!)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = requestData
+
+        return URLSession.shared
             .dataTaskPublisher(for: request)
-            .map{$0.data}
+            .map{ $0.data }
+            .decode(type: LoginResponse.self, decoder: JSONDecoder())
+            .map{User(loginResponse: $0)}
+            .mapError{AppError.networkFailed($0)}
+            //    .compactMap{$0.userName}
             .receive(on: DispatchQueue.main)
             .eraseToAnyPublisher()
     }
+    
+    
+    struct LoginRequestBody: Encodable {
+        var email: String
+        var password: String
+    }
 }
 
+struct LoginResponse: Decodable {
+    var code: Int
+    var msg: String
+    var user: User
+}
+
+extension User{
+    init(loginResponse: LoginResponse) {
+        self = loginResponse.user
+    }
+}
 
 //struct LoginRequest {
 //    let email: String

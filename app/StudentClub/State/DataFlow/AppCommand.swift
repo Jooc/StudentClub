@@ -13,24 +13,25 @@ protocol AppCommand {
     func excute(in store: Store)
 }
 
+
 struct LoginAppCommand: AppCommand {
     let email: String
     let password: String
     
     func excute(in store: Store) {
-        store.dispatch(.inputDone)
-        let token = SubscriptionToken()
+        let token =  SubscriptionToken()
         LoginRequest(email: email, password: password)
-            .publisher
-            .sink(receiveCompletion: { complete in
-                if case .failure(let error) = complete{
-                    store.dispatch(.accountBehaviorDone(result: .failure(error)))
-                }
-                token.unseal()
-            }, receiveValue: { user in
-                store.dispatch(.accountBehaviorDone(result: .success(user)))
-                //            store.dispatch(.loadNews)
-            }).seal(in: token)
+        .publisher
+        .sink(receiveCompletion: { complete in
+            if case .failure(let error) = complete{
+                store.dispatch(.accountBehaviorDone(result: .failure(error)))
+            }
+            token.unseal()
+        }, receiveValue: { user in
+            store.dispatch(.accountBehaviorDone(result: .success(user)))
+            print(user)
+            print(Globals.OSSPrefix + user.avatar)
+        }).seal(in: token)
     }
 }
 
@@ -47,6 +48,7 @@ struct LoadNewsAppCommand: AppCommand {
                 }
                 token.unseal()
             }, receiveValue:{ newsList in
+                print(newsList)
                 store.dispatch(.loadNewsDone(result: .success(newsList)))
             }).seal(in: token)
     }

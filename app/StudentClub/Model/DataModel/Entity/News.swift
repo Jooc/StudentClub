@@ -16,8 +16,8 @@ struct News: Codable {
     var content: String
     var images: [String]
     
-    var newsPublisher: UserInfo
-    var newsPrivilege: Int
+    var publisherInfo: UserInfo
+    var privilege: Int
     
-    var tags: [String]
+    var tags: String
 }

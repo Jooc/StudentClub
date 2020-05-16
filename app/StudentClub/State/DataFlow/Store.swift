@@ -66,29 +66,30 @@ class Store: ObservableObject{
             appState.loginState.isLogining = false
             switch result {
             case .success(let user):
-                appState.user = user
+                appState.loginState.user = user
                 appCommand = LoadNewsAppCommand(userPrivilege: user.userPrivilege)
             case .failure(let error):
                 appState.loginState.loginError = error
                 print("[ERROR]: \(error.localizedDescription)")
             }
         case .logout:
-            appState.user = nil
+            appState.loginState.user = nil
             
         case .loadNews:
             guard !appState.postListState.isLoading else{
                 break
             }
             appState.postListState.isLoading = true
-            appCommand = LoadNewsAppCommand(userPrivilege: appState.user?.userPrivilege ?? 0)
+            appCommand = LoadNewsAppCommand(userPrivilege: appState.loginState.user?.userPrivilege ?? 0)
         case .loadNewsDone(let result):
             appState.postListState.isLoading = false
             switch result {
             case .success(let newsList):
-//                appState.postListState.postListViewModel.updateNews(newsList: newsList)
+                appState.postListState.postListViewModel.dailyPostList.append(DailyPostViewModel())
+                appState.postListState.postListViewModel.dailyPostList[0].updateNews(newsList: newsList)
                 // TODO: Maybe this should be placed in .accountBehaviorDone
                 // TODO: OR simply combined with loadNews
-                appCommand = LoadEventsAppCommand(userID: appState.user!.id)
+                appCommand = LoadEventsAppCommand(userID: appState.loginState.user!.id)
             case .failure(let error):
                 appState.postListState.loadNewsError = error
                 print("[ERROR]: \(error.localizedDescription)")
@@ -98,7 +99,7 @@ class Store: ObservableObject{
                 break
             }
             appState.calendarState.isLoading = true
-            appCommand = LoadEventsAppCommand(userID: appState.user!.id)
+            appCommand = LoadEventsAppCommand(userID: appState.loginState.user!.id)
         case .loadEventsDone(let result):
             appState.calendarState.isLoading = false
             switch result {

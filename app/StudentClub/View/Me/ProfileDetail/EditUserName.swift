@@ -12,7 +12,7 @@ struct EditUserName: View {
     @EnvironmentObject var store: Store
     
     var user: User{
-        self.store.appState.user ?? User.Sample()
+        self.store.appState.loginState.user ?? User.Sample()
     }
     
     @State var newName: String = ""

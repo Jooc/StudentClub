@@ -16,10 +16,28 @@ struct DailyPostViewModel {
     
     var blogList: [BlogViewModel]
     var newsList: [NewsViewModel]
+    
+    init() {
+        self.date = ""
+        self.blogList = [BlogViewModel]()
+        self.newsList = [NewsViewModel]()
+    }
+    
+    init(date: String, blogList: [BlogViewModel], newsList: [NewsViewModel]) {
+        self.date = date
+        self.blogList = blogList
+        self.newsList = newsList
+    }
 }
 
 struct PostListViewModel{
     var dailyPostList = [DailyPostViewModel]()
+    
+    mutating func upDateNews(newsList: [News]){
+        for news in newsList{
+            
+        }
+    }
 }
 
 extension DailyPostViewModel{

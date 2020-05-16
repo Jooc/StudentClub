@@ -60,7 +60,7 @@ public class UserService implements UserServiceInterface {
             }
             String password = (String) req.get("password");
 
-            String user_name = (String) req.get("user_name");
+            String user_name = (String) req.get("name");
             String gender = "undefined";
 
             //TODO: get club_info by register code
@@ -120,7 +120,7 @@ public class UserService implements UserServiceInterface {
         club.put("clubAvatar", userModel.club_avatar);
 
         user.put("id", userModel.id);
-        user.put("userName", userModel.user_name);
+        user.put("userName", userModel.name);
         user.put("avatar", userModel.avatar);
         user.put("gender", userModel.gender);
         user.put("description", userModel.description);

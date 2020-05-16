@@ -12,16 +12,17 @@ public interface UserMapper {
     @Select("select password from user where login_email=#{email}")
     String getPassword(String email);
 
-    @Select("select * from user where id=#{id}")
+    @Select("select id, User.name, User.avatar, gender, User.description, club_code, Club.name as club_name, Club.icon as club_avatar, privilege, login_email, password, contact_email, phone_number " +
+            "from User join Club on (User.club_code=Club.code) where id=#{id}")
     UserModel getUserById(int id);
 
     @Select("select id from user where login_email=#{email}")
     int getIdByEmail(String email);
 
-    @Insert({"insert into user(id, user_name, club_code, club_name, club_avatar, privilege, login_email, password)" +
-            "values(#{id}, #{user_name}, #{club_code}, #{club_name}, #{club_avatar}, #{privilege}, #{login_email}, #{password})"})
+    @Insert({"insert into user(id, name, club_code, club_name, club_avatar, privilege, login_email, password)" +
+            "values(#{id}, #{name}, #{club_code}, #{club_name}, #{club_avatar}, #{privilege}, #{login_email}, #{password})"})
     void insertUser(@Param("id") int id,
-                    @Param("user_name") String user_name,
+                    @Param("name") String user_name,
                     @Param("club_code") int club_code,
                     @Param("club_name") String club_name,
                     @Param("club_avatar") String club_avatar,

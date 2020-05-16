@@ -7,10 +7,13 @@
 //
 
 import SwiftUI
+import KingfisherSwiftUI
 
 struct ContentView: View {
     var body: some View {
-        Text("Hello, World!")
+        KFImage(URL(string: "https://jooc-studentclub.oss-cn-huhehaote.aliyuncs.com/UserAvatar/1.png")!)
+        .resizable()
+            .aspectRatio(contentMode: .fit)
     }
 }
 

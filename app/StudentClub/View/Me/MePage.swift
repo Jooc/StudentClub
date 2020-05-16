@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-//import KingfisherSwiftUI
+import KingfisherSwiftUI
 
 struct MePage: View {
     @EnvironmentObject var store: Store
@@ -25,7 +25,9 @@ struct MePage: View {
         self.store.appState.showMe
     }
     
-    var viewModel: MeViewModel
+    var user: User?{
+        self.store.appState.loginState.user
+    }
     
     var body: some View {
         ZStack {
@@ -64,7 +66,7 @@ struct MePage: View {
             .offset(y: self.showMe ? 0 : 1000)
             
             avatar
-                .offset(y: 230)
+                .offset(y: 250)
                 .offset(y: self.showMe ? self.closed ? -50 : -Globals.screen.height*0.85 : 0)
                 .offset(y: self.store.appState.calendarState.calendarViewModel.dragPosition.height/2)
                 .animation(.spring())
@@ -89,27 +91,26 @@ struct MePage: View {
                     .frame(width: proxy.size.width, height: proxy.size.height)
                     .foregroundColor(Color.white)
                     .shadow(radius: 10)
-                Image(uiImage: #imageLiteral(resourceName: "avatar-1"))
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: proxy.size.width*0.92, height: proxy.size.height*0.92)
-                    .clipShape(Circle())
-                    .onTapGesture {
-                        if self.store.appState.meState.closed{
-                            self.store.appState.showMe.toggle()
-                        }
+                if self.user != nil{
+                    KFImage(URL(string: Globals.OSSPrefix+self.user!.avatar) ?? Globals.defaultAvatarURL)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: proxy.size.width*0.92, height: proxy.size.height*0.92)
+                        .clipShape(Circle())
                 }
             }
+//            .onTapGesture {
+//                if self.store.appState.meState.closed{
+//                    self.store.appState.showMe.toggle()
+//                }
+//            }
         }.frame(width: self.store.appState.showMe ? 90 : 75, height: self.store.appState.showMe ? 90 : 75)
     }
 }
 
 struct MePage_Previews: PreviewProvider {
     static var previews: some View {
-        Group {
-            MePage(viewModel: MeViewModel.Sample()).environmentObject(Store.Sample())
-            //            MePage(viewModel: MeViewModel.Sample()).environmentObject(Store.Sample()).previewDevice("iPhone 8")
-        }
+        MePage().environmentObject(Store.Sample())
     }
 }
 

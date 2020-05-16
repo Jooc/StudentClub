@@ -42,11 +42,13 @@ struct PostButton: View {
                     .animation(.spring(response: 0.35, dampingFraction: 0.825, blendDuration: 0))
                     
                     VStack {
-                        NavigationLink(
-                            destination: PostNewsPage()
-                            .navigationBarHidden(true),
-                            isActive: self.$store.appState.showPostNewsPage)
-                        {
+//                        NavigationLink(
+//                            destination: PostNewsPage()
+//                            .navigationBarHidden(true),
+//                            isActive: self.$store.appState.showPostNewsPage)
+                        Button(action: {
+                            self.store.appState.showPostNewsPage = true
+                        }){
                             VStack {
                                 Image(systemName: "text.badge.plus")
                                     .font(.system(size: 15, weight: .light))

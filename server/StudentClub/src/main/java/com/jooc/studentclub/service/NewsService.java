@@ -30,7 +30,7 @@ public class NewsService implements NewsServiceInterface {
 
     public Object getAllNews() {
         List<DBNewsModel> list = newsMapper.getAllNews();
-        ArrayList<HashMap<String, Object>> resultList = pack(list);
+        ArrayList<Object> resultList = pack(list);
 
         return resultList;
     }
@@ -49,14 +49,14 @@ public class NewsService implements NewsServiceInterface {
 
     public Object getByPrivilege(int privilege) {
         List<DBNewsModel> list = newsMapper.getNewsByPrivilege(privilege);
-        ArrayList<HashMap<String, Object>> resultList = pack(list);
+        ArrayList<Object> resultList = pack(list);
 
         return resultList;
     }
 
     public Object getByUserId(int id) {
         List<DBNewsModel> list = newsMapper.getNewsByUserId(id);
-        ArrayList<HashMap<String, Object>> resultList = pack(list);
+        ArrayList<Object> resultList = pack(list);
 
         return resultList;
     }
@@ -144,16 +144,11 @@ public class NewsService implements NewsServiceInterface {
     }
 
 
-    public static ArrayList<HashMap<String, Object>> pack(List<DBNewsModel> list){
-        ArrayList<HashMap<String, Object>> resultList = new ArrayList<>();
+    public static ArrayList<Object> pack(List<DBNewsModel> list){
+        ArrayList<Object> resultList = new ArrayList<>();
 
-        for(DBNewsModel dbNewsModel : list){
-            HashMap<String, Object> newsObject = new HashMap<>();
-
-            NewsModel news = new NewsModel(dbNewsModel);
-
-            newsObject.put("news", news);
-            resultList.add(newsObject);
+        for(DBNewsModel db : list){
+            resultList.add(new NewsModel(db));
         }
 
         return resultList;

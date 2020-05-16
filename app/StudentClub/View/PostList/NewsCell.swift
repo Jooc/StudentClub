@@ -21,7 +21,7 @@ struct NewsCell: View {
         VStack(alignment: .leading, spacing: 0){
             HStack{
                 //                Image(uiImage: #imageLiteral(resourceName: "avatar-1"))
-                KFImage(URL(string: viewModel.news.newsPublisher.avatar))
+                KFImage(URL(string: viewModel.news.publisherInfo.avatar))
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .clipShape(Circle())
