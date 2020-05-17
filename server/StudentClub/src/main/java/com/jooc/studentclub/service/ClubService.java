@@ -202,6 +202,12 @@ public class ClubService implements ClubServiceInterface {
             DBClubModel db = clubMapper.getByCode(clubCode);
 
             JSONArray membersArray = JSONArray.parseArray(db.members_id);
+            if (membersArray.contains(db.members_id)){
+                res.put("code", -1);
+                res.put("msg", "该用户已在俱乐部内");
+                return res;
+            }
+
             membersArray.add(newMemberId);
             String newMembers = JSONArray.toJSONString(membersArray);
 

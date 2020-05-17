@@ -21,15 +21,19 @@ enum AppAction {
     case accountBehaviorDone(result: Result<User, AppError>)
 //    case accountBehaviorDone(result: Result<UserResponse, AppError>)
     case logout
+    case register
+    case registerDone(result: Result<String, AppError>)
     
     // MARK: Loading
-    case loadNews // case loadPost
-    case loadNewsDone(result: Result<[News], AppError>) // case loadPostDone
+    case loadNews
+    case loadNewsDone(result: Result<[News], AppError>)
+    case loadBlog
+    case loadBlogDone(result: Result<[Blog], AppError>)
     
     case loadEvents
     case loadEventsDone(result: Result<[Event], AppError>)
-    case loadBlogLPMetaData(blogIndex: (Int, Int))
-    case loadBlogLPMetaDataDone(blogIndex: (Int, Int), result: Result<LPLinkMetadata, AppError>)
+    case loadBlogLPMetaData(index: Int)
+    case loadBlogLPMetaDataDone(blogIndex: Int, result: Result<LPLinkMetadata, AppError>)
     
     // MARK: UI Event
     case clickDayCell(day: EDayViewModel)
@@ -40,6 +44,11 @@ enum AppAction {
     case nextPage
     case lastPage
     
-//    case postNews
-//    case postNewsDone
+    case postNews
+    case postNewsDone(result: Result<News, AppError>)
+    case postBlog
+    case postBlogDone(result: Result<Blog, AppError>)
+    
+    case verifyRegisterCode
+    case verifyRegisterCodeDone(result: Result<String, AppError>)
 }

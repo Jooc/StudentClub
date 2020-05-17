@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct University: Codable {
+struct Club: Codable {
     var code: Int
     var name: String
     var icon: String

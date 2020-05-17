@@ -6,7 +6,7 @@ import com.jooc.studentclub.mapper.UserMapper;
 import com.jooc.studentclub.model.BlogModel;
 import com.jooc.studentclub.model.DBModel.DBBlogModel;
 import com.jooc.studentclub.model.UserInfoModel;
-import com.jooc.studentclub.model.UserModel;
+import com.jooc.studentclub.model.DBModel.DBUserModel;
 import com.jooc.studentclub.service.BlogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -67,8 +67,8 @@ public class BlogController {
             return res;
         }
 
-        UserModel userModel = userMapper.getUserById(user_id);
-        if (userModel.privilege < 2){
+        DBUserModel DBUserModel = userMapper.getUserById(user_id);
+        if (DBUserModel.privilege < 1){
             res.put("code", -1);
             res.put("msg", "权限不足");
             return res;
@@ -76,7 +76,7 @@ public class BlogController {
             try {
 
                 // TODO: generate unique ID
-                int id = Integer.parseInt(req.get("id").toString());
+                int id = blogMapper.getMaxId() + 1;
 
                 Date d = new Date();
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -94,6 +94,7 @@ public class BlogController {
 
                 blogService.insert(db);
 
+                res.put("blog", new BlogModel(blogMapper.getById(id)));
                 res.put("code", 0);
                 res.put("msg", "发布成功");
             }catch (Exception e){
@@ -128,8 +129,8 @@ public class BlogController {
                 res.put("msg", "删除成功");
                 return res;
             }else{
-                UserModel publisherModel = userMapper.getUserById(blogModel.publisherInfo.id);
-                UserModel requesterModel = userMapper.getUserById(user_id);
+                DBUserModel publisherModel = userMapper.getUserById(blogModel.publisherInfo.id);
+                DBUserModel requesterModel = userMapper.getUserById(user_id);
 
                 if(requesterModel.privilege > publisherModel.privilege){
                     blogService.delete(blog_id);

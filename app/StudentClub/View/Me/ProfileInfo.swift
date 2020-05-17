@@ -54,7 +54,7 @@ struct ProfileInfo: View {
                 HStack {
                     Text("用户名")
                     Spacer()
-                    EditableText(content: user.userName)
+                    EditableText(content: user.name)
                     rightArrow
                 }
                 .frame(height: 50)

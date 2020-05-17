@@ -10,6 +10,7 @@ import SwiftUI
 
 struct NewsPage: View {
     @EnvironmentObject var store: Store
+    @GestureState private var translation = CGPoint.zero
     
     var viewModel: PostListViewModel{
         self.store.appState.postListState.postListViewModel
@@ -19,12 +20,27 @@ struct NewsPage: View {
         ZStack {
             Color("Base")
                 .edgesIgnoringSafeArea(.all)
-            VStack(spacing: 0) {
+            VStack() {
                 ScrollView(showsIndicators: false) {
                     header
+                        .gesture(
+                            DragGesture().updating(self.$translation){ current, state, _ in
+                                state.y = current.translation.height
+                            }
+                            .onEnded(){ state in
+                                if state.translation.height > 100{
+                                    print(state.translation.height)
+                                    self.store.dispatch(.loadNews)
+                                }
+                        }).animation(.spring())
                     
-                    ForEach(viewModel.dailyPostList.indices){index in
-                        DailyPostCell(dailyPostIndex: index)
+                    ForEach(viewModel.blogList){viewModel in
+                        BlogCell(viewModel: viewModel)
+                            .padding(.vertical)
+                    }
+                    
+                    ForEach(viewModel.newsList){viewModel in
+                        NewsCell(viewModel: viewModel)
                             .padding(.vertical)
                     }
                 }
@@ -47,6 +63,7 @@ struct NewsPage: View {
                 .padding(.leading, 5)
                 
                 PostButton()
+                    .padding(.top, 10)
             }
             
         }.frame(width: Globals.screen.width, alignment: .topLeading)

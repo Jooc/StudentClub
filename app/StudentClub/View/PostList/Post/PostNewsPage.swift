@@ -32,10 +32,11 @@ struct PostNewsPage: View {
                         .padding(.vertical)
                     
                     imagePad
+                        .padding(.bottom, 200)
                     
-                    Spacer()
                     Divider()
-                    TextField("地址", text: self.$store.appState.postState.location)
+                    TextField("标签", text: self.$store.appState.postState.tags)
+                    Spacer()
                 }.padding(.horizontal)
                 Spacer()
             }
@@ -71,7 +72,7 @@ struct PostNewsPage: View {
     var header: some View{
         HStack{
             Button(action: {
-                self.store.appState.showPostNewsPage = false
+                self.store.appState.upSliderPageState = .NONE
             }){
                 Text("取消")
                     .foregroundColor(Color.black)
@@ -80,8 +81,7 @@ struct PostNewsPage: View {
             Spacer()
             
             Button(action:{
-                self.store.appState.showPostNewsPage = false
-//                self.store.appState.showNav1 = false 
+                self.store.dispatch(.postNews)
             }){
                 Text("发布")
                     .foregroundColor(Color.white)
@@ -97,9 +97,11 @@ struct PostNewsPage: View {
     var imagePad: some View{
         ScrollView(.horizontal){
             HStack {
-                self.store.appState.postState.image?
-                    .resizable()
-                    .frame(width: 100, height: 100)
+                if self.store.appState.postState.image != nil{
+                    Image(uiImage: self.store.appState.postState.image!)
+                        .resizable()
+                        .frame(width: 100, height: 100)
+                }
                 
                 Image(systemName: "plus")
                     .font(.system(size: 30))

@@ -22,7 +22,7 @@ struct PostButton: View {
                 ZStack(alignment: .topTrailing) {
                     HStack {
                         Button(action:{
-                            
+                            self.store.appState.upSliderPageState = .postBlog
                         }){
                             VStack {
                                 Image(systemName: "calendar.badge.plus")
@@ -42,12 +42,8 @@ struct PostButton: View {
                     .animation(.spring(response: 0.35, dampingFraction: 0.825, blendDuration: 0))
                     
                     VStack {
-//                        NavigationLink(
-//                            destination: PostNewsPage()
-//                            .navigationBarHidden(true),
-//                            isActive: self.$store.appState.showPostNewsPage)
                         Button(action: {
-                            self.store.appState.showPostNewsPage = true
+                            self.store.appState.upSliderPageState = .postNews
                         }){
                             VStack {
                                 Image(systemName: "text.badge.plus")

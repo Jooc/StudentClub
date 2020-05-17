@@ -9,14 +9,14 @@
 import SwiftUI
 import LinkPresentation
 
-struct RichLickView: UIViewRepresentable {
+struct RichLinkView: UIViewRepresentable {
     var metaData: LPLinkMetadata
     
-    func makeUIView(context: UIViewRepresentableContext<RichLickView>) -> LPLinkView {
+    func makeUIView(context: UIViewRepresentableContext<RichLinkView>) -> LPLinkView {
         return LPLinkView(metadata: self.metaData)
     }
     
-    func updateUIView(_ uiView: LPLinkView, context: UIViewRepresentableContext<RichLickView>) {
+    func updateUIView(_ uiView: LPLinkView, context: UIViewRepresentableContext<RichLinkView>) {
         uiView.metadata = self.metaData
     }
 }

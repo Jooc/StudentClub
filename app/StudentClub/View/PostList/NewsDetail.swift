@@ -21,12 +21,12 @@ struct NewsDetail: View {
                 .edgesIgnoringSafeArea(.all)
             ScrollView(.vertical) {
                 ZStack {
-                    VStack(spacing: 30) {
+                    VStack(alignment: .leading, spacing: 30) {
                         ScrollView(.horizontal, showsIndicators: false){
                             HStack {
                                 ForEach(viewModel.news.images, id:\.self) { image in
                                     VStack {
-                                        KFImage(URL(string: image))
+                                        KFImage(URL(string: Globals.OSSPrefix + image))
                                             .resizable()
                                             .aspectRatio(contentMode: .fit)
                                     }.frame(width: Globals.screen.width)

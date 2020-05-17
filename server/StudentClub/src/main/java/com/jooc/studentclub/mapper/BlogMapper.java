@@ -20,6 +20,9 @@ public interface BlogMapper {
     @Select("select Blog.id, post_time, url, publisher_id, User.name, User.avatar, Blog.privilege, tags from  Blog join User on (Blog.publisher_id=User.id) where publisher_id = #{user_id};")
     List<DBBlogModel> getByUserId(int user_id);
 
+    @Select("select max(id) from Blog")
+    int getMaxId();
+
     @Insert("insert into Blog(id, post_time, url, publisher_id, privilege, tags) values(#{db.id}, #{db.post_time}, #{db.url}, #{db.publisher_id}, #{db.privilege}, #{db.tags}); ")
     void insertBlog(@Param("db") DBBlogModel db);
 

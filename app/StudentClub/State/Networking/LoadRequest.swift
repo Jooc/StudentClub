@@ -27,23 +27,20 @@ struct LoadNewsRequest {
     }
 }
 
-
-//struct LoadNewsRequest {
-//    let userPrivilege: Int
-//
-//    var publisher: AnyPublisher<[News], AppError>{
-//        Future{promise in
-//            DispatchQueue.global()
-//                .asyncAfter(deadline: .now() + 1.5){
-//                    if true{
-//                        let newsList = News.all
-//                        promise(.success(newsList))
-//                    }else{
-//                        promise(.failure(.loadNewsError))
-//                    }
-//            }
-//        }
-//        .receive(on: DispatchQueue.main)
-//        .eraseToAnyPublisher()
-//    }
-//}
+struct LoadBlogRequest {
+    let userPrivilege: Int
+    
+    var publisher: AnyPublisher<[Blog], AppError>{
+        guard let url = URL(string: Globals.serverUrl + "/blog/getByPrivilege?privilege=" + String(userPrivilege))else{
+            return Fail<[Blog], AppError>(error: .invalidURL).eraseToAnyPublisher()
+        }
+        print(url)
+        return URLSession.shared
+            .dataTaskPublisher(for: url)
+            .map{$0.data}
+            .decode(type: [Blog].self, decoder: JSONDecoder())
+            .mapError{AppError.networkFailed($0)}
+            .receive(on: DispatchQueue.main)
+            .eraseToAnyPublisher()
+    }
+}

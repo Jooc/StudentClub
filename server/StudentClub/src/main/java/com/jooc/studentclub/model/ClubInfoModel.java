@@ -5,6 +5,12 @@ public class ClubInfoModel {
     public String club_name;
     public String club_avatar;
 
+    public ClubInfoModel(int code, String name, String avatar){
+        this.club_code = code;
+        this.club_name = name;
+        this.club_avatar = avatar;
+    }
+
     public int getClub_code() {
         return club_code;
     }

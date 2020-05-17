@@ -11,6 +11,8 @@ import SwiftUI
 struct RegisterPad: View {
     @EnvironmentObject var store: Store
     
+    @State var showRegisterVerify: Bool = false
+    
     var registerState: AppState.LoginState{
         self.store.appState.loginState
     }
@@ -23,14 +25,19 @@ struct RegisterPad: View {
         VStack(spacing: 15) {
             Spacer()
             
-            HStack {
-                Text("valid register code: TJ")
-                    .foregroundColor(Color.green.opacity(0.7))
-                    .padding(.leading, 5)
-                    .offset(y: 10)
-                Spacer()
+            if self.showRegisterVerify{
+                if self.store.appState.loginState.registerAccountChecker.isRegisterCodeValid{
+                    Text("valid register code: " + self.store.appState.loginState.registerAccountChecker.validClubName)
+                        .foregroundColor(Color.green.opacity(0.7))
+                        .padding(.leading, 5)
+                        .offset(y: 10)
+                }else{
+                    Text("invalid register code")
+                        .foregroundColor(Color.red)
+                        .padding(.leading, 5)
+                        .offset(y: 10)
+                }
             }
-            
             
             VStack {
                 TextField("register code", text: accountBinding.registerCode)
@@ -38,7 +45,8 @@ struct RegisterPad: View {
                 HStack {
                     Spacer()
                     Button(action: {
-                        
+                        self.showRegisterVerify = true
+                        self.store.dispatch(.verifyRegisterCode)
                     }){
                         Text("verify")
                             .foregroundColor(Color.blue)
@@ -61,7 +69,7 @@ struct RegisterPad: View {
             HStack {
                 Spacer()
                 Button(action: {
-                    
+                    self.store.dispatch(.register)
                 }){
                     Text("Register")
                         .foregroundColor(Color.gray)

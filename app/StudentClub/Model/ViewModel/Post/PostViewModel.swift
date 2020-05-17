@@ -9,14 +9,25 @@
 import Foundation
 import LinkPresentation
 
-struct BlogViewModel: Identifiable {
+struct BlogViewModel:Hashable, Identifiable {
+    static func == (lhs: BlogViewModel, rhs: BlogViewModel) -> Bool {
+        return lhs.nID == rhs.nID
+    }
+    
+    var nID = UUID()
+    
     var id:Int {blog.id}
     
     var metaData = LPLinkMetadata()
     var blog: Blog
 }
 
-struct NewsViewModel: Identifiable, Codable {
+struct NewsViewModel: Hashable, Identifiable, Codable {
+    static func == (lhs: NewsViewModel, rhs: NewsViewModel) -> Bool {
+        return lhs.nID == rhs.nID
+    }
+    var nID = UUID()
+    
     var id:Int {news.id}
     
     var news: News

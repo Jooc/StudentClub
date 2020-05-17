@@ -3,7 +3,7 @@ package com.jooc.studentclub.controller;
 import com.jooc.studentclub.mapper.NewsMapper;
 import com.jooc.studentclub.mapper.UserMapper;
 import com.jooc.studentclub.model.NewsModel;
-import com.jooc.studentclub.model.UserModel;
+import com.jooc.studentclub.model.DBModel.DBUserModel;
 import com.jooc.studentclub.service.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
@@ -62,6 +62,10 @@ public class NewsController {
     public Object Publisher(@RequestParam HashMap<String, Object> req, @RequestPart(value = "files", required = false)MultipartFile[] uploadedFiles) throws IOException{
         HashMap<String, Object> res = new HashMap<>();
 
+        Date d = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        System.out.println("" + sdf.format(d) + " [Request]: publisher News");
+
         try{
             int user_id = Integer.parseInt(req.get("publisher_id").toString());
 //            int privilege =  Integer.parseInt(req.get("privilege").toString());
@@ -110,8 +114,8 @@ public class NewsController {
                 res.put("msg", "删除成功");
                 return res;
             }else{
-                UserModel publisherModel = userMapper.getUserById(newsModel.publisherInfo.id);
-                UserModel requesterModel = userMapper.getUserById(user_id);
+                DBUserModel publisherModel = userMapper.getUserById(newsModel.publisherInfo.id);
+                DBUserModel requesterModel = userMapper.getUserById(user_id);
 
                 // 非本人情况，需要请求者权限大于原发布人
                 if (requesterModel.privilege > publisherModel.privilege){

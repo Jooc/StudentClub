@@ -32,7 +32,7 @@ struct Event_Pro {
     
     var initiator: User
     var user_privilege: Int
-    var university: University
+    var university: Club
     
     var participants: [User]
     

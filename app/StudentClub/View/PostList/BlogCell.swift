@@ -11,16 +11,13 @@ import KingfisherSwiftUI
 
 struct BlogCell: View {
     @EnvironmentObject var store: Store
-    var blogIndex: (Int, Int)
     
-    var viewModel: BlogViewModel{
-        self.store.appState.postListState.postListViewModel.dailyPostList[blogIndex.0].blogList[blogIndex.1]
-    }
+    var viewModel: BlogViewModel
     
     var body: some View {
         VStack {
             HStack{
-                KFImage(URL(string: viewModel.blog.blogPublisher.avatar))
+                KFImage(URL(string: Globals.OSSPrefix + viewModel.blog.publisherInfo.avatar))
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .clipShape(Circle())
@@ -28,9 +25,7 @@ struct BlogCell: View {
                     .padding(.leading, 10)
                 
                 VStack(spacing: 5) {
-                    Text("Jooc")
-                    Text("TITLE")
-                        .font(.subheadline)
+                    Text(viewModel.blog.publisherInfo.name)
                 }
                 Spacer()
                 Image(systemName: "chevron.right")
@@ -39,19 +34,16 @@ struct BlogCell: View {
                     .padding()
                 
             }
-            .frame(height: 60)
+            .frame(height: 50)
             .padding(5)
             
-            
-            RichLickView(metaData: viewModel.metaData)
+            RichLinkView(metaData: viewModel.metaData)
         }
         .frame(width: Globals.screen.width*0.9)
         .background(Color.white)
         .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
         .onAppear(){
-            if self.viewModel.metaData.title == nil{
-                self.store.dispatch(.loadBlogLPMetaData(blogIndex: self.blogIndex))
-            }
+//            self.store.dispatch(.loadBlogLPMetaData(index: self.store.appState.postListState.postListViewModel.blogList.firstIndex(of: self.viewModel)!))
         }
     }
 }
@@ -60,7 +52,7 @@ struct BlogCell_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
             Color("Base").edgesIgnoringSafeArea(.all)
-            BlogCell(blogIndex: (0, 0))
+            BlogCell(viewModel: BlogViewModel.Sample()).environmentObject(Store.Sample())
         }
     }
 }

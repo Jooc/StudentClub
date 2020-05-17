@@ -20,10 +20,10 @@ struct MePage: View {
     var dragPosition: CGSize{
         self.store.appState.calendarState.calendarViewModel.dragPosition
     }
-    
-    var showMe: Bool{
-        self.store.appState.showMe
-    }
+//
+//    var showMe: Bool{
+//        self.store.appState.showMe
+//    }
     
     var user: User?{
         self.store.appState.loginState.user
@@ -36,9 +36,9 @@ struct MePage: View {
                     .edgesIgnoringSafeArea(.all)
                 
                 ButtonList()
-                    .offset(y: -20)
+                    .offset(y: 0)
                     .offset(y: self.closed ? 195 : 0)
-                    .offset(y: self.showMe ? 0 : -300)
+//                    .offset(y: self.showMe ? 0 : -300)
                     .animation(.spring(response: 0.55, dampingFraction: 0.825, blendDuration: 0))
 
                 profile
@@ -62,12 +62,12 @@ struct MePage: View {
                             self.store.appState.calendarState.calendarViewModel.dragPosition = .zero
                     })
             }
-            .scaleEffect(self.showMe ? 1 : 0)
-            .offset(y: self.showMe ? 0 : 1000)
+//            .scaleEffect(self.showMe ? 1 : 0)
+//            .offset(y: self.showMe ? 0 : 1000)
             
             avatar
                 .offset(y: 250)
-                .offset(y: self.showMe ? self.closed ? -50 : -Globals.screen.height*0.85 : 0)
+                .offset(y: self.closed ? 0 : -Globals.screen.height*0.8)
                 .offset(y: self.store.appState.calendarState.calendarViewModel.dragPosition.height/2)
                 .animation(.spring())
         }
@@ -104,7 +104,8 @@ struct MePage: View {
 //                    self.store.appState.showMe.toggle()
 //                }
 //            }
-        }.frame(width: self.store.appState.showMe ? 90 : 75, height: self.store.appState.showMe ? 90 : 75)
+        }
+        .frame(width: self.closed ? 90 : 75, height: self.closed ? 90 : 75)
     }
 }
 

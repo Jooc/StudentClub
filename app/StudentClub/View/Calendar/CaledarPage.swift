@@ -17,39 +17,42 @@ struct CalendarPage: View {
     }
     
     var body: some View {
-        VStack(spacing: 0){
-            VStack(spacing: 0){
-                CalendarHeader()
-                CalendarPad()
-            }
-            ZStack {
-                if self.selectedDay != nil{
-                    VStack{
-                        List(selectedDay!.events, id:\.self){event in
-                            Text(event.title)
+        ZStack {
+            ScrollView(.vertical) {
+                VStack(spacing: 0){
+                    VStack(spacing: 0){
+                        CalendarHeader()
+                        CalendarPad()
+                    }
+                    ZStack {
+                        if self.selectedDay != nil{
+                            VStack{
+                                List(selectedDay!.events, id:\.self){event in
+                                    Text(event.title)
+                                }
+                            }
+                            .frame(width: Globals.screen.width)
+                            .frame(maxHeight: .infinity)
                         }
                     }
-                    .frame(width: Globals.screen.width)
-                    .frame(maxHeight: .infinity)
-                }
-                
-                VStack {
                     Spacer()
-                    HStack {
-                        Spacer()
-                        Button(action: {self.showAddPage.toggle()}){
-                            CircleButton(icon: "calendar.badge.plus")
-                                .padding(.trailing, 15)
-                        }
-                        .offset(x: self.selectedDay == nil ? 150 : 0)
-                        .sheet(isPresented: $showAddPage){
-                            Text("123")
-                        }
-                        .animation(.spring())
-                    }
                 }
             }
-            Spacer()
+            VStack {
+                Spacer()
+                HStack {
+                    Spacer()
+                    Button(action: {self.showAddPage.toggle()}){
+                        CircleButton(icon: "calendar.badge.plus")
+                            .padding(15)
+                    }
+                    .offset(x: self.selectedDay == nil ? 150 : 0)
+                    .sheet(isPresented: $showAddPage){
+                        Text("123")
+                    }
+                    .animation(.spring())
+                }
+            }
         }
     }
 }

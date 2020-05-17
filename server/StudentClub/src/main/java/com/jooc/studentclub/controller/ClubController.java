@@ -46,8 +46,8 @@ public class ClubController {
         return clubService.getRegisterCodeByClubCode(clubCode);
     }
 
-    @GetMapping("/getClubNameByRegisterCode")
-    public Object getClubNameByRegisterCode(String registerCode){
+    @GetMapping("/verifyRegisterCode")
+    public Object verifyRegisterCode(String registerCode){
         return clubService.getClubNameByRegisterCode(registerCode);
     }
 

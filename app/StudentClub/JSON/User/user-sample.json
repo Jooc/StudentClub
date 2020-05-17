@@ -1,5 +1,5 @@
 {
-    "id": 0,
+    "id": 1,
     "userName": "Jooc",
     "avatar": "https://jooc-studentclub.oss-cn-huhehaote.aliyuncs.com/UserAvatar/1.png",
     "gender": "Male",
@@ -9,9 +9,9 @@
         "clubName": "TJ",
         "clubAvatar": ""
     },
-    "userPrivilege": 4,
+    "userPrivilege": 6,
     
-    "loginEmail": "bbb@qq.com",
+    "loginEmail": "Jooc@qq.com",
     "password": "123",
     
     "contactEmail": "1023578360@qq.com",

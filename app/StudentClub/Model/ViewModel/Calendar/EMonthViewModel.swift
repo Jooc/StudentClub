@@ -10,7 +10,7 @@ import Foundation
 import SwiftUI
 
 class EMonthViewModel: Identifiable{
-    var space: CGFloat = 25
+    var space: CGFloat = 0
     
     var year = 2020
     

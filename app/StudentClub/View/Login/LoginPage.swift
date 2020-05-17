@@ -8,14 +8,12 @@
 
 import SwiftUI
 
-enum LoginBehavior {
-    case login, register
-}
-
 struct LoginPage: View {
     @EnvironmentObject var store: Store
     
-    @State var loginState: LoginBehavior = .login
+    var loginState: AppState.LoginState.LoginBehavior{
+        self.store.appState.loginState.loginBehavior
+    }
     @GestureState private var translation = CGPoint.zero
     
     func hideKeyBoard( ){
@@ -26,43 +24,43 @@ struct LoginPage: View {
         ZStack {
             Color("Base")
                 .edgesIgnoringSafeArea(.all)
-                .blur(radius: (self.loginState==LoginBehavior.register) ? 5:0)
+                .blur(radius: (self.loginState==AppState.LoginState.LoginBehavior.register) ? 5:0)
             ZStack(alignment: .top) {
                 background
                     .offset(y: self.store.appState.loginState.isInputting ? 50 : 0)
-                    .blur(radius: (self.loginState==LoginBehavior.register) ? 5:0)
+                    .blur(radius: (self.loginState==AppState.LoginState.LoginBehavior.register) ? 5:0)
 
                 LoginPad()
                     .offset(y:Globals.screen.height*0.53)
-                    .offset(x: (self.loginState==LoginBehavior.login) ? 0:-Globals.screen.width)
+                    .offset(x: (self.loginState==AppState.LoginState.LoginBehavior.login) ? 0:-Globals.screen.width)
                     .offset(x: self.translation.x)
                     .gesture(
                         DragGesture().updating($translation){ current, state, _ in
                             state.x = current.translation.width
-                            print(current.translation.width)
+//                            print(current.translation.width)
                         }
                         .onEnded(){ state in
                             if state.predictedEndTranslation.width < -Globals.screen.width*0.5{
-                                self.loginState = LoginBehavior.register
+                                self.store.appState.loginState.loginBehavior = AppState.LoginState.LoginBehavior.register
                                 self.hideKeyBoard()
                             }
                     })
                 
                 loginButton
-                    .blur(radius: (self.loginState==LoginBehavior.register) ? 5:0)
+                    .blur(radius: (self.loginState==AppState.LoginState.LoginBehavior.register) ? 5:0)
                 
                 RegisterPad()
                     .offset(y:50)
-                    .offset(x: (self.loginState==LoginBehavior.register) ? 0:Globals.screen.width*2)
+                    .offset(x: (self.loginState==AppState.LoginState.LoginBehavior.register) ? 0:Globals.screen.width*2)
                     .offset(x: self.translation.x)
-                    .scaleEffect((self.loginState==LoginBehavior.register) ? 1:0.5 )
+                    .scaleEffect((self.loginState==AppState.LoginState.LoginBehavior.register) ? 1:0.5 )
                     .gesture(
                         DragGesture().updating($translation){ current, state, _ in
                             state.x = current.translation.width
                         }
                         .onEnded(){ state in
                             if state.predictedEndTranslation.width > Globals.screen.width*0.5{
-                                self.loginState = LoginBehavior.login
+                                self.store.appState.loginState.loginBehavior = AppState.LoginState.LoginBehavior.login
                             }
                     })
             }
@@ -75,6 +73,9 @@ struct LoginPage: View {
         }
         .animation(.spring())
         .alert(item: self.$store.appState.loginState.loginError){error in
+            Alert(title: Text(error.localizedDescription))
+        }
+        .alert(item: self.$store.appState.loginState.registerError){error in
             Alert(title: Text(error.localizedDescription))
         }
     }

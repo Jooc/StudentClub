@@ -36,21 +36,21 @@ struct EditUserName: View {
                     Spacer()
                     
                     Button(action:{
-                        if self.user.userName != self.newName {
+                        if self.user.name != self.newName {
                             
                         }
                     }){
                         Text("确认")
                             .foregroundColor(Color.white)
                             .padding(.all, 10)
-                            .background(user.userName == newName ? Color.gray.opacity(0.5) : Color.green)
+                            .background(user.name == newName ? Color.gray.opacity(0.5) : Color.green)
                         .clipShape(RoundedRectangle(cornerRadius: 5))
                     }
                 }
                 .padding(.horizontal, 10)
                 .padding(.vertical, 10)
                 
-                TextField(user.userName, text: self.$newName)
+                TextField(user.name, text: self.$newName)
                     .padding(.horizontal, 30)
                     .padding(.vertical, 20)
                     .background(Color.white)

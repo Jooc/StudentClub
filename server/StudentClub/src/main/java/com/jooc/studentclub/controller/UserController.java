@@ -43,4 +43,9 @@ public class UserController {
         return userService.register(req);
     }
 
+    @GetMapping("/test")
+    public Object test(){
+        return "OK";
+    }
+
 }

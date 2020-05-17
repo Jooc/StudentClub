@@ -22,7 +22,7 @@ enum Gender: CaseIterable{
 
 struct User: Codable {
     var id: Int
-    var userName: String
+    var name: String
     var avatar: String
     //TODO: var gender: Gender
     var gender: String
@@ -46,7 +46,7 @@ struct User: Codable {
 extension User{
     static func defaultUser() -> User{
         return User(
-            id: -1, userName: "123",
+            id: -1, name: "123",
             avatar: "", gender: "Male",
             description: "",
             clubInfo: ClubInfo(clubCode: 0, clubName: "TJ", clubAvatar: ""),

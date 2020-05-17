@@ -8,9 +8,17 @@
 
 import Foundation
 import Combine
+import Alamofire
 import SwiftUI
 
 struct AppState{
+    enum UpSliderPageState {
+        case postNews, postBlog, NONE
+    }
+    enum RightSliderPageState{
+        case newsDetail, profile, newsBase, blogBase, clubInfo, clubList, NONE
+    }
+    
     var loginState = LoginState()
     var postListState = PostListState()
     var postState = PostState()
@@ -19,10 +27,10 @@ struct AppState{
     
     var showMe = true
     
-//    var pickedImage: Image?
-    
-    var showPostNewsPage = false
+//    var showPostNewsPage = false
     var showDetailedNews = false
+    var upSliderPageState: UpSliderPageState = .NONE
+    var rightSliderPageState: RightSliderPageState = .NONE
     
     init() {
     }
@@ -33,9 +41,18 @@ extension AppState{
             @FileStorage(directory: .documentDirectory, fileName: "user.json")
              var user: User?
             
+            enum LoginBehavior {
+                case login, register
+            }
+            var loginBehavior = LoginBehavior.login
+            
             var isInputting = false
             var isLogining = false
+            var isVerifing = false
+            var isRegistering = false
+            
             var loginError: AppError?
+            var registerError: AppError?
             
             var loginAccountChecker = LoginAccountChecker()
             var registerAccountChecker = RegisterAccountChecker()
@@ -58,6 +75,9 @@ extension AppState{
                 @Published var password = ""
                 @Published var verifyPassword = ""
                 
+                @Published var isRegisterCodeValid: Bool = false
+                @Published var validClubName: String = ""
+                
                 var isEmailValid: AnyPublisher<Bool, Never>{
                     $loginEmail.map{ $0.isValidEmailAddress }.eraseToAnyPublisher()
                 }
@@ -67,13 +87,15 @@ extension AppState{
 
 extension AppState{
     struct PostListState {
-        var postListViewModel  = PostListViewModel()
+        var postListViewModel  = PostListViewModel(date: "2020-5-17")
         
         var showAddButtons = false
         
         var detailedNews: NewsViewModel? = nil
         var isLoading = false
         var loadNewsError: AppError?
+        var postNewsError: AppError?
+        var postBlogError: AppError?
         
         mutating func showNewsDetail(news: NewsViewModel) {
             self.detailedNews = news
@@ -83,6 +105,8 @@ extension AppState{
 
 extension AppState{
     struct PostState {
+        var isPosting: Bool = false
+        
         var showCamera = false
         var showPhotoLibrary = false
         
@@ -90,8 +114,11 @@ extension AppState{
         
         var title: String = ""
         var content: String = ""
-        var image: Image?
-        var location: String = ""
+        var tags: String = ""
+        var privilege: Int = 0
+        var image: UIImage?
+        
+        var blogURL: String = ""
     }
 }
 
@@ -99,7 +126,7 @@ extension AppState{
     struct MeState{
         var viewModel = MeViewModel()
         
-        var closed = true
+        var closed = false
         
         var isProfileActive = false
         var isNewsPostActive = false

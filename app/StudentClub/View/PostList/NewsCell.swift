@@ -11,26 +11,21 @@ import KingfisherSwiftUI
 
 struct NewsCell: View {
     @EnvironmentObject var store: Store
-    var newsIndex: (Int, Int)
-    
-    var viewModel: NewsViewModel{
-        self.store.appState.postListState.postListViewModel.dailyPostList[newsIndex.0].newsList[newsIndex.1]
-    }
+    var viewModel: NewsViewModel
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0){
-            HStack{
-                //                Image(uiImage: #imageLiteral(resourceName: "avatar-1"))
-                KFImage(URL(string: viewModel.news.publisherInfo.avatar))
+            HStack(spacing: 10){
+                KFImage(URL(string: Globals.OSSPrefix + viewModel.news.publisherInfo.avatar))
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .clipShape(Circle())
                     .frame(height: 50)
                     .padding(.leading, 10)
                 
-                VStack(spacing: 5) {
-                    Text("Jooc")
-                    Text("TITLE")
+                VStack(alignment:.leading, spacing: 5) {
+                    Text(viewModel.news.publisherInfo.name)
+                    Text(viewModel.news.title)
                         .font(.subheadline)
                 }
                 Spacer()
@@ -44,7 +39,7 @@ struct NewsCell: View {
             .padding(5)
             
             //            Image(uiImage: #imageLiteral(resourceName: "news-1"))
-            KFImage(URL(string: viewModel.news.images[0]))
+            KFImage(URL(string: Globals.OSSPrefix + viewModel.news.images[0]))
                 .resizable()
                 .aspectRatio(contentMode: .fill)
                 .frame(width: Globals.screen.width*0.9, height: 330)
@@ -67,7 +62,7 @@ struct NewsCell_Previews: PreviewProvider {
         ZStack {
             Color("Base")
                 .edgesIgnoringSafeArea(.all)
-            NewsCell(newsIndex: (0,0)).environmentObject(Store())
+            NewsCell(viewModel: NewsViewModel.Sample(id: 1)).environmentObject(Store())
         }
     }
 }

@@ -1,9 +1,11 @@
 package com.jooc.studentclub.service;
 
+import com.alibaba.fastjson.JSONArray;
+import com.jooc.studentclub.mapper.ClubMapper;
 import com.jooc.studentclub.mapper.UserMapper;
-import com.jooc.studentclub.model.ClubInfoModel;
+import com.jooc.studentclub.model.DBModel.DBClubModel;
 import com.jooc.studentclub.model.UserInfoModel;
-import com.jooc.studentclub.model.UserModel;
+import com.jooc.studentclub.model.DBModel.DBUserModel;
 import com.jooc.studentclub.service.interfaces.UserServiceInterface;
 
 
@@ -17,11 +19,13 @@ import java.util.HashMap;
 public class UserService implements UserServiceInterface {
 
     @Autowired
-    public UserMapper userMapper;
+    private UserMapper userMapper;
+    @Autowired
+    private ClubMapper clubMapper;
 
     public Object getUserById(int id){
-        UserModel userModel = userMapper.getUserById(id);
-        return packUser(userModel);
+        DBUserModel DBUserModel = userMapper.getUserById(id);
+        return packUser(DBUserModel);
     }
 
     public Object getUserInfoById(int id){
@@ -48,8 +52,7 @@ public class UserService implements UserServiceInterface {
         HashMap<String, Object> res = new HashMap<>();
 
         try{
-            //TODO: Set unique id
-            int id = 75148;
+            int id = userMapper.getMaxId()+1;
 
             String login_email = (String) req.get("login_email");
             String emailDuplicationCheck = userMapper.getPassword(login_email);
@@ -61,19 +64,28 @@ public class UserService implements UserServiceInterface {
             String password = (String) req.get("password");
 
             String user_name = (String) req.get("name");
+            String avatar = "UserAvatar/defaultAvatar";
             String gender = "undefined";
+            String description = "";
 
             //TODO: get club_info by register code
-            ClubInfoModel clubInfoModel = new ClubInfoModel();
-            int club_code = clubInfoModel.club_code;
-            String club_name = clubInfoModel.club_name;
-            String club_avatar = clubInfoModel.club_avatar;
+            String registerCode = (String) req.get("registerCode");
+            int clubCode = Integer.parseInt(clubMapper.getClubCodeByRegisterCode(registerCode));
 
-            //TODO: get privilege Code by register code
-            int privilege = Common.level0;
+            // 从这个入口注册的都是普通成员
+            int privilege = Common.level1;
+            String contact_email = "";
+            String phone_number = "";
 
-            userMapper.insertUser(id, user_name, club_code, club_name, club_avatar, privilege, login_email, password);
-            res.put("user", userMapper.getUserById(id));
+            userMapper.insertUser(id, user_name, avatar, gender, description, clubCode, privilege, login_email, password, contact_email, phone_number);
+
+            DBClubModel db = clubMapper.getByCode(clubCode);
+            JSONArray membersArray = JSONArray.parseArray(db.members_id);
+            membersArray.add(id);
+            String newMembers = JSONArray.toJSONString(membersArray);
+            clubMapper.updateMembers(newMembers, clubCode);
+
+            res.put("user", getUserById(id));
             res.put("code", 0);
             res.put("msg", "注册成功");
         }catch (Exception e){
@@ -111,25 +123,25 @@ public class UserService implements UserServiceInterface {
         return res;
     }
 
-    public static HashMap<String, Object> packUser(UserModel userModel){
+    public static HashMap<String, Object> packUser(DBUserModel DBUserModel){
         HashMap<String, Object> user = new HashMap<>();
         HashMap<String, Object> club = new HashMap<>();
 
-        club.put("clubCode", userModel.club_code);
-        club.put("clubName", userModel.club_name);
-        club.put("clubAvatar", userModel.club_avatar);
+        club.put("clubCode", DBUserModel.club_code);
+        club.put("clubName", DBUserModel.club_name);
+        club.put("clubAvatar", DBUserModel.club_avatar);
 
-        user.put("id", userModel.id);
-        user.put("userName", userModel.name);
-        user.put("avatar", userModel.avatar);
-        user.put("gender", userModel.gender);
-        user.put("description", userModel.description);
+        user.put("id", DBUserModel.id);
+        user.put("name", DBUserModel.name);
+        user.put("avatar", DBUserModel.avatar);
+        user.put("gender", DBUserModel.gender);
+        user.put("description", DBUserModel.description);
         user.put("clubInfo", club);
-        user.put("userPrivilege", userModel.privilege);
-        user.put("loginEmail", userModel.login_email);
+        user.put("userPrivilege", DBUserModel.privilege);
+        user.put("loginEmail", DBUserModel.login_email);
         user.put("password", "***");
-        user.put("contactEmail", userModel.contact_email);
-        user.put("phoneNumber", userModel.phone_number);
+        user.put("contactEmail", DBUserModel.contact_email);
+        user.put("phoneNumber", DBUserModel.phone_number);
 
         return user;
     }

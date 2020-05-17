@@ -6,13 +6,12 @@
     "title": "长沙师范学院学生沙龙",
     "content": "2019年长沙师范学院学生沙龙圆满举办",
     "images": [
-        "http://iosclub-resources.oss-cn-hangzhou.aliyuncs.com/news_images/1579141747494.jpg"
+        "NewsImage/1579141747494.jpg"
     ],
     "publisherInfo": {
-        "id": 0,
-        "userName": "Jooc",
+        "id": 1,
+        "name": "Jooc",
         "avatar": "http://iosclub-resources.oss-cn-hangzhou.aliyuncs.com/avatar/avatar.png",
-        "universityCode": 0
     },
     "privilege": 1,
     "tags": "[]"

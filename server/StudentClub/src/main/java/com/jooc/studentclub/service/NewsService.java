@@ -67,7 +67,7 @@ public class NewsService implements NewsServiceInterface {
         DBNewsModel dbNewsModel = new DBNewsModel();
 
         // TODO: Generate id
-        dbNewsModel.id = Integer.parseInt((String) req.get("title"));
+        dbNewsModel.id = newsMapper.getMaxNewsId()+1;
 
         Date d = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -98,7 +98,7 @@ public class NewsService implements NewsServiceInterface {
         if(invalid == 1){
             throw new IOException("格式不支持!");
         }
-        fileManager = new FileManager("news_images");
+        fileManager = new FileManager("NewsImage");
         images += fileManager.save(files);
         fileManager.close();
 
@@ -137,7 +137,7 @@ public class NewsService implements NewsServiceInterface {
             res.put("code", 0);
             res.put("msg", "删除成功");
         }catch (Exception e){
-            res.put("cpde", -1);
+            res.put("code", -1);
             res.put("msg", "删除失败" + e.getMessage());
         }
         return res;

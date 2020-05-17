@@ -1,6 +1,6 @@
-package com.jooc.studentclub.model;
+package com.jooc.studentclub.model.DBModel;
 
-public class UserModel {
+public class DBUserModel {
     public int id;
     public String name;
     public String avatar;

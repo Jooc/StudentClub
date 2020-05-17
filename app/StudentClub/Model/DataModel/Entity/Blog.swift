@@ -8,14 +8,14 @@
 
 import Foundation
 
-struct Blog: Codable {
+struct Blog: Codable, Hashable {
     var id: Int
     var postTime: String
     
     var url: String
     
-    var blogPublisher: UserInfo
-    var blogPrivilege: Int
+    var publisherInfo: UserInfo
+    var privilege: Int
     
-    var tags: [String]
+    var tags: String
 }

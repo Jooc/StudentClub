@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct News: Codable {
+struct News: Codable, Hashable{
     var id: Int
     var postTime: String
     

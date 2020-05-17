@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ImagePickerView:  UIViewControllerRepresentable{
     @Binding var isPresented: Bool
-    @Binding var image: Image?
+    @Binding var image: UIImage?
 //    @Binding var showPostNewsPage: Bool
     
     var sourceType: UIImagePickerController.SourceType
@@ -41,7 +41,7 @@ class Coordinator: NSObject,UINavigationControllerDelegate,  UIImagePickerContro
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let unwrapImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            parent.image = Image(uiImage: unwrapImage)
+            parent.image = unwrapImage
         }
         self.parent.isPresented = false
     }

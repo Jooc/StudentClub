@@ -13,17 +13,12 @@ extension Store{
         let store = Store()
         store.appState.loginState.user = User.Sample()
         for index in 0..<4{
-            let dailyPost = DailyPostViewModel(date: "2020-05-0\(index)", blogList: [BlogViewModel.Sample()], newsList: [NewsViewModel.Sample(id: index+1)])
-            store.appState.postListState.postListViewModel.dailyPostList.append(dailyPost)
+            let news = News.Sample(id: index)
+            store.appState.postListState.postListViewModel.newsList.append(NewsViewModel(news: news))
         }
+        store.appState.postListState.postListViewModel.blogList.append(BlogViewModel(blog: Blog.Sample()))
         store.appState.calendarState.calendarViewModel.updateEvents(with: Event.all)
         return store
-    }
-}
-
-extension DailyPostViewModel{
-    static func Sample() -> DailyPostViewModel{
-        return DailyPostViewModel(date: "2020-05-07", blogList: [BlogViewModel.Sample()], newsList: [NewsViewModel.Sample(id: 1)])
     }
 }
 
