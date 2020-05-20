@@ -18,7 +18,7 @@ public class BlogModel {
         this.postTime = dbBlogModel.post_time;
         this.url = dbBlogModel.url;
 
-        this.publisherInfo = new UserInfoModel(dbBlogModel.publisher_id, dbBlogModel.publisher_name, dbBlogModel.publisher_avatar);
+        this.publisherInfo = new UserInfoModel(dbBlogModel.publisher_id, dbBlogModel.publisher_name, dbBlogModel.publisher_avatar, dbBlogModel.publisher_privilege);
         this.privilege = dbBlogModel.privilege;
         this.tags = dbBlogModel.tags;
     }

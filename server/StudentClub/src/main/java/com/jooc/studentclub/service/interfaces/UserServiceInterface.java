@@ -11,4 +11,8 @@ public interface UserServiceInterface{
     Object register(HashMap<String, Object> req);
     Object login(HashMap<String, Object> req);
 
+    Object editUserName(HashMap<String, Object> req);
+    Object editGender(HashMap<String, Object> req);
+    Object editPhoneNumber(HashMap<String, Object> req);
+    Object editContactEmail(HashMap<String, Object> req);
 }

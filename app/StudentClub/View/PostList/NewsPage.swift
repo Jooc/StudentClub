@@ -34,12 +34,12 @@ struct NewsPage: View {
                                 }
                         }).animation(.spring())
                     
-                    ForEach(viewModel.blogList){viewModel in
+                    ForEach(viewModel.blogList, id: \.self){viewModel in
                         BlogCell(viewModel: viewModel)
                             .padding(.vertical)
                     }
                     
-                    ForEach(viewModel.newsList){viewModel in
+                    ForEach(viewModel.newsList, id: \.self){viewModel in
                         NewsCell(viewModel: viewModel)
                             .padding(.vertical)
                     }

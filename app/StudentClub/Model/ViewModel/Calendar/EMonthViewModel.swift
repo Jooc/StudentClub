@@ -9,13 +9,19 @@
 import Foundation
 import SwiftUI
 
-class EMonthViewModel: Identifiable{
-    var space: CGFloat = 0
+class EMonthViewModel: Identifiable, Hashable{
+    func hash(into hasher: inout Hasher) { }
+    static func ==(lhs: EMonthViewModel, rhs: EMonthViewModel) -> Bool {
+        return lhs.id == rhs.id
+    }
+    var id = UUID()
+    
+    var space: CGFloat = 5
     
     var year = 2020
-    
-    var weeks = [EWeekViewModel]()
     var month: Int
+    
+    @Published var weeks = [EWeekViewModel]()
     
     init(month: Int) {
         self.month = month

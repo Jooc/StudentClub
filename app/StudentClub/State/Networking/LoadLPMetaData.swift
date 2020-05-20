@@ -25,7 +25,7 @@ struct LoadLPMetaDataRequest {
                 }
             }
         }
-//        .receive(on: DispatchQueue.main)
+        .receive(on: DispatchQueue.main)
         .eraseToAnyPublisher()
     }
 }

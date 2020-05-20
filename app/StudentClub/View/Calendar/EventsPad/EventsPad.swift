@@ -9,13 +9,28 @@
 import SwiftUI
 
 struct EventsPad: View {
+    @EnvironmentObject var store: Store
+    
+    var selectDay: EDayViewModel?{
+        self.store.appState.eventState.selectedDay
+    }
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack{
+            if selectDay != nil{
+                List{
+                    ForEach(selectDay!.events, id: \.self){ event in
+                        EventCell(index: (self.selectDay?.events.firstIndex(of: event))!)
+                            .padding(.vertical, 5)
+                    }
+                }
+            }
+        }
     }
 }
 
 struct EventsPad_Previews: PreviewProvider {
     static var previews: some View {
-        EventsPad()
+        EventsPad().environmentObject(Store.Sample())
     }
 }

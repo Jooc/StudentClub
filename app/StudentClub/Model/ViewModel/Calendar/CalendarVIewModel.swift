@@ -9,10 +9,9 @@
 import Foundation
 import SwiftUI
 
-struct CalendarViewModel{
+class CalendarViewModel{
     let calendar = Calendar()
-    var months = [EMonthViewModel]()
-    var events = Dictionary<Int, Event>()
+    @Published var months = [EMonthViewModel]()
     
     var currentScrollOffset: CGFloat = 0
     
@@ -25,8 +24,7 @@ struct CalendarViewModel{
 }
 
 extension CalendarViewModel{
-    
-    private mutating func generateVMs() {
+    private func generateVMs() {
         for month in 1...12{
             let newMonthViewModel = EMonthViewModel(month: month)
             var preMonth = month - 2
@@ -49,40 +47,54 @@ extension CalendarViewModel{
     // Generate all viewModels of the whole year
     
     // TODO: get events from server
-    private func generateEventFromResponse(response: Event) {
-        let dateString = response.date
-        let pars1 = dateString.prefix(upTo: dateString.lastIndex(of: " ")!)
+    private func generateEventFromResponse(response: Event, userID: Int) {
+        let startDateString = response.startDate
+//        let endDateString = response.endDate
+        
+        //TODO: 目前只有开始日期被标注，多日型活动无法标注
+        let pars1 = startDateString
             .split{$0 == "-"}
             .map(String.init)
             .map{string in Int(string)!}
         let pars2 = self.whichWeek(of: pars1[2], in: pars1[1])
         
-        
         self.months[pars1[1]-1].weeks[pars2.0 - 1].days[pars2.1 - 1].events.append(response)
-        //        self.months[3].weeks[2].days[3].events.append(response)
-    }
-    
-    func updateEvents(with eventResponse: [Event]){
-        for response in eventResponse{
-            print(response.date)
-            self.generateEventFromResponse(response: response)
-        }
-    }
-    
-    private func bindEvent2VM() {
-        for (key, value) in self.events{
-            let (month, week, day) = self.calendar.Index2MWD(index: key)
-            self.months[month].weeks[week].days[day].events.append(value)
-        }
-    }
-    
-    private func updateEventFromVM(){
-        //        if let index = self.selectedDayIndex{
-        //            let (month, week, day) = self.calendar.Index2MWD(index: index)
-        //            self.events[index] = self.months[month].weeks[week].days[day].event
+        let participantArray =
+            response.participant
+                .dropFirst().dropLast()
+                .split(separator: ",")
+                .map(String.init)
+                .map{$0.trimmingCharacters(in: CharacterSet.whitespaces)}
+                .map{Int($0)}
         
-        // TODO: uploadEvents2Server()
-        //        }
+        //TODO: How to deal with preState
+        if participantArray.contains(userID){
+            self.months[pars1[1]-1].weeks[pars2.0 - 1].days[pars2.1 - 1].state = .participated
+        }
+        
+        
+    }
+    
+    func updateEvents(with eventResponse: [Event], userID: Int){
+        for response in eventResponse{
+            print(response.startDate)
+            self.generateEventFromResponse(response: response, userID: userID)
+        }
+    }
+    
+    func updateSingleEventParticipant(with response: Event, userId: Int) {
+        let startDateString = response.startDate
+        let pars1 = startDateString
+            .split{$0 == "-"}
+            .map(String.init)
+            .map{string in Int(string)!}
+        let pars2 = self.whichWeek(of: pars1[2], in: pars1[1])
+        
+        for index in self.months[pars1[1]-1].weeks[pars2.0 - 1].days[pars2.1 - 1].events.indices{
+            if self.months[pars1[1]-1].weeks[pars2.0 - 1].days[pars2.1 - 1].events[index].id == response.id{
+                self.months[pars1[1]-1].weeks[pars2.0 - 1].days[pars2.1 - 1].events[index].participant = response.participant
+            }
+        }
     }
 }
 

@@ -16,7 +16,7 @@ struct WeekRow: View {
     
     var body: some View {
         HStack(spacing: self.viewModel.space){
-            ForEach(self.viewModel.days){ day in
+            ForEach(self.viewModel.days, id: \.self){ day in
                 DayCell(viewModel: day)
             }
         }

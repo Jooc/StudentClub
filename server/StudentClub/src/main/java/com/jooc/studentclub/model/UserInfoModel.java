@@ -4,11 +4,13 @@ public class UserInfoModel {
     public int id;
     public String name;
     public String avatar;
+    public int privilege;
 
-    public UserInfoModel(int id, String name, String avatar) {
+    public UserInfoModel(int id, String name, String avatar, int privilege) {
         this.id = id;
         this.name = name;
         this.avatar = avatar;
+        this.privilege = privilege;
     }
 
     public int getId() {
@@ -33,5 +35,13 @@ public class UserInfoModel {
 
     public void setAvatar(String avatar) {
         this.avatar = avatar;
+    }
+
+    public int getPrivilege() {
+        return privilege;
+    }
+
+    public void setPrivilege(int privilege) {
+        this.privilege = privilege;
     }
 }

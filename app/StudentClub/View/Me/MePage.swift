@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-import KingfisherSwiftUI
+import struct Kingfisher.KFImage
 
 struct MePage: View {
     @EnvironmentObject var store: Store
@@ -18,7 +18,7 @@ struct MePage: View {
     //    @State var closed = false
     
     var dragPosition: CGSize{
-        self.store.appState.calendarState.calendarViewModel.dragPosition
+        self.store.appState.eventState.calendarViewModel.dragPosition
     }
 //
 //    var showMe: Bool{
@@ -50,7 +50,7 @@ struct MePage: View {
                     .gesture(
                         DragGesture().onChanged(){ value in
                             // TODO: Maybe a better place for dragPosition
-                            self.store.appState.calendarState.calendarViewModel.dragPosition = value.translation
+                            self.store.appState.eventState.calendarViewModel.dragPosition = value.translation
                         }
                         .onEnded(){ value in
                             if value.predictedEndTranslation.height < -300{
@@ -59,7 +59,7 @@ struct MePage: View {
                             if value.predictedEndTranslation.height > 200{
                                 self.store.appState.meState.closed = true
                             }
-                            self.store.appState.calendarState.calendarViewModel.dragPosition = .zero
+                            self.store.appState.eventState.calendarViewModel.dragPosition = .zero
                     })
             }
 //            .scaleEffect(self.showMe ? 1 : 0)
@@ -68,7 +68,7 @@ struct MePage: View {
             avatar
                 .offset(y: 250)
                 .offset(y: self.closed ? 0 : -Globals.screen.height*0.8)
-                .offset(y: self.store.appState.calendarState.calendarViewModel.dragPosition.height/2)
+                .offset(y: self.store.appState.eventState.calendarViewModel.dragPosition.height/2)
                 .animation(.spring())
         }
     }

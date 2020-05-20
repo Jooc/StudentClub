@@ -10,45 +10,34 @@ import SwiftUI
 
 struct CalendarPage: View {
     @EnvironmentObject var store: Store
-    @State var showAddPage = false
     
     var selectedDay: EDayViewModel?{
-        self.store.appState.calendarState.selectedDay
+        self.store.appState.eventState.selectedDay
     }
     
     var body: some View {
-        ZStack {
-            ScrollView(.vertical) {
+        ZStack(alignment: .top) {
+        
                 VStack(spacing: 0){
-                    VStack(spacing: 0){
-                        CalendarHeader()
-                        CalendarPad()
-                    }
-                    ZStack {
-                        if self.selectedDay != nil{
-                            VStack{
-                                List(selectedDay!.events, id:\.self){event in
-                                    Text(event.title)
-                                }
-                            }
-                            .frame(width: Globals.screen.width)
-                            .frame(maxHeight: .infinity)
-                        }
-                    }
-                    Spacer()
+                    CalendarHeader()
+                    CalendarPad()
+                    EventsPad()
                 }
-            }
+
             VStack {
                 Spacer()
                 HStack {
                     Spacer()
-                    Button(action: {self.showAddPage.toggle()}){
+                    Button(action: {self.store.dispatch(.presentEditEventModal)}){
                         CircleButton(icon: "calendar.badge.plus")
                             .padding(15)
                     }
                     .offset(x: self.selectedDay == nil ? 150 : 0)
-                    .sheet(isPresented: $showAddPage){
-                        Text("123")
+                    .sheet(isPresented: self.$store.appState.eventState.showEditView){
+                        EventKitUIView(
+                            isPresented: self.$store.appState.eventState.showEditView,
+                            eventStore: self.$store.appState.eventState.eventStore
+                        ).environmentObject(self.store)
                     }
                     .animation(.spring())
                 }
@@ -59,6 +48,6 @@ struct CalendarPage: View {
 
 struct CalendarPage_Previews: PreviewProvider {
     static var previews: some View {
-        CalendarPage().environmentObject(Store())
+        CalendarPage().environmentObject(Store.Sample())
     }
 }

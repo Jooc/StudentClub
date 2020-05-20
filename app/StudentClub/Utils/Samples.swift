@@ -12,12 +12,16 @@ extension Store{
     static func Sample() -> Store{
         let store = Store()
         store.appState.loginState.user = User.Sample()
-        for index in 0..<4{
+        for index in 1..<5{
             let news = News.Sample(id: index)
             store.appState.postListState.postListViewModel.newsList.append(NewsViewModel(news: news))
         }
         store.appState.postListState.postListViewModel.blogList.append(BlogViewModel(blog: Blog.Sample()))
-        store.appState.calendarState.calendarViewModel.updateEvents(with: Event.all)
+        store.appState.postListState.postListViewModel.blogList.append(BlogViewModel(blog: Blog.Sample()))
+        store.appState.eventState.calendarViewModel.updateEvents(with: Event.all, userID: store.appState.loginState.user?.id ?? 0)
+        store.appState.eventState.selectedDay = store.appState.eventState.calendarViewModel.months[4].weeks[3].days[1]
+//        print(store.appState.eventState.selectedDay?.getStringDate())
+//        print(store.appState.eventState.selectedDay?.events)
         return store
     }
 }
@@ -87,6 +91,7 @@ extension EDayViewModel{
             let viewModel = EDayViewModel(model: EDay(year: 2020, month: 1, date: date ?? 2), state: .selected)
             viewModel.events.append(Event.all[0])
             return viewModel
+        case .participated: return EDayViewModel(model: EDay(year: 2020, month: 5, date: 18), state: .participated)
         case .unavailable: return EDayViewModel(model: EDay(year: 2020, month: 1, date: date ?? 3), state: .unavailable)
         }
     }

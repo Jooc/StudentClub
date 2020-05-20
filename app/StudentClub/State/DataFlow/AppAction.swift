@@ -29,6 +29,15 @@ enum AppAction {
     case loadNewsDone(result: Result<[News], AppError>)
     case loadBlog
     case loadBlogDone(result: Result<[Blog], AppError>)
+    case loadClubList
+    case loadClubListDone(result: Result<[ClubInfo], AppError>)
+    case loadMyClubMembers
+    case loadMyClubMembersDone(result: Result<(UserInfo, UserInfo, [UserInfo]), AppError>)
+    
+    case loadNewsHistory
+    case loadNewsHistoryDone(result: Result<[News], AppError>)
+    case loadBlogHistory
+    case loadBlogHistoryDone(result: Result<[Blog], AppError>)
     
     case loadEvents
     case loadEventsDone(result: Result<[Event], AppError>)
@@ -49,6 +58,16 @@ enum AppAction {
     case postBlog
     case postBlogDone(result: Result<Blog, AppError>)
     
+    case presentEditEventModal
+    case publishEvent(requestEvent: PublishEventRequest.RequestBody)
+    case publishEventDone(result: Result<Event, AppError>)
+    
     case verifyRegisterCode
     case verifyRegisterCodeDone(result: Result<String, AppError>)
+    
+    case editProfileInfo(target: EditProfileInfoRequest.EditTarget, param: String)
+    case editProfileInfoDone(target: EditProfileInfoRequest.EditTarget, result: Result<User, AppError>)
+    
+    case pqEvent(action: PQEventRequest.Action, eventId: Int)
+    case pqEventDone(action: PQEventRequest.Action, result: Result<Event, AppError>)
 }

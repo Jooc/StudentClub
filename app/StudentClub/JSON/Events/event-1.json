@@ -1,4 +1,12 @@
 {
-    "date": "2020-04-15 21:19",
-    "title": "123"
+    "id": 1,
+    "title": "NNNN",
+    "location": "薛家湾",
+    "startDate": "2020-05-17",
+    "endDate": "2020-05-17",
+    "url": "www.baidu.com",
+    "notes": "notes",
+    "clubCode": 0,
+    "participant": "[1, 100, 101, 102, 999]",
+    "openOrNot": 1
 }

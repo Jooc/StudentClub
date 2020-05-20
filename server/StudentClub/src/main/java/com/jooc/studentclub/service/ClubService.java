@@ -6,6 +6,7 @@ import com.jooc.studentclub.mapper.ClubMapper;
 import com.jooc.studentclub.mapper.UserMapper;
 import com.jooc.studentclub.model.ClubModel;
 import com.jooc.studentclub.model.DBModel.DBClubModel;
+import com.jooc.studentclub.model.DBModel.DBUserModel;
 import com.jooc.studentclub.model.UserInfoModel;
 import com.jooc.studentclub.service.interfaces.ClubServiceInterface;
 import org.apache.http.annotation.Obsolete;
@@ -26,20 +27,20 @@ public class ClubService implements ClubServiceInterface {
     private UserMapper userMapper;
 
     @Override
-    public Object getAllClub(){
+    public Object getAllClub() {
         HashMap<String, Object> res = new HashMap<>();
-        try{
+        try {
             List<DBClubModel> list = clubMapper.getAllClub();
-            ArrayList<Object> clubList = new ArrayList<>();
+            ArrayList<ClubModel> clubList = new ArrayList<>();
 
-            for (DBClubModel db: list){
+            for (DBClubModel db : list) {
                 clubList.add(transfer(db));
             }
             res.put("code", 0);
             res.put("msg", "查询成功");
             res.put("clubs", clubList);
             return res;
-        }catch (Exception e){
+        } catch (Exception e) {
             res.put("code", -1);
             res.put("msg", "查询失败" + e);
             return res;
@@ -47,15 +48,51 @@ public class ClubService implements ClubServiceInterface {
     }
 
     @Override
-    public Object getByCode(int code){
+    public Object getMembers(int code) {
         HashMap<String, Object> res = new HashMap<>();
+
         try{
+            DBClubModel dbClub = clubMapper.getByCode(code);
+            JSONArray memberIdArray = JSONArray.parseArray(dbClub.members_id);
+
+            ArrayList<UserInfoModel> memberInfoList = new ArrayList<>();
+            UserInfoModel advisor = null;
+            UserInfoModel manager = null;
+
+            for (Object userId : memberIdArray){
+                UserInfoModel dbUserInfo = userMapper.getUserInfoById(Integer.parseInt(userId.toString()));
+
+                if (dbUserInfo.privilege == 3){
+                    advisor = dbUserInfo;
+                } else if (dbUserInfo.privilege == 2) {
+                    manager = dbUserInfo;
+                }else{
+                    memberInfoList.add(dbUserInfo);
+                }
+            }
+
+            res.put("code", 0);
+            res.put("msg", "查询成功");
+            res.put("advisor", advisor);
+            res.put("manager", manager);
+            res.put("members", memberInfoList);
+        }catch (Exception e){
+            res.put("code", -1);
+            res.put("msg", "俱乐部不存在");
+        }
+        return res;
+    }
+
+    @Override
+    public Object getByCode(int code) {
+        HashMap<String, Object> res = new HashMap<>();
+        try {
             ClubModel club = transfer(clubMapper.getByCode(code));
             res.put("code", 0);
             res.put("msg", "查询成功");
             res.put("club", club);
             return res;
-        }catch (Exception e){
+        } catch (Exception e) {
             res.put("code", -1);
             res.put("msg", "无 " + e);
             return res;
@@ -63,12 +100,12 @@ public class ClubService implements ClubServiceInterface {
     }
 
     @Override
-    public Object getClubByRegisterCode(String registerCode){
+    public Object getClubByRegisterCode(String registerCode) {
         HashMap<String, Object> res = new HashMap<>();
-        try{
+        try {
             int clubCode = Integer.parseInt(clubMapper.getClubCodeByRegisterCode(registerCode));
             return getByCode(clubCode);
-        }catch (Exception e){
+        } catch (Exception e) {
             res.put("code", -1);
             res.put("msg", "注册码无效");
             return res;
@@ -76,14 +113,14 @@ public class ClubService implements ClubServiceInterface {
     }
 
     @Override
-    public Object getRegisterCodeByClubCode(int clubCode){
+    public Object getRegisterCodeByClubCode(int clubCode) {
         HashMap<String, Object> res = new HashMap<>();
-        try{
+        try {
             String registerCode = clubMapper.getRegisterCodeByClubCode(clubCode);
             res.put("code", 0);
             res.put("msg", "查询成功");
             res.put("registerCode", registerCode);
-        }catch (Exception e){
+        } catch (Exception e) {
             res.put("code", -1);
             res.put("msg", "错误 " + e);
         }
@@ -91,14 +128,14 @@ public class ClubService implements ClubServiceInterface {
     }
 
     @Override
-    public Object getClubNameByRegisterCode(String registerCode){
+    public Object getClubNameByRegisterCode(String registerCode) {
         HashMap<String, Object> res = new HashMap<>();
         String clubCode = clubMapper.getClubCodeByRegisterCode(registerCode);
 
-        if (clubCode==null){
+        if (clubCode == null) {
             res.put("code", -1);
             res.put("msg", "无结果");
-        }else{
+        } else {
             DBClubModel db = clubMapper.getByCode(Integer.parseInt(clubCode));
             res.put("code", 0);
             res.put("msg", "查询成功");
@@ -111,9 +148,9 @@ public class ClubService implements ClubServiceInterface {
     public Object add(HashMap<String, Object> req) {
         HashMap<String, Object> res = new HashMap<>();
 
-        String name = (String)req.get("clubName");
+        String name = (String) req.get("clubName");
         String clubDuplicationCheck = clubMapper.getClubCodeByName(name);
-        if (clubDuplicationCheck!=null){
+        if (clubDuplicationCheck != null) {
             res.put("code", -1);
             res.put("msg", "俱乐部已存在");
             return res;
@@ -142,7 +179,7 @@ public class ClubService implements ClubServiceInterface {
             res.put("club", transfer(clubMapper.getByCode(code)));
             res.put("registerCode", clubMapper.getRegisterCodeByClubCode(code));
             return res;
-        }catch (Exception e){
+        } catch (Exception e) {
             res.put("code", -1);
             res.put("msg", "添加失败" + e);
             return res;
@@ -155,17 +192,17 @@ public class ClubService implements ClubServiceInterface {
 
         int clubCode = Integer.parseInt(req.get("code").toString());
         DBClubModel db = clubMapper.getByCode(clubCode);
-        if (db==null){
+        if (db == null) {
             res.put("code", -1);
             res.put("msg", "俱乐部不存在");
             return res;
         }
-        try{
+        try {
             clubMapper.delete(clubCode);
             clubMapper.deleteRegisterCodeByClubCode(clubCode);
             res.put("code", 0);
             res.put("msg", "删除成功");
-        }catch (Exception e){
+        } catch (Exception e) {
             res.put("code", -1);
             res.put("msg", "删除失败" + e);
         }
@@ -176,15 +213,15 @@ public class ClubService implements ClubServiceInterface {
     public Object editDescription(HashMap<String, Object> req) {
         HashMap<String, Object> res = new HashMap<>();
 
-        try{
-            String newDescription = (String)req.get("newDescription");
+        try {
+            String newDescription = (String) req.get("newDescription");
             int clubCode = Integer.parseInt(req.get("clubCode").toString());
             clubMapper.updateDescription(newDescription, clubCode);
 
             res.put("code", 0);
             res.put("msg", "修改成功");
             res.put("club", transfer(clubMapper.getByCode(clubCode)));
-        }catch (Exception e){
+        } catch (Exception e) {
             res.put("code", -1);
             res.put("msg", "未知错误" + e);
         }
@@ -195,14 +232,14 @@ public class ClubService implements ClubServiceInterface {
     public Object addMember(HashMap<String, Object> req) {
         HashMap<String, Object> res = new HashMap<>();
 
-        try{
+        try {
             int clubCode = Integer.parseInt(req.get("clubCode").toString());
             int newMemberId = Integer.parseInt(req.get("newMemberId").toString());
 
             DBClubModel db = clubMapper.getByCode(clubCode);
 
             JSONArray membersArray = JSONArray.parseArray(db.members_id);
-            if (membersArray.contains(db.members_id)){
+            if (membersArray.contains(db.members_id)) {
                 res.put("code", -1);
                 res.put("msg", "该用户已在俱乐部内");
                 return res;
@@ -216,7 +253,7 @@ public class ClubService implements ClubServiceInterface {
             res.put("code", 0);
             res.put("msg", "添加成功");
             res.put("newMemberList", transfer(clubMapper.getByCode(clubCode)));
-        }catch (Exception e){
+        } catch (Exception e) {
             res.put("code", -1);
             res.put("msg", "添加失败" + e);
         }
@@ -227,7 +264,7 @@ public class ClubService implements ClubServiceInterface {
     public Object removeMember(HashMap<String, Object> req) {
         HashMap<String, Object> res = new HashMap<>();
 
-        try{
+        try {
             int clubCode = Integer.parseInt(req.get("clubCode").toString());
             int targetMemberId = Integer.parseInt(req.get("targetMemberId").toString());
 
@@ -242,7 +279,7 @@ public class ClubService implements ClubServiceInterface {
             res.put("code", 0);
             res.put("msg", "移除成功");
             res.put("newMemberList", transfer(clubMapper.getByCode(clubCode)));
-        }catch (Exception e){
+        } catch (Exception e) {
             res.put("code", -1);
             res.put("msg", "移除失败" + e);
         }
@@ -252,7 +289,7 @@ public class ClubService implements ClubServiceInterface {
     @Override
     public Object setAdvisor(HashMap<String, Object> req) {
         HashMap<String, Object> res = new HashMap<>();
-        try{
+        try {
             int clubCode = Integer.parseInt(req.get("clubCode").toString());
             int newAdvisorID = Integer.parseInt(req.get("newAdvisorID").toString());
 
@@ -260,7 +297,7 @@ public class ClubService implements ClubServiceInterface {
             res.put("code", 0);
             res.put("msg", "修改成功");
             res.put("club", transfer(clubMapper.getByCode(clubCode)));
-        }catch (Exception e){
+        } catch (Exception e) {
             res.put("code", -1);
             res.put("msg", "修改失败");
         }
@@ -270,7 +307,7 @@ public class ClubService implements ClubServiceInterface {
     @Override
     public Object setManager(HashMap<String, Object> req) {
         HashMap<String, Object> res = new HashMap<>();
-        try{
+        try {
             int clubCode = Integer.parseInt(req.get("clubCode").toString());
             int newManagerId = Integer.parseInt(req.get("newManagerId").toString());
 
@@ -278,7 +315,7 @@ public class ClubService implements ClubServiceInterface {
             res.put("code", 0);
             res.put("msg", "修改成功");
             res.put("club", transfer(clubMapper.getByCode(clubCode)));
-        }catch (Exception e){
+        } catch (Exception e) {
             res.put("code", -1);
             res.put("msg", "修改失败");
         }
@@ -286,10 +323,10 @@ public class ClubService implements ClubServiceInterface {
     }
 
     @Override
-    public Object resetRegisterCode(HashMap<String, Object> req){
+    public Object resetRegisterCode(HashMap<String, Object> req) {
         HashMap<String, Object> res = new HashMap<>();
 
-        try{
+        try {
             int clubCode = Integer.parseInt(req.get("clubCode").toString());
             String newResisterCode = generateRandomCode();
             clubMapper.updateRegisterCode(newResisterCode, clubCode);
@@ -297,7 +334,7 @@ public class ClubService implements ClubServiceInterface {
             res.put("code", 0);
             res.put("msg", "重设成功");
             res.put("newRegisterCode", clubMapper.getRegisterCodeByClubCode(clubCode));
-        }catch (Exception e){
+        } catch (Exception e) {
             res.put("code", -1);
             res.put("msg", "重设异常");
         }
@@ -305,16 +342,16 @@ public class ClubService implements ClubServiceInterface {
     }
 
 
-    private ClubModel transfer(DBClubModel db){
+    private ClubModel transfer(DBClubModel db) {
         UserInfoModel advisor = userMapper.getUserInfoById(db.advisor_id);
         UserInfoModel manager = userMapper.getUserInfoById(db.manager_id);
 
-        String[] members_id_str = db.members_id.substring(1,db.members_id.length()-1).split(",");
+        String[] members_id_str = db.members_id.substring(1, db.members_id.length() - 1).split(",");
         ArrayList<UserInfoModel> members = new ArrayList<>();
 
-        if (members_id_str.length == 1&&members_id_str[0].equals("")) { }
-        else {
-            for (String str : members_id_str){
+        if (members_id_str.length == 1 && members_id_str[0].equals("")) {
+        } else {
+            for (String str : members_id_str) {
                 members.add(userMapper.getUserInfoById(Integer.parseInt(str.trim())));
             }
         }
@@ -322,8 +359,8 @@ public class ClubService implements ClubServiceInterface {
         return new ClubModel(db, advisor, manager, members);
     }
 
-    private String generateRandomCode(){
-        String str="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    private String generateRandomCode() {
+        String str = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         String str1;
 
         while (true) {
@@ -341,7 +378,7 @@ public class ClubService implements ClubServiceInterface {
             str1 = sb.toString();
             String clubCode = clubMapper.getClubCodeByRegisterCode(str1);
 
-            if (clubCode == null){
+            if (clubCode == null) {
                 break;
             }
         }

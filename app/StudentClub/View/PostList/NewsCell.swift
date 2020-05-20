@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-import KingfisherSwiftUI
+import struct Kingfisher.KFImage
 
 struct NewsCell: View {
     @EnvironmentObject var store: Store

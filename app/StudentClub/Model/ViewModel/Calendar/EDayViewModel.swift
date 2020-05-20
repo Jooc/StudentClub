@@ -10,10 +10,12 @@ import Foundation
 import SwiftUI
 
 enum EDayState: Int8, Hashable{
-    case uncover, available, selected, unavailable
+    case uncover, available, selected, participated, unavailable
 }
 
-class EDayViewModel: Identifiable{
+class EDayViewModel: Identifiable, Hashable{
+    func hash(into hasher: inout Hasher) { }
+    
     var size: CGSize {
         CGSize.init(width: 38, height: 38)
     }
@@ -23,6 +25,7 @@ class EDayViewModel: Identifiable{
         case .uncover: return Color("Base")
         case .available: return Color("Base")
         case .selected: return Color.red
+        case .participated: return Color.green
         case .unavailable: return Color("Base")
         }
     }
@@ -32,13 +35,15 @@ class EDayViewModel: Identifiable{
         case .uncover: return Color.gray
         case .available: return Color.black
         case .selected: return Color.white
+        case .participated: return Color.white
         case .unavailable: return Color.black
         }
     }
     
-    var model: EDay
-    var state: EDayState
-    var events = [Event]()
+    let id = UUID()
+    @Published var model: EDay
+    @Published var state: EDayState
+    @Published var events = [Event]()
     
     init(model: EDay, state: EDayState) {
         self.model = model

@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-import KingfisherSwiftUI
+import struct Kingfisher.KFImage
 
 struct EditAvatar: View {
     @EnvironmentObject var store: Store

@@ -12,4 +12,5 @@ struct UserInfo: Codable, Hashable, Identifiable {
     var id: Int
     var name: String
     var avatar: String
+    var privilege: Int
 }

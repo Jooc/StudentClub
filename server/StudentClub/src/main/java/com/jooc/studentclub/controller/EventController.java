@@ -28,15 +28,29 @@ public class EventController {
         return eventService.getById(id);
     }
 
+    @GetMapping("/getEventByUserId")
+    public Object getEventByUserId(int userId){
+        return eventService.getByUserId(userId);
+    }
+
     @PostMapping("/publish")
     public Object addEvent(@RequestBody HashMap<String, Object> req){
         return eventService.addEvent(req);
     }
 
-    @PostMapping("/addParticipant")
-    public Object addParticipant(@RequestBody HashMap<String, Object> req){
-        return eventService.addParticipant(req);
+//    @PostMapping("/addParticipant")
+//    public Object addParticipant(@RequestBody HashMap<String, Object> req){
+//        return eventService.addParticipant(req);
+//    }
+
+    @PostMapping("/participateEvent")
+    public Object participateEvent(@RequestBody HashMap<String, Object> req){
+        return eventService.participateEvent(req);
     }
 
+    @PostMapping("/quitEvent")
+    public Object quitEvent(@RequestBody HashMap<String, Object> req){
+        return eventService.quitEvent(req);
+    }
 
 }

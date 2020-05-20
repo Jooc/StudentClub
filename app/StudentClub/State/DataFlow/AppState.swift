@@ -10,6 +10,7 @@ import Foundation
 import Combine
 import Alamofire
 import SwiftUI
+import EventKit
 
 struct AppState{
     enum UpSliderPageState {
@@ -23,9 +24,12 @@ struct AppState{
     var postListState = PostListState()
     var postState = PostState()
     var meState = MeState()
-    var calendarState = CalendarState()
+    var clubState = ClubState()
+    var eventState = EventState()
+    var postHistoryState = PostHistoryState()
     
     var showMe = true
+    var showAddButtons = false
     
 //    var showPostNewsPage = false
     var showDetailedNews = false
@@ -86,18 +90,17 @@ extension AppState{
 }
 
 extension AppState{
-    struct PostListState {
-        var postListViewModel  = PostListViewModel(date: "2020-5-17")
+    class PostListState {
+        @Published var postListViewModel  = PostListViewModel(date: "2020-5-17")
         
-        var showAddButtons = false
+        @Published var detailedNews: NewsViewModel? = nil
         
-        var detailedNews: NewsViewModel? = nil
         var isLoading = false
-        var loadNewsError: AppError?
-        var postNewsError: AppError?
-        var postBlogError: AppError?
+        @Published var loadNewsError: AppError?
+        @Published var postNewsError: AppError?
+        @Published var postBlogError: AppError?
         
-        mutating func showNewsDetail(news: NewsViewModel) {
+        func showNewsDetail(news: NewsViewModel) {
             self.detailedNews = news
         }
     }
@@ -136,56 +139,121 @@ extension AppState{
         
         var editAvatar: Bool = false
         var editUserName: Bool = false
+        var editGender: Bool = false
         var editPhoneNumber: Bool = false
         var editContactEmail: Bool = false
+        
+        var newAvatar: UIImage?
+        var newName: String = ""
+        var newGender: String = ""
+        var newPhoneNumber: String = ""
+        var newContactEmail: String = ""
+        
+        var editError: AppError?
     }
 }
 
 extension AppState{
-    struct CalendarState{
-        var calendarViewModel = CalendarViewModel()
+    class PostHistoryState{
+        @Published var viewModel = PostHistoryViewModel()
         
-        var monthCount = 12
-        var isLoading = false
-        var loadEventError: AppError?
-        
-        var currentMonth: Int = 4
-        var selectedDay: EDayViewModel? = nil
-        var selectedDayPreState: EDayState = .uncover
+        var loadHistoryError: AppError?
     }
 }
 
-extension AppState.CalendarState{
-    mutating func clickDayCell(dayViewModel: EDayViewModel) {
-        if selectedDay == nil{
-            selectedDay = dayViewModel
-            selectedDayPreState = selectedDay!.state
-            selectedDay!.state = .selected
-        }
-        else{
-            selectedDay?.state = selectedDayPreState
-            if dayViewModel == selectedDay{
-                selectedDay = nil
-                selectedDayPreState = .uncover
-            }else{
-                selectedDayPreState = dayViewModel.state
-                selectedDay = dayViewModel
-                selectedDay?.state = .selected
-            }
-        }
-    }
-    
-    mutating func nextMonth(){
-        if currentMonth == 12{
-            return
-        }
-        currentMonth += 1
-    }
-    
-    mutating func lastMonth() {
-        if currentMonth == 1{
-            return
-        }
-        self.currentMonth -= 1
+extension AppState{
+    class ClubState{
+        @Published var viewModel = ClubViewModel()
+        
+        var loadError: AppError?
     }
 }
+
+extension AppState{
+    class EventState{
+        @Published var calendarViewModel = CalendarViewModel()
+        
+        var monthCount = 12
+        var isLoading = false
+        var isPublishing = false
+        var isPQing = false
+        var newEventOpenOrNot = 1
+        
+        @Published var loadEventError: AppError?
+        @Published var publishEventErrpr: AppError?
+        @Published var pqEventError: AppError?
+        
+        @Published var currentMonth: Int = 5
+        @Published var selectedDay: EDayViewModel? = nil
+        @Published var selectedDayPreState: EDayState = .uncover
+        
+        var eventStore = EKEventStore()
+        @Published var showEditView: Bool = false
+        
+        func presentCalendarModalToAddEvent() {
+            let authStatus = getAuthorizationStatus()
+            print(authStatus.rawValue)
+            
+            switch authStatus {
+            case .authorized:
+                self.showEditView = true
+                print("EditView Showed")
+            case .notDetermined:
+                self.eventStore.requestAccess(to: .event) { (accessGranted, error) in
+                    if accessGranted {
+                        self.showEditView = true
+//                        print("Showed")
+                    } else {
+                        // TODO: Show Alert
+                        self.publishEventErrpr = AppError.haveNoAccess
+                        print("Access Denied")
+                    }
+                }
+            case .denied, .restricted:
+                self.publishEventErrpr = AppError.haveNoAccess
+                print("Access Denied")
+            @unknown default:
+                print("Unknown Case")
+            }
+        }
+        
+        func getAuthorizationStatus() -> EKAuthorizationStatus {
+            return(EKEventStore.authorizationStatus(for: .event))
+        }
+        
+        func clickDayCell(dayViewModel: EDayViewModel) {
+            if selectedDay == nil{
+                selectedDay = dayViewModel
+                selectedDayPreState = selectedDay!.state
+                selectedDay!.state = .selected
+            }
+            else{
+                selectedDay?.state = selectedDayPreState
+                if dayViewModel == selectedDay{
+                    selectedDay = nil
+                    selectedDayPreState = .uncover
+                }else{
+                    selectedDayPreState = dayViewModel.state
+                    selectedDay = dayViewModel
+                    selectedDay?.state = .selected
+                }
+            }
+//            print(selectedDay?.getStringDate() ?? "EMPTY")
+        }
+        
+        func nextMonth(){
+            if currentMonth == 12{
+                return
+            }
+            currentMonth += 1
+        }
+        
+        func lastMonth() {
+            if currentMonth == 1{
+                return
+            }
+            self.currentMonth -= 1
+        }
+    }
+}
+

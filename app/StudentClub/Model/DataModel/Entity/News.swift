@@ -21,3 +21,9 @@ struct News: Codable, Hashable{
     
     var tags: String
 }
+
+extension News{
+    func cutPostTime() -> String {
+        return String(postTime.split(separator: " ")[0])
+    }
+}

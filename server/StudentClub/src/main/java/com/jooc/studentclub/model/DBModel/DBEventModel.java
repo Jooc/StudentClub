@@ -9,11 +9,12 @@ public class DBEventModel {
     public String end_date;
     public String url;
     public String notes;
-    public int initiator_id;
     public int club_code;
     public String participant;
+    // MARK: 1代表开放，0代表不开放
+    public int open_or_not;
 
-    public DBEventModel(int id, String title, String location, String start_date, String end_date, String url, String notes, int initiator_id, int club_code, String participant) {
+    public DBEventModel(int id, String title, String location, String start_date, String end_date, String url, String notes, int club_code, String participant, int open_or_not) {
         this.id = id;
         this.title = title;
         this.location = location;
@@ -21,9 +22,9 @@ public class DBEventModel {
         this.end_date = end_date;
         this.url = url;
         this.notes = notes;
-        this.initiator_id = initiator_id;
         this.club_code = club_code;
         this.participant = participant;
+        this.open_or_not = open_or_not;
     }
 
     public int getId() {
@@ -82,14 +83,6 @@ public class DBEventModel {
         this.notes = notes;
     }
 
-    public int getInitiator_id() {
-        return initiator_id;
-    }
-
-    public void setInitiator_id(int initiator_id) {
-        this.initiator_id = initiator_id;
-    }
-
     public int getClub_code() {
         return club_code;
     }
@@ -104,5 +97,13 @@ public class DBEventModel {
 
     public void setParticipant(String participant) {
         this.participant = participant;
+    }
+
+    public int getOpen_or_not() {
+        return open_or_not;
+    }
+
+    public void setOpen_or_not(int open_or_not) {
+        this.open_or_not = open_or_not;
     }
 }

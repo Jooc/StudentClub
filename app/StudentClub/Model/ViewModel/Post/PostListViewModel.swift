@@ -8,19 +8,23 @@
 
 import Foundation
 
-struct PostListViewModel{
+class PostListViewModel{
     var date: String
     
-    var blogList = [BlogViewModel]()
-    var newsList = [NewsViewModel]()
+    @Published var blogList = [BlogViewModel]()
+    @Published var newsList = [NewsViewModel]()
     
-    mutating func updateNews(newsList: [News]){
+    init(date: String) {
+        self.date = date
+    }
+    
+    func updateNews(newsList: [News]){
         self.newsList.removeAll()
         for news in newsList{
             self.newsList.append(NewsViewModel(news: news))
         }
     }
-    mutating func updateBlog(blogList: [Blog]){
+    func updateBlog(blogList: [Blog]){
         self.blogList.removeAll()
         for blog in blogList{
             self.blogList.append(BlogViewModel(blog: blog))

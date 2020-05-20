@@ -9,11 +9,16 @@
 import Foundation
 import SwiftUI
 
-class EWeekViewModel: Identifiable {
+class EWeekViewModel: Identifiable, Hashable {
+    func hash(into hasher: inout Hasher) { }
+    static func ==(lhs: EWeekViewModel, rhs: EWeekViewModel) -> Bool {
+        return lhs.id == rhs.id
+    }
+    
+    let id = UUID()
     var space: CGFloat = 18
     
-    
-    var days: [EDayViewModel]
+    @Published var days: [EDayViewModel]
     
     init() {
         days = [EDayViewModel]()

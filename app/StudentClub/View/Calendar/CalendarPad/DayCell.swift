@@ -24,7 +24,7 @@ struct DayCell: View {
                     self.store.dispatch(.clickDayCell(day: self.viewModel))
             }
             HStack(spacing: 2){
-                ForEach(0..<self.viewModel.events.count) { item in
+                ForEach(0..<self.viewModel.events.count, id:\.self) { item in
                     Circle()
                         .frame(width: 3, height: 3)
                         .foregroundColor(Color.red)

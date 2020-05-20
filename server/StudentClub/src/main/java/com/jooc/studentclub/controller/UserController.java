@@ -38,14 +38,33 @@ public class UserController {
         return userService.login(req);
     }
 
-    @PostMapping("register")
+    @PostMapping("/register")
     public Object register(@RequestBody HashMap<String, Object> req) throws InterruptedException{
         return userService.register(req);
+    }
+
+    @PostMapping("/editUserName")
+    public Object editUserName(@RequestBody HashMap<String, Object> req){
+        return userService.editUserName(req);
+    }
+
+    @PostMapping("/editGender")
+    public Object editGender(@RequestBody HashMap<String, Object> req){
+        return userService.editGender(req);
+    }
+
+    @PostMapping("/editPhoneNumber")
+    public Object editPhoneNumber(@RequestBody HashMap<String, Object> req){
+        return userService.editPhoneNumber(req);
+    }
+
+    @PostMapping("/editContactEmail")
+    public Object editContactEmail(@RequestBody HashMap<String, Object> req){
+        return userService.editContactEmail(req);
     }
 
     @GetMapping("/test")
     public Object test(){
         return "OK";
     }
-
 }

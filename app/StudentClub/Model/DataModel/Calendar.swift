@@ -9,17 +9,12 @@
 import Foundation
 
 class Calendar{
-    var formatter = DateFormatter()
-    
     var year = 2020
     var beignWeekday = WeekdaySymbol.Wednesday
     
     var days = [EDay]()
-    var selectedDays = [EDay]()
-    
     var daysCounts = [Int]()
 
-    
     init() {
         self.generateCalendar()
     }

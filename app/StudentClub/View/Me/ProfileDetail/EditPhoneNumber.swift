@@ -15,7 +15,9 @@ struct EditPhoneNumber: View {
         self.store.appState.loginState.user ?? User.Sample()
     }
     
-    @State var newPhoneNumber: String = ""
+    var newPhoneNumber: Binding<String>{
+        self.$store.appState.meState.newPhoneNumber
+    }
     
     var body: some View {
         ZStack(alignment: .top) {
@@ -36,21 +38,21 @@ struct EditPhoneNumber: View {
                     Spacer()
                     
                     Button(action:{
-                        if self.user.phoneNumber != self.newPhoneNumber {
-                            
+                        if self.user.phoneNumber != self.newPhoneNumber.wrappedValue {
+                            self.store.dispatch(.editProfileInfo(target: .phoneNumber, param: self.newPhoneNumber.wrappedValue))
                         }
                     }){
                         Text("确认")
                             .foregroundColor(Color.white)
                             .padding(.all, 10)
-                            .background(user.phoneNumber == newPhoneNumber ? Color.gray.opacity(0.5) : Color.green)
+                            .background(user.phoneNumber == newPhoneNumber.wrappedValue ? Color.gray.opacity(0.5) : Color.green)
                         .clipShape(RoundedRectangle(cornerRadius: 5))
                     }
                 }
                 .padding(.horizontal, 10)
                 .padding(.vertical, 10)
                 
-                TextField(user.phoneNumber, text: self.$newPhoneNumber)
+                TextField(user.phoneNumber, text: self.newPhoneNumber)
                     .padding(.horizontal, 30)
                     .padding(.vertical, 20)
                     .background(Color.white)

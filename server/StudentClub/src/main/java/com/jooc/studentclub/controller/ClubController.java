@@ -31,6 +31,11 @@ public class ClubController {
         return clubService.getAllClub();
     }
 
+    @GetMapping("/getMembersByCode")
+    public Object getMembersByCode(int clubCode){
+        return clubService.getMembers(clubCode);
+    }
+
     @GetMapping("/getByCode")
     public Object getClubByCode(int code){
         return clubService.getByCode(code);

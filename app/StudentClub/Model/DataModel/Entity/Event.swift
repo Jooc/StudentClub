@@ -8,33 +8,26 @@
 
 import Foundation
 
-struct Event: Codable, Hashable{
-    var date: String
-    
+struct Event: Codable, Hashable {
+    var id: Int
     var title: String
-//    var content: String
-//    var location: String?
-}
-
-
-struct Event_Pro {
-    struct Sys_Data {
-        var title: String
-        var start_date: Date
-        var end_date: Date
-        var location: String
-        
-        var All_day: Bool
-        var Invitees: [String]
-        var alert: Bool
-        var notes: String
+    var startDate: String
+    var endDate: String
+    var location: String
+    var url: String
+    var notes: String
+    var clubCode: Int
+    var participant: String
+    var openOrNot: Int
+    
+    func isParticipated(userId: Int) -> Bool {
+        let participantArray =
+            self.participant
+                .dropFirst().dropLast()
+                .split(separator: ",")
+                .map(String.init)
+                .map{$0.trimmingCharacters(in: CharacterSet.whitespaces)}
+                .map{Int($0)}
+        return participantArray.contains(userId)
     }
-    
-    var initiator: User
-    var user_privilege: Int
-    var university: Club
-    
-    var participants: [User]
-    
-    var data: Sys_Data
 }

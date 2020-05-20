@@ -25,6 +25,8 @@ enum AppError: Error, Identifiable{
     case networkFailed(Error)
     case invalidURL
     case uploadPostFailed
+    
+    case haveNoAccess
 }
 
 extension AppError: LocalizedError{
@@ -38,6 +40,7 @@ extension AppError: LocalizedError{
         case .networkFailed(let error): return "网络连接错误: " + error.localizedDescription
         case .invalidURL: return "URL 失效"
         case .uploadPostFailed: return "PostNews 失败"
+        case .haveNoAccess: return "权限不足"
         }
     }
     

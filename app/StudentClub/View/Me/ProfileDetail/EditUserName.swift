@@ -15,7 +15,9 @@ struct EditUserName: View {
         self.store.appState.loginState.user ?? User.Sample()
     }
     
-    @State var newName: String = ""
+    var newName: Binding<String>{
+        self.$store.appState.meState.newName
+    }
     
     var body: some View {
         ZStack(alignment: .top) {
@@ -36,21 +38,21 @@ struct EditUserName: View {
                     Spacer()
                     
                     Button(action:{
-                        if self.user.name != self.newName {
-                            
+                        if self.user.name != self.newName.wrappedValue {
+                            self.store.dispatch(.editProfileInfo(target: .name, param: self.newName.wrappedValue))
                         }
                     }){
                         Text("确认")
                             .foregroundColor(Color.white)
                             .padding(.all, 10)
-                            .background(user.name == newName ? Color.gray.opacity(0.5) : Color.green)
+                            .background(user.name == newName.wrappedValue ? Color.gray.opacity(0.5) : Color.green)
                         .clipShape(RoundedRectangle(cornerRadius: 5))
                     }
                 }
                 .padding(.horizontal, 10)
                 .padding(.vertical, 10)
                 
-                TextField(user.name, text: self.$newName)
+                TextField(user.name, text: newName)
                     .padding(.horizontal, 30)
                     .padding(.vertical, 20)
                     .background(Color.white)

@@ -24,7 +24,7 @@ public class NewsModel {
 
         this.images = dbNewsModel.images.split(";");
         this.privilege = dbNewsModel.privilege;
-        this.publisherInfo = new UserInfoModel(dbNewsModel.publisher_id, dbNewsModel.publisher_name, dbNewsModel.publisher_avatar);
+        this.publisherInfo = new UserInfoModel(dbNewsModel.publisher_id, dbNewsModel.publisher_name, dbNewsModel.publisher_avatar, dbNewsModel.publisher_privilege);
         this.tags = dbNewsModel.tags;
     }
 

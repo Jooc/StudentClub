@@ -11,7 +11,6 @@ import SwiftUI
 struct ButtonList: View {
     @EnvironmentObject var store: Store
 
-    
     var showMe: Bool{
         self.store.appState.showMe
     }
@@ -21,34 +20,34 @@ struct ButtonList: View {
             GeometryReader { proxy in
                 VStack(spacing: 30){
                     VStack(spacing: 0) {
-                        NavigationLink(
-                            destination: ProfileInfo().offset(y: -40),
-                            isActive: self.$store.appState.meState.isProfileActive){
-                                ButtonLabel(icon: "person.circle.fill", text: "名片")
+                        Button(action: {
+                            self.store.appState.rightSliderPageState = .profile
+                        }){
+                            ButtonLabel(icon: "person.circle.fill", text: "名片")
                         }
                         
-                        NavigationLink(
-                            destination: NewsPost().offset(y: -20),
-                            isActive: self.$store.appState.meState.isNewsPostActive){
-                                ButtonLabel(icon: "tray.full.fill", text: "新闻库")
+                        Button(action:{
+                            self.store.appState.rightSliderPageState = .newsBase
+                        }){
+                            ButtonLabel(icon: "tray.full.fill", text: "新闻库")
                         }
-                        NavigationLink(
-                            destination: BlogPost().offset(y: -20),
-                            isActive: self.$store.appState.meState.isBlogPostActive){
-                                ButtonLabel(icon: "book.circle.fill", text: "Blog")
+                        Button(action:{
+                            self.store.appState.rightSliderPageState = .blogBase
+                        }){
+                            ButtonLabel(icon: "book.circle.fill", text: "Blog")
                         }
                     }.frame(width: proxy.size.width, height: proxy.size.height*0.6)
                     
                     VStack() {
                         HStack{
-                            NavigationLink(
-                                destination: ClubInfo().offset(y: -20),
-                                isActive: self.$store.appState.meState.isClubInfoActive){
-                                    ButtonLabel(icon: "person.2.fill", text: "俱乐部")
+                            Button(action:{
+                                self.store.appState.rightSliderPageState = .clubInfo
+                            }){
+                                ButtonLabel(icon: "person.2.fill", text: "俱乐部")
                             }
-                            NavigationLink(
-                                destination: ClubList(),
-                                isActive: self.$store.appState.meState.isClubListActive){
+                            Button(action:{
+                                self.store.appState.rightSliderPageState = .clubList
+                            }){
                                     HStack {
                                         Image(systemName: "person.2.square.stack.fill")
                                             .resizable()

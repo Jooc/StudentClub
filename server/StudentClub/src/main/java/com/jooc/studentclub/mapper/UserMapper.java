@@ -2,10 +2,7 @@ package com.jooc.studentclub.mapper;
 
 import com.jooc.studentclub.model.UserInfoModel;
 import com.jooc.studentclub.model.DBModel.DBUserModel;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 @Mapper
 public interface UserMapper {
@@ -36,10 +33,22 @@ public interface UserMapper {
                     @Param("contact_email") String contact_email,
                     @Param("phone_number") String phone_number);
 
-    @Select("select id,name,avatar from user where id=#{id}")
+    @Select("select id,name,avatar,privilege from user where id=#{id}")
     UserInfoModel getUserInfoById(int id);
-
 
     @Select("select club_code from User where id=#{id}")
     int getClubCodeByUserId(int user_id);
+
+    @Update("update User set name=#{newName} where id=#{id};")
+    void updateUserName(int id, String newName);
+
+    @Update("update User set gender=#{newGender} where id=#{id}")
+    void updateGender(int id, String newGender);
+
+    @Update("update User set phone_number=#{newPhoneNumber} where id=#{id}")
+    void updatePhoneNumber(int id, String newPhoneNumber);
+
+    @Update("update User set contact_email=#{newContactEmail} where id=#{id}")
+    void updateContactEmail(int id, String newContactEmail);
+
 }

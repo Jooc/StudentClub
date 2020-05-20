@@ -70,7 +70,7 @@ struct LoadNewsAppCommand: AppCommand {
                 }
                 token.unseal()
             }, receiveValue:{ newsList in
-                print(newsList)
+                debugPrint(newsList)
                 store.dispatch(.loadNewsDone(result: .success(newsList)))
                 store.dispatch(.loadBlog)
             }).seal(in: token)
@@ -94,16 +94,55 @@ struct LoadBlogAppCommand: AppCommand {
             for index in store.appState.postListState.postListViewModel.blogList.indices{
                 store.dispatch(.loadBlogLPMetaData(index: index))
             }
+            store.dispatch(.loadEvents)
         }).seal(in: token)
     }
 }
 
-struct LoadEventsAppCommand: AppCommand {
-    let userID: Int
+struct LoadClubListAppCommand: AppCommand {
+    func excute(in store: Store) {
+        let token = SubscriptionToken()
+        
+        LoadClubListRequest()
+            .publisher
+            .sink(receiveCompletion: { complete in
+                if case .failure(let error) = complete{
+                    store.dispatch(.loadClubListDone(result: .failure(error)))
+                }
+                token.unseal()
+            }, receiveValue: { clubList in
+                store.dispatch(.loadClubListDone(result: .success(clubList)))
+                store.dispatch(.loadMyClubMembers)
+            }).seal(in: token)
+    }
+}
+
+struct LoadMyClubMembersAppCommand: AppCommand {
+    let clubCode: Int
     
     func excute(in store: Store) {
         let token = SubscriptionToken()
-        LoadEventssRequest(userID: userID)
+        
+        LoadMyClubMembersRequest(clubCode: clubCode)
+            .publisher
+            .sink(receiveCompletion: { complete in
+                if case .failure(let error) = complete{
+                    store.dispatch(.loadMyClubMembersDone(result: .failure(error)))
+                }
+                token.unseal()
+            }, receiveValue: { membersList in
+                store.dispatch(.loadMyClubMembersDone(result: .success(membersList)))
+            }).seal(in: token)
+    }
+}
+
+
+struct LoadEventsAppCommand: AppCommand {
+    let userId: Int
+    
+    func excute(in store: Store) {
+        let token = SubscriptionToken()
+        LoadEventRequest(userId: userId)
             .publisher
             .sink(receiveCompletion: { complete in
                 if case .failure(let error) = complete{
@@ -112,6 +151,43 @@ struct LoadEventsAppCommand: AppCommand {
                 token.unseal()
             }, receiveValue: { events in
                 store.dispatch(.loadEventsDone(result: .success(events)))
+                store.dispatch(.loadClubList)
+            }).seal(in: token)
+    }
+}
+
+struct LoadNewsHistoryAppCommand: AppCommand {
+    let userId: Int
+    
+    func excute(in store: Store) {
+        let token = SubscriptionToken()
+        LoadNewsHistoryRequest(userId: userId)
+            .publisher
+            .sink(receiveCompletion: { complete in
+                if case .failure(let error) = complete{
+                    store.dispatch(.loadNewsHistoryDone(result: .failure(error)))
+                }
+                token.unseal()
+            }, receiveValue: { news in
+                store.dispatch(.loadNewsHistoryDone(result: .success(news)))
+            }).seal(in: token)
+    }
+}
+
+struct LoadBlogHistoryAppCommand: AppCommand {
+    let userId: Int
+    
+    func excute(in store: Store) {
+        let token = SubscriptionToken()
+        LoadBlogHistoryRequest(userId: userId)
+            .publisher
+            .sink(receiveCompletion: {complete in
+                if case .failure(let error) = complete{
+                    store.dispatch(.loadBlogHistoryDone(result: .failure(error)))
+                }
+                token.unseal()
+            }, receiveValue: { blogs in
+                store.dispatch(.loadBlogHistoryDone(result: .success(blogs)))
             }).seal(in: token)
     }
 }
@@ -185,6 +261,24 @@ struct PostBlogAppCommand: AppCommand {
     }
 }
 
+struct PublishEventAppCommand: AppCommand {
+    var requestBody: PublishEventRequest.RequestBody
+    
+    func excute(in store: Store) {
+        let token = SubscriptionToken()
+        PublishEventRequest(requestBody: requestBody)
+        .publisher
+        .sink(receiveCompletion: { complete in
+            if case .failure(let error) = complete{
+                store.dispatch(.publishEventDone(result: .failure(error)))
+            }
+            token.unseal()
+        }, receiveValue: { event in
+            store.dispatch(.publishEventDone(result: .success(event)))
+        }).seal(in: token)
+    }
+}
+
 struct VerifyRegisterCodeAppCommand: AppCommand {
     var registerCode: String
     
@@ -203,6 +297,46 @@ struct VerifyRegisterCodeAppCommand: AppCommand {
     }
 }
 
+struct EditProfileInfoAppCommand: AppCommand {
+    var target: EditProfileInfoRequest.EditTarget
+    var userId: Int
+    var param: String
+    
+    func excute(in store: Store) {
+        let token = SubscriptionToken()
+        
+        EditProfileInfoRequest(target: target, id: userId, param: param)
+            .publisher.sink(receiveCompletion: { complete in
+                if case .failure(let error) = complete{
+                    store.dispatch(.editProfileInfoDone(target: self.target, result: .failure(error)))
+                }
+                token.unseal()
+            }, receiveValue: { user in
+                store.dispatch(.editProfileInfoDone(target: self.target, result: .success(user)))
+            }).seal(in: token)
+    }
+}
+
+struct PQEventAppCommand: AppCommand {
+    var action: PQEventRequest.Action
+    var eventId: Int
+    var userId: Int
+    
+    func excute(in store: Store) {
+        let token = SubscriptionToken()
+        
+        PQEventRequest(action: action, requestBody: PQEventRequest.RequestBody(eventId: eventId, userId: userId))
+            .publisher
+        .sink(receiveCompletion: { complete in
+            if case .failure(let error) = complete{
+                store.dispatch(.pqEventDone(action: self.action, result: .failure(error)))
+            }
+            token.unseal()
+        }, receiveValue: { event in
+            store.dispatch(.pqEventDone(action: self.action, result: .success(event)))
+        }).seal(in: token)
+    }   
+}
 
 
 class SubscriptionToken {

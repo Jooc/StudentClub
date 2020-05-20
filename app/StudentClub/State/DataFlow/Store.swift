@@ -125,28 +125,65 @@ class Store: ObservableObject{
                 switch result {
                 case .success(let blogList):
                     appState.postListState.postListViewModel.updateBlog(blogList: blogList)
-                    // TODO: Maybe this should be placed in .accountBehaviorDone
-                    // TODO: OR simply combined with loadNews
-//                    appCommand = LoadEventsAppCommand(userID: appState.loginState.user?.id ?? 0)
                 case .failure(let error):
                     appState.postListState.loadNewsError = error
                     print("[ERROR]: \(error.localizedDescription)")
                 }
             
         case .loadEvents:
-            guard !appState.calendarState.isLoading else{
+            guard !appState.eventState.isLoading else{
                 break
             }
-            appState.calendarState.isLoading = true
-            appCommand = LoadEventsAppCommand(userID: appState.loginState.user!.id)
+            appState.eventState.isLoading = true
+            appCommand = LoadEventsAppCommand(userId: appState.loginState.user?.id ?? 0)
         case .loadEventsDone(let result):
-            appState.calendarState.isLoading = false
+            appState.eventState.isLoading = false
             switch result {
             case .success(let events):
-                appState.calendarState.calendarViewModel.updateEvents(with: events)
+                appState.eventState.calendarViewModel.updateEvents(with: events, userID: appState.loginState.user?.id ?? 0)
             case .failure(let error):
-                appState.calendarState.loadEventError = error
+                appState.eventState.loadEventError = error
                 print("[ERROR]: \(error.localizedDescription)")
+            }
+            
+        case .loadNewsHistory:
+            appCommand = LoadNewsHistoryAppCommand(userId: appState.loginState.user?.id ?? 0)
+        case .loadNewsHistoryDone(let result):
+            switch result {
+            case .success(let newsList):
+                appState.postHistoryState.viewModel.updateNews(newsList: newsList)
+            case .failure(let error):
+                appState.postHistoryState.loadHistoryError = .networkFailed(error)
+                print("[ERROR]: \(error.localizedDescription)")
+            }
+        case .loadBlogHistory:
+            appCommand = LoadBlogHistoryAppCommand(userId: appState.loginState.user?.id ?? 0)
+        case .loadBlogHistoryDone(let result):
+            switch result {
+            case .success(let blogList):
+                appState.postHistoryState.viewModel.updateBlog(blogList: blogList)
+            case .failure(let error):
+                appState.postHistoryState.loadHistoryError = .networkFailed(error)
+                print("[ERROR]: \(error.localizedDescription)")
+            }
+            
+        case .loadClubList:
+            appCommand = LoadClubListAppCommand()
+        case .loadClubListDone(let result):
+            switch result {
+            case .success(let clubList):
+                appState.clubState.viewModel.resetClubs(clubInfoList: clubList)
+            case .failure(let error):
+                appState.clubState.loadError = error
+            }
+        case .loadMyClubMembers:
+            appCommand = LoadMyClubMembersAppCommand(clubCode: appState.loginState.user?.clubInfo.clubCode ?? -1)
+        case .loadMyClubMembersDone(let result):
+            switch result {
+            case .success(let memberList):
+                appState.clubState.viewModel.resetMyClubMembers(userInfoList: memberList.2)
+            case .failure(let error):
+                appState.clubState.loadError = error
             }
             
         case .loadBlogLPMetaData(let index):
@@ -160,17 +197,17 @@ class Store: ObservableObject{
             }
             
         case .clickDayCell(let day):
-            appState.calendarState.clickDayCell(dayViewModel: day)
+            appState.eventState.clickDayCell(dayViewModel: day)
         case .clickNewsCell(let news):
             appState.postListState.showNewsDetail(news: news)
         case .closeNewsDetail:
             appState.postListState.detailedNews = nil
         case .nextPage:
-            appState.calendarState.nextMonth()
+            appState.eventState.nextMonth()
         case .lastPage:
-            appState.calendarState.lastMonth()
+            appState.eventState.lastMonth()
         case .selectMonth(let month):
-            appState.calendarState.currentMonth = month
+            appState.eventState.currentMonth = month
         case .postNews:
             guard !appState.postState.isPosting else{
                 break
@@ -200,7 +237,6 @@ class Store: ObservableObject{
                 userId: appState.loginState.user!.id,
                 blogUrl: appState.postState.blogURL,
                 privilege: 1, tags: "[111]")
-            
         case .postBlogDone(let result):
             appState.postState.isPosting = false
             switch result {
@@ -211,7 +247,25 @@ class Store: ObservableObject{
                 appState.postListState.postBlogError = error
                 print("[ERROR]: \(error.localizedDescription)")
             }
-        
+            
+        case .presentEditEventModal:
+            appState.eventState.presentCalendarModalToAddEvent()
+        case .publishEvent(let requestBody):
+            guard !appState.eventState.isPublishing else{
+                break
+            }
+            appState.eventState.isPublishing = true
+            appCommand = PublishEventAppCommand(requestBody: requestBody)
+        case .publishEventDone(result: let result):
+            appState.eventState.isPublishing = false
+            switch result {
+            case .success(let event):
+                appState.eventState.calendarViewModel.updateEvents(with: [event], userID: appState.loginState.user?.id ?? 0)
+            case .failure(let error):
+                appState.eventState.publishEventErrpr = error
+                print("[ERROR]: \(error.localizedDescription)")
+            }
+            
         case .verifyRegisterCode:
             guard !appState.loginState.isVerifing else{
                 break
@@ -229,8 +283,58 @@ class Store: ObservableObject{
                 appState.loginState.isRegisterEmailValid = false
                 print(error)
             }
+            
+        case .editProfileInfo(let target, let param):
+            let userId = appState.loginState.user?.id ?? 0
+            appCommand = EditProfileInfoAppCommand(target: target, userId: userId, param: param)
+            
+        case .editProfileInfoDone(let target, let result):
+            switch result {
+            case .success(let user):
+                switch target {
+                case .name:
+                    appState.loginState.user?.name = user.name
+                    appState.meState.editUserName = false
+                case .gender:
+                    appState.loginState.user?.gender = user.gender
+//                    appState.meState.edit
+                case .phoneNumber:
+                    appState.loginState.user?.phoneNumber = user.phoneNumber
+                    appState.meState.editPhoneNumber = false
+                case .contactEmail:
+                    appState.loginState.user?.contactEmail = user.contactEmail
+                    appState.meState.editContactEmail = false
+                }
+
+            case .failure(let error):
+                appState.meState.editError = error
+            }
+        case .pqEvent(let action, let eventId):
+            appCommand = PQEventAppCommand(
+                action: action,
+                eventId: eventId,
+                userId: appState.loginState.user?.id ?? 0)
+            
+        case .pqEventDone(let action, let result):
+            switch result {
+            case .success(let event):
+                appState.eventState.calendarViewModel.updateSingleEventParticipant(with: event, userId: appState.loginState.user?.id ?? 0)
+                switch action {
+                case .Participate:
+                    appState.eventState.selectedDayPreState = .participated
+                case .Quit:
+                    for event in appState.eventState.selectedDay!.events{
+                        if event.isParticipated(userId: appState.loginState.user!.id){
+                            appState.eventState.selectedDayPreState = .participated
+                            break
+                        }
+                        appState.eventState.selectedDayPreState = .available
+                    }
+                }
+            case .failure(let error):
+                appState.eventState.pqEventError = error
+            }
         }
-        
         return (appState, appCommand)
     }
       

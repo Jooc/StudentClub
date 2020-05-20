@@ -12,6 +12,8 @@ public class DBNewsModel{
     public int publisher_id;
     public String publisher_name;
     public String publisher_avatar;
+    public int publisher_privilege;
+
 
     public String tags;
     public int privilege;
@@ -78,6 +80,14 @@ public class DBNewsModel{
 
     public void setPublisher_avatar(String publisher_avatar) {
         this.publisher_avatar = publisher_avatar;
+    }
+
+    public int getPublisher_privilege() {
+        return publisher_privilege;
+    }
+
+    public void setPublisher_privilege(int publisher_privilege) {
+        this.publisher_privilege = publisher_privilege;
     }
 
     public String getTags() {

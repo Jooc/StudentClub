@@ -5,6 +5,7 @@ import java.util.HashMap;
 public interface ClubServiceInterface {
 
     Object getAllClub();
+    Object getMembers(int code);
     Object getByCode(int code);
     Object getClubByRegisterCode(String registerCode);
     Object add(HashMap<String, Object> req);

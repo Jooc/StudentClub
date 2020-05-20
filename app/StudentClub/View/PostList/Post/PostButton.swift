@@ -12,7 +12,7 @@ struct PostButton: View {
     @EnvironmentObject var store: Store
 
     var showAddButtons: Bool{
-        self.store.appState.postListState.showAddButtons
+        self.store.appState.showAddButtons
     }
     
     var body: some View {
@@ -93,7 +93,7 @@ struct PostButton: View {
                 .gesture(
                     TapGesture()
                         .onEnded{ value in
-                            self.store.appState.postListState.showAddButtons.toggle()
+                            self.store.appState.showAddButtons.toggle()
                 })
                 .animation(.spring(response: 0.65, dampingFraction: 0.825, blendDuration: 0))
     }

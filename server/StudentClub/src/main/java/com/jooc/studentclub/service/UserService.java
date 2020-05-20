@@ -123,6 +123,83 @@ public class UserService implements UserServiceInterface {
         return res;
     }
 
+    @Override
+    public Object editUserName(HashMap<String, Object> req) {
+        HashMap<String, Object> res = new HashMap<>();
+
+        int id = Integer.parseInt(req.get("id").toString());
+        String newName = (String) req.get("newName");
+
+        try{
+            userMapper.updateUserName(id, newName);
+            res.put("code", 0);
+            res.put("msg", "成功");
+            res.put("user", getUserById(id));
+        }catch (Exception e){
+            res.put("code", -1);
+            res.put("msg", "更新数据失败");
+        }
+        return res;
+    }
+
+    @Override
+    public Object editGender(HashMap<String, Object> req) {
+        HashMap<String, Object> res = new HashMap<>();
+
+        int id = Integer.parseInt(req.get("id").toString());
+        String newGender = (String) req.get("newGender");
+
+        try{
+            userMapper.updateGender(id, newGender);
+            res.put("code", 0);
+            res.put("msg", "成功");
+            res.put("user", getUserById(id));
+        }catch (Exception e){
+            res.put("code", -1);
+            res.put("msg", "更新数据失败");
+        }
+        return res;
+    }
+
+    @Override
+    public Object editPhoneNumber(HashMap<String, Object> req) {
+        HashMap<String, Object> res = new HashMap<>();
+
+        int id = Integer.parseInt(req.get("id").toString());
+        String newPhoneNumber = (String) req.get("newPhoneNumber");
+
+        try{
+            userMapper.updatePhoneNumber(id, newPhoneNumber);
+            res.put("code", 0);
+            res.put("msg", "成功");
+            res.put("user", getUserById(id));
+        }catch (Exception e){
+            res.put("code", -1);
+            res.put("msg", "更新数据失败");
+        }
+        return res;
+    }
+
+    @Override
+    public Object editContactEmail(HashMap<String, Object> req) {
+        HashMap<String, Object> res = new HashMap<>();
+
+        int id = Integer.parseInt(req.get("id").toString());
+        String newContactEmail = (String) req.get("newContactEmail");
+
+        try{
+            userMapper.updateContactEmail(id, newContactEmail);
+            res.put("code", 0);
+            res.put("msg", "成功");
+            res.put("user", getUserById(id));
+        }catch (Exception e){
+            res.put("code", -1);
+            res.put("msg", "更新数据失败");
+        }
+        return res;
+    }
+
+
     public static HashMap<String, Object> packUser(DBUserModel DBUserModel){
         HashMap<String, Object> user = new HashMap<>();
         HashMap<String, Object> club = new HashMap<>();

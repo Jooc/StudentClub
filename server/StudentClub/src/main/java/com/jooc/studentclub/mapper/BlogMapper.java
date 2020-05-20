@@ -8,16 +8,16 @@ import java.util.List;
 @Mapper
 public interface BlogMapper {
 
-    @Select("select Blog.id, post_time, url, publisher_id, User.name, User.avatar, Blog.privilege, tags from Blog join User on (Blog.publisher_id=User.id) order by post_time desc;")
+    @Select("select Blog.id, post_time, url, publisher_id, User.name, User.avatar, User.privilege as publisher_privilege, Blog.privilege, tags from Blog join User on (Blog.publisher_id=User.id) order by post_time desc;")
     List<DBBlogModel> getAllBlog();
 
-    @Select("select Blog.id, post_time, url, publisher_id, User.name, User.avatar, Blog.privilege, tags from Blog join User on (Blog.publisher_id=User.id) where Blog.id = #{id};")
+    @Select("select Blog.id, post_time, url, publisher_id, User.name, User.avatar, User.privilege as publisher_privilege, Blog.privilege, tags from Blog join User on (Blog.publisher_id=User.id) where Blog.id = #{id};")
     DBBlogModel getById(int id);
 
-    @Select("select Blog.id, post_time, url, publisher_id, User.name, User.avatar, Blog.privilege, tags from Blog join User on (Blog.publisher_id=User.id) where Blog.privilege <= #{privilege};")
+    @Select("select Blog.id, post_time, url, publisher_id, User.name, User.avatar, User.privilege as publisher_privilege, Blog.privilege, tags from Blog join User on (Blog.publisher_id=User.id) where Blog.privilege <= #{privilege};")
     List<DBBlogModel> getByPrivilege(int privilege);
 
-    @Select("select Blog.id, post_time, url, publisher_id, User.name, User.avatar, Blog.privilege, tags from  Blog join User on (Blog.publisher_id=User.id) where publisher_id = #{user_id};")
+    @Select("select Blog.id, post_time, url, publisher_id, User.name, User.avatar, User.privilege as publisher_privilege, Blog.privilege, tags from  Blog join User on (Blog.publisher_id=User.id) where publisher_id = #{user_id};")
     List<DBBlogModel> getByUserId(int user_id);
 
     @Select("select max(id) from Blog")

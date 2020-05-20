@@ -14,7 +14,7 @@ struct MonthPad: View {
     
     var body: some View {
         VStack(spacing: self.viewModel.space){
-            ForEach(self.viewModel.weeks){week in
+            ForEach(self.viewModel.weeks, id: \.self){week in
                 WeekRow(viewModel: week)
             }
         }

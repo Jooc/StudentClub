@@ -10,6 +10,7 @@ import Foundation
 
 enum FileHelper {
     static func loadBundleJSON<T: Decodable>(file: String) -> T{
+        print(file)
         guard let url = Bundle.main.url(forResource: file, withExtension: "json") else{
             fatalError("Resource not found: \(file)")
         }

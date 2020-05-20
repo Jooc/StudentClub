@@ -12,7 +12,7 @@ struct CalendarHeader: View {
     @EnvironmentObject var store: Store
     
     var currentMonth: Int{
-        self.store.appState.calendarState.currentMonth
+        self.store.appState.eventState.currentMonth
     }
     
     var body: some View {

@@ -30,23 +30,24 @@ struct ImagePickerView:  UIViewControllerRepresentable{
     func updateUIViewController(_ uiViewController: UIViewControllerType, context: UIViewControllerRepresentableContext<ImagePickerView>) {
             
     }
+
+    class Coordinator: NSObject,UINavigationControllerDelegate,  UIImagePickerControllerDelegate  {
+        let parent: ImagePickerView
+        
+        init(parent: ImagePickerView) {
+            self.parent = parent
+        }
+        
+        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+            if let unwrapImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+                parent.image = unwrapImage
+            }
+            self.parent.isPresented = false
+        }
+        
+        func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+            self.parent.isPresented = false
+        }
+    }
 }
 
-class Coordinator: NSObject,UINavigationControllerDelegate,  UIImagePickerControllerDelegate  {
-    let parent: ImagePickerView
-    
-    init(parent: ImagePickerView) {
-        self.parent = parent
-    }
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let unwrapImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            parent.image = unwrapImage
-        }
-        self.parent.isPresented = false
-    }
-    
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        self.parent.isPresented = false
-    }
-}
