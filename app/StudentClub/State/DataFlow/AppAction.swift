@@ -19,7 +19,7 @@ enum AppAction {
     case inputDone
     case login(emai: String, password: String)
     case accountBehaviorDone(result: Result<User, AppError>)
-//    case accountBehaviorDone(result: Result<UserResponse, AppError>)
+
     case logout
     case register
     case registerDone(result: Result<String, AppError>)
@@ -29,6 +29,9 @@ enum AppAction {
     case loadNewsDone(result: Result<[News], AppError>)
     case loadBlog
     case loadBlogDone(result: Result<[Blog], AppError>)
+    case loadBlogLPMetaData(index: Int)
+    case loadBlogLPMetaDataDone(blogIndex: Int, result: Result<LPLinkMetadata, AppError>)
+    
     case loadClubList
     case loadClubListDone(result: Result<[ClubInfo], AppError>)
     case loadMyClubMembers
@@ -41,8 +44,6 @@ enum AppAction {
     
     case loadEvents
     case loadEventsDone(result: Result<[Event], AppError>)
-    case loadBlogLPMetaData(index: Int)
-    case loadBlogLPMetaDataDone(blogIndex: Int, result: Result<LPLinkMetadata, AppError>)
     
     // MARK: UI Event
     case clickDayCell(day: EDayViewModel)
