@@ -30,10 +30,8 @@ struct FileStorage<T: Codable> {
                 try? FileHelper.delete(from: directory, fileName: fileName)
             }
         }
-        
         get{
             value
         }
     }
-    
 }

@@ -7,33 +7,46 @@
 //
 
 import SwiftUI
+import struct Kingfisher.KFImage
 
 struct ClubListPage: View {
     @EnvironmentObject var store: Store
     
+    var viewModel: ClubViewModel{
+        self.store.appState.clubState.viewModel
+    }
+    
+    @State var showBackButton: Bool = true
+    
     var body: some View {
-        VStack {
-            HStack{
-                Button(action: {
-                    self.store.appState.rightSliderPageState = .NONE
-                }){
-                    HStack {
-                        Image(systemName: "chevron.left")
-                        Text("返回")
+        NavigationView {
+            List{
+                ForEach(self.viewModel.clubs){ club in
+                    NavigationLink(destination:
+                        Text(club.name)
+                    ){
+                        HStack(spacing: 15) {
+                            KFImage(URL(string: Globals.OSSPrefix + club.icon))
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 60, height: 60)
+                            
+                            Text(club.name)
+                        }.padding(.vertical, 5)
                     }
-                    .foregroundColor(Color.black)
-                    .padding(.all, 5)
                 }
-                Spacer()
             }
-            .padding(.horizontal)
-            
+            .navigationBarTitle("")
+            .navigationBarHidden(true)
+        }
+        .onAppear(){
+            self.store.dispatch(.loadClubList)
         }
     }
 }
 
 struct ClubListPage_Previews: PreviewProvider {
     static var previews: some View {
-        ClubListPage()
+        ClubListPage().environmentObject(Store.Sample())
     }
 }

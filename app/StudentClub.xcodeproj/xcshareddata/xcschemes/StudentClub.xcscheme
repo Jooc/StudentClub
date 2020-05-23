@@ -26,8 +26,39 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES">
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      codeCoverageEnabled = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "F18E52FE2476EC23005A00C1"
+               BuildableName = "StudentClubTests.xctest"
+               BlueprintName = "StudentClubTests"
+               ReferencedContainer = "container:StudentClub.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "F18E5310247706E9005A00C1"
+               BuildableName = "StudentClubUITests.xctest"
+               BlueprintName = "StudentClubUITests"
+               ReferencedContainer = "container:StudentClub.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "F18E531E24775302005A00C1"
+               BuildableName = "StudentClubActionTests.xctest"
+               BlueprintName = "StudentClubActionTests"
+               ReferencedContainer = "container:StudentClub.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

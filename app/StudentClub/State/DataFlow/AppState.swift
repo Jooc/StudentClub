@@ -17,7 +17,7 @@ struct AppState{
         case postNews, postBlog, NONE
     }
     enum RightSliderPageState{
-        case newsDetail, profile, newsBase, blogBase, clubInfo, clubList, NONE
+        case newsDetail, profile, newsBase, blogBase, NONE
     }
     
     var loginState = LoginState()
@@ -130,10 +130,7 @@ extension AppState{
         var viewModel = MeViewModel()
         
         var closed = false
-        
-        var isProfileActive = false
-        var isNewsPostActive = false
-        var isBlogPostActive = false
+
         var isClubInfoActive = false
         var isClubListActive = false
         
@@ -162,10 +159,13 @@ extension AppState{
 }
 
 extension AppState{
-    class ClubState{
-        @Published var viewModel = ClubViewModel()
+    struct ClubState{
+        var viewModel = ClubViewModel()
+        
+        var isDeleting: Bool = false
         
         var loadError: AppError?
+        var deleteError: AppError?
     }
 }
 

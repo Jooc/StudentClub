@@ -10,6 +10,8 @@ import SwiftUI
 
 struct ButtonList: View {
     @EnvironmentObject var store: Store
+    
+    @State var showList: Bool = false
 
     var showMe: Bool{
         self.store.appState.showMe
@@ -41,12 +43,16 @@ struct ButtonList: View {
                     VStack() {
                         HStack{
                             Button(action:{
-                                self.store.appState.rightSliderPageState = .clubInfo
+                                self.store.appState.meState.isClubInfoActive = true
                             }){
                                 ButtonLabel(icon: "person.2.fill", text: "俱乐部")
                             }
+                            .sheet(isPresented: self.$store.appState.meState.isClubInfoActive){
+                                ClubInfoPage().environmentObject(self.store)
+                            }
+                            
                             Button(action:{
-                                self.store.appState.rightSliderPageState = .clubList
+                                self.store.appState.meState.isClubListActive = true
                             }){
                                     HStack {
                                         Image(systemName: "person.2.square.stack.fill")
@@ -63,6 +69,9 @@ struct ButtonList: View {
                                     .padding(.vertical, 12)
                                     .shadow(radius: 5)
                                     .frame(width: 55, alignment: .center)
+                            }
+                            .sheet(isPresented: self.$store.appState.meState.isClubListActive){
+                                ClubListPage().environmentObject(self.store)
                             }
                         }
                     }.frame(width: proxy.size.width, height: proxy.size.height*0.2)

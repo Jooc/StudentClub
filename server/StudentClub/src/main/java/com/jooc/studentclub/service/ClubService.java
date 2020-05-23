@@ -234,7 +234,7 @@ public class ClubService implements ClubServiceInterface {
 
         try {
             int clubCode = Integer.parseInt(req.get("clubCode").toString());
-            int newMemberId = Integer.parseInt(req.get("newMemberId").toString());
+            Object newMemberId = req.get("newMemberId");
 
             DBClubModel db = clubMapper.getByCode(clubCode);
 
@@ -266,7 +266,7 @@ public class ClubService implements ClubServiceInterface {
 
         try {
             int clubCode = Integer.parseInt(req.get("clubCode").toString());
-            int targetMemberId = Integer.parseInt(req.get("targetMemberId").toString());
+            Object targetMemberId = req.get("targetMemberId");
 
             DBClubModel db = clubMapper.getByCode(clubCode);
 
@@ -281,7 +281,7 @@ public class ClubService implements ClubServiceInterface {
             res.put("newMemberList", transfer(clubMapper.getByCode(clubCode)));
         } catch (Exception e) {
             res.put("code", -1);
-            res.put("msg", "移除失败" + e);
+            res.put("msg", "移除失败" + e.getMessage());
         }
         return res;
     }

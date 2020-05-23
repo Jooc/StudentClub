@@ -12,6 +12,7 @@
         "id": 1,
         "name": "Jooc",
         "avatar": "http://iosclub-resources.oss-cn-hangzhou.aliyuncs.com/avatar/avatar.png",
+        "privilege": 5
     },
     "privilege": 1,
     "tags": "[]"

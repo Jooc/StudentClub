@@ -52,10 +52,28 @@ class Store: ObservableObject{
             appState.loginState.isLoginEmailValid = valid
         case .registerEmailValid(let valid):
             appState.loginState.isRegisterEmailValid = valid
+            
         case .input:
             appState.loginState.isInputting = true
         case .inputDone:
             appState.loginState.isInputting = false
+            
+        case .verifyRegisterCode:
+            guard !appState.loginState.isVerifing else{
+                break
+            }
+            appState.loginState.isVerifing = true
+            appCommand = VerifyRegisterCodeAppCommand(registerCode: appState.loginState.registerAccountChecker.registerCode)
+        case .verifyRegisterCodeDone(let result):
+            appState.loginState.isVerifing = false
+            switch result {
+            case .success(let clubName):
+                appState.loginState.registerAccountChecker.isRegisterCodeValid = true
+                appState.loginState.registerAccountChecker.validClubName = clubName
+            case .failure(let error):
+                appState.loginState.isRegisterEmailValid = false
+                print(error)
+            }
         case .login(let email, let password):
             guard !appState.loginState.isLogining else{
                 break
@@ -86,7 +104,6 @@ class Store: ObservableObject{
                 loginEmail: appState.loginState.registerAccountChecker.loginEmail,
                 userName: appState.loginState.registerAccountChecker.userName,
                 password: appState.loginState.registerAccountChecker.password)
-        
         case .registerDone(result: let result):
             switch result {
             case .success(let loginEmail):
@@ -108,28 +125,35 @@ class Store: ObservableObject{
             case .success(let newsList):
                 appState.postListState.postListViewModel.updateNews(newsList: newsList)
                 // TODO: Maybe this should be placed in .accountBehaviorDone
-                // TODO: OR simply combined with loadNews
+            // TODO: OR simply combined with loadNews
             case .failure(let error):
                 appState.postListState.loadNewsError = error
                 print("[ERROR]: \(error.localizedDescription)")
             }
-            
-            case .loadBlog:
-//                guard !appState.postListState.isLoading else{
-//                    break
-//                }
-                appState.postListState.isLoading = true
-                appCommand = LoadBlogAppCommand(userPrivilege: appState.loginState.user?.userPrivilege ?? 0)
+        case .loadBlog:
+            //                guard !appState.postListState.isLoading else{
+            //                    break
+            //                }
+            appState.postListState.isLoading = true
+            appCommand = LoadBlogAppCommand(userPrivilege: appState.loginState.user?.userPrivilege ?? 0)
         case .loadBlogDone(result: let result):
-                appState.postListState.isLoading = false
-                switch result {
-                case .success(let blogList):
-                    appState.postListState.postListViewModel.updateBlog(blogList: blogList)
-                case .failure(let error):
-                    appState.postListState.loadNewsError = error
-                    print("[ERROR]: \(error.localizedDescription)")
-                }
-            
+            appState.postListState.isLoading = false
+            switch result {
+            case .success(let blogList):
+                appState.postListState.postListViewModel.updateBlog(blogList: blogList)
+            case .failure(let error):
+                appState.postListState.loadNewsError = error
+                print("[ERROR]: \(error.localizedDescription)")
+            }
+        case .loadBlogLPMetaData(let index):
+            appCommand = LoadLPMetaDataAppCommand(blogIndex: index)
+        case .loadBlogLPMetaDataDone(blogIndex: let index, result: let result):
+            switch result{
+            case .success(let data):
+                appState.postListState.postListViewModel.blogList[index].metaData = data
+            case .failure(let error):
+                print("[ERROR]: \(error.localizedDescription)")
+            }
         case .loadEvents:
             guard !appState.eventState.isLoading else{
                 break
@@ -144,6 +168,25 @@ class Store: ObservableObject{
             case .failure(let error):
                 appState.eventState.loadEventError = error
                 print("[ERROR]: \(error.localizedDescription)")
+            }
+            
+        case .loadClubList:
+            appCommand = LoadClubListAppCommand()
+        case .loadClubListDone(let result):
+            switch result {
+            case .success(let clubList):
+                appState.clubState.viewModel.resetClubs(clubInfoList: clubList)
+            case .failure(let error):
+                appState.clubState.loadError = error
+            }
+        case .loadMyClubMembers:
+            appCommand = LoadMyClubMembersAppCommand(clubCode: appState.loginState.user?.clubInfo.clubCode ?? -1)
+        case .loadMyClubMembersDone(let result):
+            switch result {
+            case .success(let memberList):
+                appState.clubState.viewModel.resetMyClubMembers(userList: memberList)
+            case .failure(let error):
+                appState.clubState.loadError = error
             }
             
         case .loadNewsHistory:
@@ -167,47 +210,6 @@ class Store: ObservableObject{
                 print("[ERROR]: \(error.localizedDescription)")
             }
             
-        case .loadClubList:
-            appCommand = LoadClubListAppCommand()
-        case .loadClubListDone(let result):
-            switch result {
-            case .success(let clubList):
-                appState.clubState.viewModel.resetClubs(clubInfoList: clubList)
-            case .failure(let error):
-                appState.clubState.loadError = error
-            }
-        case .loadMyClubMembers:
-            appCommand = LoadMyClubMembersAppCommand(clubCode: appState.loginState.user?.clubInfo.clubCode ?? -1)
-        case .loadMyClubMembersDone(let result):
-            switch result {
-            case .success(let memberList):
-                appState.clubState.viewModel.resetMyClubMembers(userInfoList: memberList.2)
-            case .failure(let error):
-                appState.clubState.loadError = error
-            }
-            
-        case .loadBlogLPMetaData(let index):
-            appCommand = LoadLPMetaDataAppCommand(blogIndex: index)
-        case .loadBlogLPMetaDataDone(blogIndex: let index, result: let result):
-            switch result{
-            case .success(let data):
-                appState.postListState.postListViewModel.blogList[index].metaData = data
-            case .failure(let error):
-                print("[ERROR]: \(error.localizedDescription)")
-            }
-            
-        case .clickDayCell(let day):
-            appState.eventState.clickDayCell(dayViewModel: day)
-        case .clickNewsCell(let news):
-            appState.postListState.showNewsDetail(news: news)
-        case .closeNewsDetail:
-            appState.postListState.detailedNews = nil
-        case .nextPage:
-            appState.eventState.nextMonth()
-        case .lastPage:
-            appState.eventState.lastMonth()
-        case .selectMonth(let month):
-            appState.eventState.currentMonth = month
         case .postNews:
             guard !appState.postState.isPosting else{
                 break
@@ -227,7 +229,7 @@ class Store: ObservableObject{
                 appState.postListState.postNewsError = error
                 print("[ERROR]: \(error.localizedDescription)")
             }
-        
+            
         case .postBlog:
             guard !appState.postState.isPosting else{
                 break
@@ -248,6 +250,22 @@ class Store: ObservableObject{
                 print("[ERROR]: \(error.localizedDescription)")
             }
             
+        case .deleteClubMember(let index):
+            guard !appState.clubState.isDeleting else{
+                break
+            }
+            appCommand = DeleteClubMemberAppCommand(
+                requestBody: DeleteClubMemberRequest.RequestBody(
+                    clubCode: (appState.loginState.user?.clubInfo.clubCode)!,
+                    targetMemberId: appState.clubState.viewModel.myClubMembers[index].id))
+        case .deleteClubMemberDone(let result):
+            switch result{
+            case .success(let userList):
+                appState.clubState.viewModel.resetMyClubMembers(userList: userList)
+            case .failure(let error):
+                appState.clubState.deleteError = error
+            }
+            
         case .presentEditEventModal:
             appState.eventState.presentCalendarModalToAddEvent()
         case .publishEvent(let requestBody):
@@ -266,24 +284,6 @@ class Store: ObservableObject{
                 print("[ERROR]: \(error.localizedDescription)")
             }
             
-        case .verifyRegisterCode:
-            guard !appState.loginState.isVerifing else{
-                break
-            }
-            appState.loginState.isVerifing = true
-            appCommand = VerifyRegisterCodeAppCommand(registerCode: appState.loginState.registerAccountChecker.registerCode)
-            
-        case .verifyRegisterCodeDone(let result):
-            appState.loginState.isVerifing = false
-            switch result {
-            case .success(let clubName):
-                appState.loginState.registerAccountChecker.isRegisterCodeValid = true
-                appState.loginState.registerAccountChecker.validClubName = clubName
-            case .failure(let error):
-                appState.loginState.isRegisterEmailValid = false
-                print(error)
-            }
-            
         case .editProfileInfo(let target, let param):
             let userId = appState.loginState.user?.id ?? 0
             appCommand = EditProfileInfoAppCommand(target: target, userId: userId, param: param)
@@ -297,7 +297,7 @@ class Store: ObservableObject{
                     appState.meState.editUserName = false
                 case .gender:
                     appState.loginState.user?.gender = user.gender
-//                    appState.meState.edit
+                //                    appState.meState.edit
                 case .phoneNumber:
                     appState.loginState.user?.phoneNumber = user.phoneNumber
                     appState.meState.editPhoneNumber = false
@@ -305,7 +305,7 @@ class Store: ObservableObject{
                     appState.loginState.user?.contactEmail = user.contactEmail
                     appState.meState.editContactEmail = false
                 }
-
+                
             case .failure(let error):
                 appState.meState.editError = error
             }
@@ -334,8 +334,20 @@ class Store: ObservableObject{
             case .failure(let error):
                 appState.eventState.pqEventError = error
             }
+            
+        case .clickDayCell(let day):
+            appState.eventState.clickDayCell(dayViewModel: day)
+        case .clickNewsCell(let news):
+            appState.postListState.showNewsDetail(news: news)
+        case .closeNewsDetail:
+            appState.postListState.detailedNews = nil
+        case .nextPage:
+            appState.eventState.nextMonth()
+        case .lastPage:
+            appState.eventState.lastMonth()
+        case .selectMonth(let month):
+            appState.eventState.currentMonth = month
         }
         return (appState, appCommand)
     }
-      
 }

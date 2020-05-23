@@ -42,9 +42,12 @@ struct NewsPostHistory: View {
                     }
                 }
             }
-        .navigationBarTitle("NewsHistory")
-        .navigationBarHidden(true)
-        }.onAppear(){
+            .navigationBarTitle("NewsHistory")
+            .navigationBarHidden(true)
+            
+            Spacer()
+        }
+        .onAppear(){
             self.store.dispatch(.loadNewsHistory)
         }
     }

@@ -24,10 +24,6 @@ struct RightSlider: View {
                 NewsPostHistory()
             }else if showWhich == . blogBase{
                 BlogPostHistory()
-            }else if showWhich == .clubInfo{
-                ClubInfoPage()
-            }else if showWhich == .clubList{
-                ClubListPage()
             }
         }
     }

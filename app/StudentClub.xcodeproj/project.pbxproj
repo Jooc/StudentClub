@@ -17,6 +17,9 @@
 		F143E0932474B36400208D32 /* PQEventRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F143E0922474B36400208D32 /* PQEventRequest.swift */; };
 		F149B4C8246FD50A00C19AD5 /* PostNewsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F149B4C7246FD50A00C19AD5 /* PostNewsRequest.swift */; };
 		F162F9642473D97F0094ACB2 /* RightSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F162F9632473D97F0094ACB2 /* RightSlider.swift */; };
+		F18E5314247706E9005A00C1 /* StudentClubUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18E5313247706E9005A00C1 /* StudentClubUITests.swift */; };
+		F18E532224775303005A00C1 /* StudentClubActionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18E532124775303005A00C1 /* StudentClubActionTests.swift */; };
+		F18E532C2478D960005A00C1 /* DeleteRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18E532B2478D960005A00C1 /* DeleteRequest.swift */; };
 		F19419D724722007009E5268 /* EventEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19419D624722007009E5268 /* EventEditView.swift */; };
 		F19419E424722A0A009E5268 /* PublishEventRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19419E324722A0A009E5268 /* PublishEventRequest.swift */; };
 		F19709292470EC4600910E1B /* VerifyRegisterCodeRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19709282470EC4600910E1B /* VerifyRegisterCodeRequest.swift */; };
@@ -106,6 +109,23 @@
 		F1F42385246D43230024FB46 /* RegisterPad.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F42384246D43230024FB46 /* RegisterPad.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		F18E5316247706E9005A00C1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F1EBCD85246B807F00C1D603 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F1EBCD8C246B807F00C1D603;
+			remoteInfo = StudentClub;
+		};
+		F18E532424775303005A00C1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F1EBCD85246B807F00C1D603 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F1EBCD8C246B807F00C1D603;
+			remoteInfo = StudentClub;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		1C363A4664E64FB3FA5818E7 /* Pods-StudentClub.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StudentClub.debug.xcconfig"; path = "Target Support Files/Pods-StudentClub/Pods-StudentClub.debug.xcconfig"; sourceTree = "<group>"; };
 		84C8383ACE48A7D8E3CD3DE4 /* Pods-StudentClub.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StudentClub.release.xcconfig"; path = "Target Support Files/Pods-StudentClub/Pods-StudentClub.release.xcconfig"; sourceTree = "<group>"; };
@@ -119,6 +139,13 @@
 		F143E0922474B36400208D32 /* PQEventRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PQEventRequest.swift; sourceTree = "<group>"; };
 		F149B4C7246FD50A00C19AD5 /* PostNewsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostNewsRequest.swift; sourceTree = "<group>"; };
 		F162F9632473D97F0094ACB2 /* RightSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RightSlider.swift; sourceTree = "<group>"; };
+		F18E5311247706E9005A00C1 /* StudentClubUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StudentClubUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F18E5313247706E9005A00C1 /* StudentClubUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentClubUITests.swift; sourceTree = "<group>"; };
+		F18E5315247706E9005A00C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F18E531F24775303005A00C1 /* StudentClubActionTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StudentClubActionTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F18E532124775303005A00C1 /* StudentClubActionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentClubActionTests.swift; sourceTree = "<group>"; };
+		F18E532324775303005A00C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F18E532B2478D960005A00C1 /* DeleteRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteRequest.swift; sourceTree = "<group>"; };
 		F19419D624722007009E5268 /* EventEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventEditView.swift; sourceTree = "<group>"; };
 		F19419E324722A0A009E5268 /* PublishEventRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishEventRequest.swift; sourceTree = "<group>"; };
 		F19709282470EC4600910E1B /* VerifyRegisterCodeRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyRegisterCodeRequest.swift; sourceTree = "<group>"; };
@@ -214,6 +241,20 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		F18E530E247706E9005A00C1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F18E531C24775302005A00C1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F1EBCD8A246B807F00C1D603 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -244,10 +285,30 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		F18E5312247706E9005A00C1 /* StudentClubUITests */ = {
+			isa = PBXGroup;
+			children = (
+				F18E5313247706E9005A00C1 /* StudentClubUITests.swift */,
+				F18E5315247706E9005A00C1 /* Info.plist */,
+			);
+			path = StudentClubUITests;
+			sourceTree = "<group>";
+		};
+		F18E532024775303005A00C1 /* StudentClubActionTests */ = {
+			isa = PBXGroup;
+			children = (
+				F18E532124775303005A00C1 /* StudentClubActionTests.swift */,
+				F18E532324775303005A00C1 /* Info.plist */,
+			);
+			path = StudentClubActionTests;
+			sourceTree = "<group>";
+		};
 		F1EBCD84246B807F00C1D603 = {
 			isa = PBXGroup;
 			children = (
 				F1EBCD8F246B807F00C1D603 /* StudentClub */,
+				F18E5312247706E9005A00C1 /* StudentClubUITests */,
+				F18E532024775303005A00C1 /* StudentClubActionTests */,
 				F1EBCD8E246B807F00C1D603 /* Products */,
 				F149B4C9247002AC00C19AD5 /* Frameworks */,
 				33501421FAA002513EC12BF4 /* Pods */,
@@ -258,6 +319,8 @@
 			isa = PBXGroup;
 			children = (
 				F1EBCD8D246B807F00C1D603 /* StudentClub.app */,
+				F18E5311247706E9005A00C1 /* StudentClubUITests.xctest */,
+				F18E531F24775303005A00C1 /* StudentClubActionTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -340,6 +403,7 @@
 				F19419E324722A0A009E5268 /* PublishEventRequest.swift */,
 				F10C72C62473E6E40030A6E0 /* EditUserInfoRequest.swift */,
 				F143E0922474B36400208D32 /* PQEventRequest.swift */,
+				F18E532B2478D960005A00C1 /* DeleteRequest.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -602,6 +666,42 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		F18E5310247706E9005A00C1 /* StudentClubUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F18E5318247706E9005A00C1 /* Build configuration list for PBXNativeTarget "StudentClubUITests" */;
+			buildPhases = (
+				F18E530D247706E9005A00C1 /* Sources */,
+				F18E530E247706E9005A00C1 /* Frameworks */,
+				F18E530F247706E9005A00C1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F18E5317247706E9005A00C1 /* PBXTargetDependency */,
+			);
+			name = StudentClubUITests;
+			productName = StudentClubUITests;
+			productReference = F18E5311247706E9005A00C1 /* StudentClubUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		F18E531E24775302005A00C1 /* StudentClubActionTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F18E532624775303005A00C1 /* Build configuration list for PBXNativeTarget "StudentClubActionTests" */;
+			buildPhases = (
+				F18E531B24775302005A00C1 /* Sources */,
+				F18E531C24775302005A00C1 /* Frameworks */,
+				F18E531D24775302005A00C1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F18E532524775303005A00C1 /* PBXTargetDependency */,
+			);
+			name = StudentClubActionTests;
+			productName = StudentClubActionTests;
+			productReference = F18E531F24775303005A00C1 /* StudentClubActionTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		F1EBCD8C246B807F00C1D603 /* StudentClub */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = F1EBCDA1246B808200C1D603 /* Build configuration list for PBXNativeTarget "StudentClub" */;
@@ -633,6 +733,14 @@
 				LastUpgradeCheck = 1140;
 				ORGANIZATIONNAME = "齐旭晨";
 				TargetAttributes = {
+					F18E5310247706E9005A00C1 = {
+						CreatedOnToolsVersion = 11.4.1;
+						TestTargetID = F1EBCD8C246B807F00C1D603;
+					};
+					F18E531E24775302005A00C1 = {
+						CreatedOnToolsVersion = 11.4.1;
+						TestTargetID = F1EBCD8C246B807F00C1D603;
+					};
 					F1EBCD8C246B807F00C1D603 = {
 						CreatedOnToolsVersion = 11.4.1;
 					};
@@ -654,11 +762,27 @@
 			projectRoot = "";
 			targets = (
 				F1EBCD8C246B807F00C1D603 /* StudentClub */,
+				F18E5310247706E9005A00C1 /* StudentClubUITests */,
+				F18E531E24775302005A00C1 /* StudentClubActionTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		F18E530F247706E9005A00C1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F18E531D24775302005A00C1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F1EBCD8B246B807F00C1D603 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -722,6 +846,22 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		F18E530D247706E9005A00C1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F18E5314247706E9005A00C1 /* StudentClubUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F18E531B24775302005A00C1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F18E532224775303005A00C1 /* StudentClubActionTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F1EBCD89246B807F00C1D603 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -738,6 +878,7 @@
 				F1EBCE24246B813F00C1D603 /* ContentView.swift in Sources */,
 				F1EBD00E246B9D3400C1D603 /* CalendarVIewModel.swift in Sources */,
 				F10C72CB2474114F0030A6E0 /* PostHistoryViewModel.swift in Sources */,
+				F18E532C2478D960005A00C1 /* DeleteRequest.swift in Sources */,
 				F162F9642473D97F0094ACB2 /* RightSlider.swift in Sources */,
 				F1EBCFEE246B9D3400C1D603 /* ImagePickerView.swift in Sources */,
 				F1EBCFEC246B9D3400C1D603 /* DayCell.swift in Sources */,
@@ -816,6 +957,19 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		F18E5317247706E9005A00C1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F1EBCD8C246B807F00C1D603 /* StudentClub */;
+			targetProxy = F18E5316247706E9005A00C1 /* PBXContainerItemProxy */;
+		};
+		F18E532524775303005A00C1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F1EBCD8C246B807F00C1D603 /* StudentClub */;
+			targetProxy = F18E532424775303005A00C1 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		F1EBCDA8246B813E00C1D603 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -828,6 +982,84 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		F18E5319247706E9005A00C1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 8AM3K89UQM;
+				INFOPLIST_FILE = StudentClubUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = Jooc.StudentClubUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = StudentClub;
+			};
+			name = Debug;
+		};
+		F18E531A247706E9005A00C1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 8AM3K89UQM;
+				INFOPLIST_FILE = StudentClubUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = Jooc.StudentClubUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = StudentClub;
+			};
+			name = Release;
+		};
+		F18E532724775303005A00C1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 8AM3K89UQM;
+				INFOPLIST_FILE = StudentClubActionTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = Jooc.StudentClubActionTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/StudentClub.app/StudentClub";
+			};
+			name = Debug;
+		};
+		F18E532824775303005A00C1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 8AM3K89UQM;
+				INFOPLIST_FILE = StudentClubActionTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = Jooc.StudentClubActionTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/StudentClub.app/StudentClub";
+			};
+			name = Release;
+		};
 		F1EBCD9F246B808200C1D603 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -987,6 +1219,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		F18E5318247706E9005A00C1 /* Build configuration list for PBXNativeTarget "StudentClubUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F18E5319247706E9005A00C1 /* Debug */,
+				F18E531A247706E9005A00C1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F18E532624775303005A00C1 /* Build configuration list for PBXNativeTarget "StudentClubActionTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F18E532724775303005A00C1 /* Debug */,
+				F18E532824775303005A00C1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		F1EBCD88246B807F00C1D603 /* Build configuration list for PBXProject "StudentClub" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

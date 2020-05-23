@@ -28,7 +28,11 @@ extension Club{
 }
 
 
-struct ClubInfo: Codable {
+struct ClubInfo: Codable, Hashable, Identifiable {
+    var id: Int{
+        self.code
+    }
+    
     var code: Int
     var name: String
     var icon: String

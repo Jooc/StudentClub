@@ -10,6 +10,9 @@ import Foundation
 
 class ClubViewModel {
     @Published var clubs = [ClubInfo]()
+    
+    @Published var myAdvisor = UserInfo(id: -1, name: "", avatar: "", privilege: 0)
+    @Published var myManager = UserInfo(id: -1, name: "", avatar: "", privilege: 0)
     @Published var myClubMembers = [UserInfo]()
     
     init() {
@@ -20,7 +23,9 @@ class ClubViewModel {
         self.clubs = clubInfoList
     }
     
-    func resetMyClubMembers(userInfoList: [UserInfo]){
-        self.myClubMembers = userInfoList
+    func resetMyClubMembers(userList: (UserInfo, UserInfo, [UserInfo])){
+        self.myAdvisor = userList.0
+        self.myManager = userList.1
+        self.myClubMembers = userList.2
     }
 }

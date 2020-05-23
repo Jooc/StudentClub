@@ -261,6 +261,25 @@ struct PostBlogAppCommand: AppCommand {
     }
 }
 
+struct DeleteClubMemberAppCommand: AppCommand {
+    let requestBody: DeleteClubMemberRequest.RequestBody
+    
+    func excute(in store: Store) {
+        let token = SubscriptionToken()
+        
+        DeleteClubMemberRequest(requestBody: requestBody)
+        .publisher
+        .sink(receiveCompletion: { complete in
+            if case .failure(let error) = complete{
+                store.dispatch(.deleteClubMemberDone(result: .failure(error)))
+            }
+            token.unseal()
+        }, receiveValue: {memberList in
+            store.dispatch(.deleteClubMemberDone(result: .success(memberList)))
+        }).seal(in: token)
+    }
+}
+
 struct PublishEventAppCommand: AppCommand {
     var requestBody: PublishEventRequest.RequestBody
     

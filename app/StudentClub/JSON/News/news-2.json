@@ -15,7 +15,8 @@
         "id": 0,
         "name": "Jooc",
         "avatar": "http://iosclub-resources.oss-cn-hangzhou.aliyuncs.com/avatar/avatar.png",
-        "universityCode": 0
+        "universityCode": 0,
+        "privilege": 5
     },
     "privilege": 2,
     "tags": "[]"
