@@ -91,11 +91,12 @@ extension AppState{
 
 extension AppState{
     class PostListState {
-        @Published var postListViewModel  = PostListViewModel(date: "2020-5-17")
+        @Published var postListViewModel  = PostListViewModel()
         
         @Published var detailedNews: NewsViewModel? = nil
         
-        var isLoading = false
+        @Published var isLoading = false
+        
         @Published var loadNewsError: AppError?
         @Published var postNewsError: AppError?
         @Published var postBlogError: AppError?
@@ -103,6 +104,7 @@ extension AppState{
         func showNewsDetail(news: NewsViewModel) {
             self.detailedNews = news
         }
+        
     }
 }
 

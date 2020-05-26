@@ -37,7 +37,7 @@ struct MainTab: View {
     var tableView: some View{
         VStack {
             TabView{
-                NewsPage()
+                NewsPage(store: self.store)
                     .navigationBarTitle("Post")
                     .navigationBarHidden(true)
                     .tabItem{

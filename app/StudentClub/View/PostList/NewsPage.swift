@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct NewsPage: View {
-    @EnvironmentObject var store: Store
+    @ObservedObject var store: Store
     @GestureState private var translation = CGPoint.zero
     
     var viewModel: PostListViewModel{
@@ -20,31 +20,22 @@ struct NewsPage: View {
         ZStack {
             Color("Base")
                 .edgesIgnoringSafeArea(.all)
-            VStack() {
-                ScrollView(showsIndicators: false) {
+            VStack {
+                RefreshableScrollView(refreshing: self.$store.refreshableScrollViewIsLoading){
                     header
-                        .gesture(
-                            DragGesture().updating(self.$translation){ current, state, _ in
-                                state.y = current.translation.height
-                            }
-                            .onEnded(){ state in
-                                if state.translation.height > 100{
-                                    print(state.translation.height)
-                                    self.store.dispatch(.loadNews)
-                                }
-                        }).animation(.spring())
-                    
-                    ForEach(viewModel.blogList, id: \.self){viewModel in
-                        BlogCell(viewModel: viewModel)
-                            .padding(.vertical)
+                    VStack{
+                        ForEach(viewModel.newsList, id: \.self){viewModel in
+                            NewsCell(viewModel: viewModel)
+                                .padding(.vertical)
+                        }
+                        ForEach(viewModel.blogList, id: \.self){viewModel in
+                            BlogCell(viewModel: viewModel)
+                                .padding(.vertical)
+                        }
                     }
-                    
-                    ForEach(viewModel.newsList, id: \.self){viewModel in
-                        NewsCell(viewModel: viewModel)
-                            .padding(.vertical)
-                    }
-                }
+                }.background(Color(UIColor.secondarySystemBackground))
             }
+            
         }
     }
     
@@ -52,7 +43,7 @@ struct NewsPage: View {
         HStack {
             ZStack(alignment: .topLeading) {
                 VStack(alignment: .leading, spacing: 15) {
-                    Text("4月27日 星期一")
+                    Text(viewModel.date)
                         .font(.system(size: 25))
                     Image(uiImage: #imageLiteral(resourceName: "News-Title"))
                         .resizable()
@@ -72,7 +63,7 @@ struct NewsPage: View {
 
 struct NewsPage_Previews: PreviewProvider {
     static var previews: some View {
-        NewsPage().environmentObject(Store.Sample())
+        NewsPage(store: Store.Sample())
     }
 }
 

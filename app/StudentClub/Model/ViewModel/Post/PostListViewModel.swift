@@ -9,13 +9,19 @@
 import Foundation
 
 class PostListViewModel{
-    var date: String
+    var date: String = ""
     
     @Published var blogList = [BlogViewModel]()
     @Published var newsList = [NewsViewModel]()
     
-    init(date: String) {
-        self.date = date
+    init() {
+        generateTodayDate()
+    }
+    
+    private func generateTodayDate(){
+        let formatter = DateFormatter()
+        formatter.dateFormat = "M月d日"
+        self.date = formatter.string(from: Date())
     }
     
     func updateNews(newsList: [News]){
@@ -30,4 +36,7 @@ class PostListViewModel{
             self.blogList.append(BlogViewModel(blog: blog))
         }
     }
+    
+    
+    
 }

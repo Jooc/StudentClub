@@ -11,10 +11,12 @@ import Combine
 
 struct LoadNewsRequest {
     let userPrivilege: Int
-
+    let batchNum: Int = 0
+    
     var publisher: AnyPublisher<[News], AppError>{
-        guard let url = URL(string: Globals.serverUrl + "/news/getByPrivilege?privilege=" + String(userPrivilege)) else{
-            return Fail<[News], AppError>(error: .invalidURL).eraseToAnyPublisher()
+        guard let url = URL(string: Globals.serverUrl +
+            "/news/getByPrivilege?privilege=" + String(userPrivilege) + "&batchNum=" + String(batchNum)) else{
+                return Fail<[News], AppError>(error: .invalidURL).eraseToAnyPublisher()
         }
         print(url)
         return URLSession.shared
@@ -29,10 +31,12 @@ struct LoadNewsRequest {
 
 struct LoadBlogRequest {
     let userPrivilege: Int
+    let batchNum: Int = 0
     
     var publisher: AnyPublisher<[Blog], AppError>{
-        guard let url = URL(string: Globals.serverUrl + "/blog/getByPrivilege?privilege=" + String(userPrivilege))else{
-            return Fail<[Blog], AppError>(error: .invalidURL).eraseToAnyPublisher()
+        guard let url = URL(string: Globals.serverUrl +
+            "/blog/getByPrivilege?privilege=" + String(userPrivilege) + "&batchNum=" + String(batchNum))else{
+                return Fail<[Blog], AppError>(error: .invalidURL).eraseToAnyPublisher()
         }
         print(url)
         return URLSession.shared

@@ -17,43 +17,45 @@ public class BlogService implements BlogServiceInterface {
     @Autowired
     public BlogMapper blogMapper;
 
-    public List<BlogModel> getAllBlog(){
+    public List<BlogModel> getAllBlog() {
         List<DBBlogModel> list = blogMapper.getAllBlog();
         ArrayList<BlogModel> resultList = new ArrayList<>();
-        for (DBBlogModel db : list){
+        for (DBBlogModel db : list) {
             resultList.add(new BlogModel(db));
         }
         return resultList;
     }
 
-    public BlogModel getById(int id){
+    public BlogModel getById(int id) {
         return new BlogModel(blogMapper.getById(id));
     }
 
-    public List<BlogModel> getByPrivilege(int privilege){
+    public List<BlogModel> getByPrivilege(int privilege, int batchNum) {
         List<DBBlogModel> list = blogMapper.getByPrivilege(privilege);
         ArrayList<BlogModel> resultList = new ArrayList<>();
-        for (DBBlogModel db: list){
-            resultList.add(new BlogModel(db));
+        if (batchNum * 5 < list.size()) {
+            for (int i = batchNum * 5; i < (batchNum + 1) * 5 && i < list.size(); i++) {
+                resultList.add(new BlogModel(list.get(i)));
+            }
         }
         return resultList;
     }
 
-    public List<BlogModel> getByUserId(int user_id){
+    public List<BlogModel> getByUserId(int user_id) {
         List<DBBlogModel> list = blogMapper.getByUserId(user_id);
         ArrayList<BlogModel> resultList = new ArrayList<>();
-        for (DBBlogModel db: list){
+        for (DBBlogModel db : list) {
             resultList.add(new BlogModel(db));
         }
         return resultList;
     }
 
 
-    public void insert(DBBlogModel db){
+    public void insert(DBBlogModel db) {
         blogMapper.insertBlog(db);
     }
 
-    public void delete(int id){
+    public void delete(int id) {
         blogMapper.deleteById(id);
     }
 

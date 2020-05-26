@@ -45,8 +45,8 @@ public class BlogController {
     }
 
     @GetMapping("/getByPrivilege")
-    public Object getByPrivilege(int privilege){
-        return blogService.getByPrivilege(privilege);
+    public Object getByPrivilege(int privilege, int batchNum){
+        return blogService.getByPrivilege(privilege, batchNum);
     }
 
     @GetMapping("/getByUserId")

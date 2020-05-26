@@ -18,6 +18,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import static java.lang.Math.min;
+import static sun.swing.MenuItemLayoutHelper.max;
+
 @Service
 public class NewsService implements NewsServiceInterface {
 
@@ -47,11 +50,14 @@ public class NewsService implements NewsServiceInterface {
         }
     }
 
-    public Object getByPrivilege(int privilege) {
+    public Object getByPrivilege(int privilege, int batchNum) {
         List<DBNewsModel> list = newsMapper.getNewsByPrivilege(privilege);
-        ArrayList<Object> resultList = pack(list);
-
-        return resultList;
+        if (batchNum*5 < list.size()) {
+            ArrayList<Object> resultList = pack(list.subList(batchNum * 5, min(list.size(),(batchNum + 1) * 5)));
+            return resultList;
+        }else{
+            return new ArrayList<DBNewsModel>();
+        }
     }
 
     public Object getByUserId(int id) {

@@ -20,6 +20,7 @@
 		F18E5314247706E9005A00C1 /* StudentClubUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18E5313247706E9005A00C1 /* StudentClubUITests.swift */; };
 		F18E532224775303005A00C1 /* StudentClubActionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18E532124775303005A00C1 /* StudentClubActionTests.swift */; };
 		F18E532C2478D960005A00C1 /* DeleteRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18E532B2478D960005A00C1 /* DeleteRequest.swift */; };
+		F18ED918247CBFE1002C037C /* RefreshableScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18ED917247CBFE1002C037C /* RefreshableScrollView.swift */; };
 		F19419D724722007009E5268 /* EventEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19419D624722007009E5268 /* EventEditView.swift */; };
 		F19419E424722A0A009E5268 /* PublishEventRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19419E324722A0A009E5268 /* PublishEventRequest.swift */; };
 		F19709292470EC4600910E1B /* VerifyRegisterCodeRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19709282470EC4600910E1B /* VerifyRegisterCodeRequest.swift */; };
@@ -146,6 +147,7 @@
 		F18E532124775303005A00C1 /* StudentClubActionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentClubActionTests.swift; sourceTree = "<group>"; };
 		F18E532324775303005A00C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F18E532B2478D960005A00C1 /* DeleteRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteRequest.swift; sourceTree = "<group>"; };
+		F18ED917247CBFE1002C037C /* RefreshableScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshableScrollView.swift; sourceTree = "<group>"; };
 		F19419D624722007009E5268 /* EventEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventEditView.swift; sourceTree = "<group>"; };
 		F19419E324722A0A009E5268 /* PublishEventRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishEventRequest.swift; sourceTree = "<group>"; };
 		F19709282470EC4600910E1B /* VerifyRegisterCodeRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyRegisterCodeRequest.swift; sourceTree = "<group>"; };
@@ -483,6 +485,7 @@
 				F1EBCF8D246B9D3400C1D603 /* ShadowlyButton.swift */,
 				F1EBCF8E246B9D3400C1D603 /* SliderTap.swift */,
 				F19419D624722007009E5268 /* EventEditView.swift */,
+				F18ED917247CBFE1002C037C /* RefreshableScrollView.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -907,6 +910,7 @@
 				F19709292470EC4600910E1B /* VerifyRegisterCodeRequest.swift in Sources */,
 				F1EBCFF2246B9D3400C1D603 /* SliderTap.swift in Sources */,
 				F1EBCFFF246B9D3400C1D603 /* NewsDetail.swift in Sources */,
+				F18ED918247CBFE1002C037C /* RefreshableScrollView.swift in Sources */,
 				F1E13D74247142FA0045DBC9 /* PostBlogRequest.swift in Sources */,
 				F1EBD014246B9D3400C1D603 /* Event.swift in Sources */,
 				F1EBCE25246B813F00C1D603 /* SceneDelegate.swift in Sources */,

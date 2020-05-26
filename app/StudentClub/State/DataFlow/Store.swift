@@ -27,10 +27,28 @@ class Store: ObservableObject{
         }.store(in: &disposeBag)
     }
     
+    @Published var refreshableScrollViewIsLoading: Bool = false{
+        didSet{
+            if oldValue==false && refreshableScrollViewIsLoading==true{
+                self.load()
+            }
+        }
+    }
+    func load() {
+        // Simulate async task
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3)) {
+            self.dispatch(.loadNews)
+        }
+    }
+    
     func dispatch(_ action: AppAction) {
         #if DEBUG
         print("[ACTION]: \(action)")
         #endif
+        
+        if case .loadNews = action{
+            self.refreshableScrollViewIsLoading = false
+        }
         
         let result = Store.reduce(state: self.appState, action: action)
         self.appState = result.0

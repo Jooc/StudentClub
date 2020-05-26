@@ -43,12 +43,12 @@ public class NewsController {
     }
 
     @GetMapping("/getByPrivilege")
-    public Object getByPrivilege(int privilege){
+    public Object getByPrivilege(int privilege, int batchNum){
         Date d = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         System.out.println("" + sdf.format(d) + " [Request]: get news by privilege " + privilege);
 
-        return newsService.getByPrivilege(privilege);
+        return newsService.getByPrivilege(privilege, batchNum);
     }
 
     @GetMapping("/getByUserId")

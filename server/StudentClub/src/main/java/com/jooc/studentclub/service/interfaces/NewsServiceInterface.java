@@ -7,7 +7,7 @@ import java.util.HashMap;
 
 public interface NewsServiceInterface {
 
-    Object getByPrivilege(int privilege);
+    Object getByPrivilege(int privilege, int batchNum);
     Object getByUserId(int user_id);
     Object getById(int id);
     Object getAllNews();
