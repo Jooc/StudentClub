@@ -7,7 +7,8 @@ public class Common {
     public static String port = "8080";
     public static String backendUrl = "http://" + ip + ":" + port;
     public static String resPath = "file:/Users/Jooc/CodeProject/ImportantPro/StudentClub/server/Data/";
-    public static String root = "/Users/Jooc/CodeProject/ImportantPro/StudentClub/server/Data/";
+//    public static String root = "/Users/Jooc/CodeProject/ImportantPro/StudentClub/server/Data/";
+    public static String root = "/root/StudentClub/Data/";
     public static String virtual = "/files/";
 
 

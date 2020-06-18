@@ -34,7 +34,9 @@ public class ClubService implements ClubServiceInterface {
             ArrayList<ClubModel> clubList = new ArrayList<>();
 
             for (DBClubModel db : list) {
-                clubList.add(transfer(db));
+                if (db.code != -1) {
+                    clubList.add(transfer(db));
+                }
             }
             res.put("code", 0);
             res.put("msg", "查询成功");

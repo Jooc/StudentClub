@@ -41,9 +41,8 @@ struct NewsPostHistory: View {
                         }
                     }
                 }
+                .navigationBarTitle("NewsHistory")
             }
-            .navigationBarTitle("NewsHistory")
-            .navigationBarHidden(true)
             
             Spacer()
         }

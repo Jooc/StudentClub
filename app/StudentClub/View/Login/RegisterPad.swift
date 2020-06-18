@@ -72,14 +72,21 @@ struct RegisterPad: View {
                     self.store.dispatch(.register)
                 }){
                     Text("Register")
-                        .foregroundColor(Color.gray)
+                        .foregroundColor(.white)
                         .padding()
-                        .padding(.horizontal)
-                        .background(Color("Base"))
-                        .cornerRadius(30)
-                        .padding(.top, 20)
+                        .lineLimit(1)
+                        .frame(width: Globals.screen.width*0.3, alignment: .center)
                 }
-            }
+                .background(RadialGradient(
+                    gradient: Gradient(colors: [Color("LoginButton_green"), Color("Logo_purple")]),
+                    center: .bottomLeading,
+                    startRadius: 15,
+                    endRadius: 600
+                )
+                    .clipShape(RoundedRectangle(cornerRadius: 23, style: .continuous))
+                    .shadow(color: Color("LoginButton_green").opacity(0.3), radius: 20, x: 0, y: 20)
+                )
+            }.padding(.top, 30)
         }
         .padding(.horizontal, 35)
         .padding(.vertical, 50)

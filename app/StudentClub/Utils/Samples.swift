@@ -16,6 +16,8 @@ extension Store{
             let news = News.Sample(id: index)
             store.appState.postListState.postListViewModel.newsList.append(NewsViewModel(news: news))
         }
+        store.appState.detailsState.detailedUserID = 1
+//        store.appState.detailedNews = NewsViewModel.Sample(id: 1)
         store.appState.postListState.postListViewModel.blogList.append(BlogViewModel(blog: Blog.Sample()))
         store.appState.postListState.postListViewModel.blogList.append(BlogViewModel(blog: Blog.Sample()))
         store.appState.eventState.calendarViewModel.updateEvents(with: Event.all, userID: store.appState.loginState.user?.id ?? 0)

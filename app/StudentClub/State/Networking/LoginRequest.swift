@@ -29,8 +29,13 @@ struct LoginRequest {
             .map{ $0.data }
             .decode(type: LoginResponse.self, decoder: JSONDecoder())
             .map{User(loginResponse: $0)}
-            .mapError{AppError.networkFailed($0)}
-            //    .compactMap{$0.userName}
+            .mapError{
+                if $0.localizedDescription == "The data couldn’t be read because it is missing."{
+                    return AppError.passwordWrong
+                }
+                else{
+                    return AppError.networkFailed($0)
+                }}
             .receive(on: DispatchQueue.main)
             .eraseToAnyPublisher()
     }

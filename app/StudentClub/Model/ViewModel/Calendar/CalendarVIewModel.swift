@@ -58,6 +58,8 @@ extension CalendarViewModel{
             .map{string in Int(string)!}
         let pars2 = self.whichWeek(of: pars1[2], in: pars1[1])
         
+//        self.months[pars1[1]-1].weeks[pars2.0-1].days[pars2.1-1].events.removeAll()
+        
         self.months[pars1[1]-1].weeks[pars2.0 - 1].days[pars2.1 - 1].events.append(response)
         let participantArray =
             response.participant

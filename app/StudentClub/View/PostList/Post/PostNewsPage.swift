@@ -100,6 +100,7 @@ struct PostNewsPage: View {
                 if self.store.appState.postState.image != nil{
                     Image(uiImage: self.store.appState.postState.image!)
                         .resizable()
+                        .aspectRatio(contentMode: .fit)
                         .frame(width: 100, height: 100)
                 }
                 

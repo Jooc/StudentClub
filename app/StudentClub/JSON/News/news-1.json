@@ -1,19 +1,19 @@
 {
-    "iov": 0,
-
-    "id": 1,
-    "postTime": "2020-01-16 10:29:15",
-    "title": "长沙师范学院学生沙龙",
-    "content": "2019年长沙师范学院学生沙龙圆满举办",
+    "id": 9,
+    "postTime": "2020-05-25 12:27:14",
+    "title": "WWDC20",
+    "content": "On June 22, WWDC20 takes off. Get ready for the first global, all-online WWDC by downloading the Apple Developer app to stay notified on all the latest news, with updates for events and sessions. And there’s a lot more to come — starting with the first-ever Swift Student Challenge.",
     "images": [
-        "NewsImage/1579141747494.jpg"
+        "/NewsImage/1590380834608.png",
+        "/NewsImage/1590380834608.png",
+        "/NewsImage/1590380834608.png",
     ],
+    "privilege": 0,
     "publisherInfo": {
         "id": 1,
         "name": "Jooc",
-        "avatar": "http://iosclub-resources.oss-cn-hangzhou.aliyuncs.com/avatar/avatar.png",
+        "avatar": "/UserAvatar/1.png",
         "privilege": 5
     },
-    "privilege": 1,
     "tags": "[]"
 }

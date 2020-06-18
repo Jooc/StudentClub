@@ -16,7 +16,11 @@
 		F143E0912474273700208D32 /* EventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F143E0902474273700208D32 /* EventCell.swift */; };
 		F143E0932474B36400208D32 /* PQEventRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F143E0922474B36400208D32 /* PQEventRequest.swift */; };
 		F149B4C8246FD50A00C19AD5 /* PostNewsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F149B4C7246FD50A00C19AD5 /* PostNewsRequest.swift */; };
+		F1537494247E7964002277C5 /* NewsDetailSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1537493247E7964002277C5 /* NewsDetailSlider.swift */; };
 		F162F9642473D97F0094ACB2 /* RightSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F162F9632473D97F0094ACB2 /* RightSlider.swift */; };
+		F185D640248DDB0A007C4A88 /* ClubMemberDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = F185D63F248DDB0A007C4A88 /* ClubMemberDetail.swift */; };
+		F185D642248DDB14007C4A88 /* ClubDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = F185D641248DDB14007C4A88 /* ClubDetail.swift */; };
+		F185D644248DF8EC007C4A88 /* BottomMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = F185D643248DF8EC007C4A88 /* BottomMenu.swift */; };
 		F18E5314247706E9005A00C1 /* StudentClubUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18E5313247706E9005A00C1 /* StudentClubUITests.swift */; };
 		F18E532224775303005A00C1 /* StudentClubActionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18E532124775303005A00C1 /* StudentClubActionTests.swift */; };
 		F18E532C2478D960005A00C1 /* DeleteRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18E532B2478D960005A00C1 /* DeleteRequest.swift */; };
@@ -70,7 +74,7 @@
 		F1EBCFFC246B9D3400C1D603 /* EditContactEmail.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1EBCF9A246B9D3400C1D603 /* EditContactEmail.swift */; };
 		F1EBCFFD246B9D3400C1D603 /* ClubInfoPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1EBCF9B246B9D3400C1D603 /* ClubInfoPage.swift */; };
 		F1EBCFFE246B9D3400C1D603 /* NewsPostHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1EBCF9C246B9D3400C1D603 /* NewsPostHistory.swift */; };
-		F1EBCFFF246B9D3400C1D603 /* NewsDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1EBCF9E246B9D3400C1D603 /* NewsDetail.swift */; };
+		F1EBCFFF246B9D3400C1D603 /* NewsDetailPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1EBCF9E246B9D3400C1D603 /* NewsDetailPage.swift */; };
 		F1EBD000246B9D3400C1D603 /* PostButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1EBCFA0246B9D3400C1D603 /* PostButton.swift */; };
 		F1EBD001246B9D3400C1D603 /* PostNewsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1EBCFA1246B9D3400C1D603 /* PostNewsPage.swift */; };
 		F1EBD002246B9D3400C1D603 /* NewsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1EBCFA2246B9D3400C1D603 /* NewsCell.swift */; };
@@ -139,7 +143,11 @@
 		F143E0902474273700208D32 /* EventCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCell.swift; sourceTree = "<group>"; };
 		F143E0922474B36400208D32 /* PQEventRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PQEventRequest.swift; sourceTree = "<group>"; };
 		F149B4C7246FD50A00C19AD5 /* PostNewsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostNewsRequest.swift; sourceTree = "<group>"; };
+		F1537493247E7964002277C5 /* NewsDetailSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDetailSlider.swift; sourceTree = "<group>"; };
 		F162F9632473D97F0094ACB2 /* RightSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RightSlider.swift; sourceTree = "<group>"; };
+		F185D63F248DDB0A007C4A88 /* ClubMemberDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubMemberDetail.swift; sourceTree = "<group>"; };
+		F185D641248DDB14007C4A88 /* ClubDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubDetail.swift; sourceTree = "<group>"; };
+		F185D643248DF8EC007C4A88 /* BottomMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomMenu.swift; sourceTree = "<group>"; };
 		F18E5311247706E9005A00C1 /* StudentClubUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StudentClubUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F18E5313247706E9005A00C1 /* StudentClubUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentClubUITests.swift; sourceTree = "<group>"; };
 		F18E5315247706E9005A00C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -200,7 +208,7 @@
 		F1EBCF9A246B9D3400C1D603 /* EditContactEmail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditContactEmail.swift; sourceTree = "<group>"; };
 		F1EBCF9B246B9D3400C1D603 /* ClubInfoPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClubInfoPage.swift; sourceTree = "<group>"; };
 		F1EBCF9C246B9D3400C1D603 /* NewsPostHistory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsPostHistory.swift; sourceTree = "<group>"; };
-		F1EBCF9E246B9D3400C1D603 /* NewsDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsDetail.swift; sourceTree = "<group>"; };
+		F1EBCF9E246B9D3400C1D603 /* NewsDetailPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsDetailPage.swift; sourceTree = "<group>"; };
 		F1EBCFA0246B9D3400C1D603 /* PostButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostButton.swift; sourceTree = "<group>"; };
 		F1EBCFA1246B9D3400C1D603 /* PostNewsPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostNewsPage.swift; sourceTree = "<group>"; };
 		F1EBCFA2246B9D3400C1D603 /* NewsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsCell.swift; sourceTree = "<group>"; };
@@ -433,13 +441,15 @@
 			isa = PBXGroup;
 			children = (
 				F1EBCF7D246B9D3400C1D603 /* Calendar */,
-				F1EBCF88246B9D3400C1D603 /* Utils */,
 				F1EBCF8F246B9D3400C1D603 /* Me */,
 				F1EBCF9D246B9D3400C1D603 /* PostList */,
 				F1EBCFA6246B9D3400C1D603 /* Login */,
+				F1EBCF88246B9D3400C1D603 /* Utils */,
 				F1EBCFA9246B9D3400C1D603 /* MainTab.swift */,
+				F185D643248DF8EC007C4A88 /* BottomMenu.swift */,
 				F1E13D6F24713D580045DBC9 /* UpSlider.swift */,
 				F162F9632473D97F0094ACB2 /* RightSlider.swift */,
+				F1537493247E7964002277C5 /* NewsDetailSlider.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -502,6 +512,8 @@
 				F1EBCF90246B9D3400C1D603 /* BlogPostHistory.swift */,
 				F1EBCF9B246B9D3400C1D603 /* ClubInfoPage.swift */,
 				F1EBCF92246B9D3400C1D603 /* ClubListPage.swift */,
+				F185D63F248DDB0A007C4A88 /* ClubMemberDetail.swift */,
+				F185D641248DDB14007C4A88 /* ClubDetail.swift */,
 			);
 			path = Me;
 			sourceTree = "<group>";
@@ -522,7 +534,7 @@
 			isa = PBXGroup;
 			children = (
 				F1EBCF9F246B9D3400C1D603 /* Post */,
-				F1EBCF9E246B9D3400C1D603 /* NewsDetail.swift */,
+				F1EBCF9E246B9D3400C1D603 /* NewsDetailPage.swift */,
 				F1EBCFA2246B9D3400C1D603 /* NewsCell.swift */,
 				F1EBCFA3246B9D3400C1D603 /* BlogCell.swift */,
 				F1EBCFA4246B9D3400C1D603 /* NewsPage.swift */,
@@ -887,6 +899,7 @@
 				F1EBCFEC246B9D3400C1D603 /* DayCell.swift in Sources */,
 				F1EBCFED246B9D3400C1D603 /* BlurView.swift in Sources */,
 				F1EBD010246B9D3400C1D603 /* UserInfo.swift in Sources */,
+				F185D642248DDB14007C4A88 /* ClubDetail.swift in Sources */,
 				F1EBCFE3246B9D3400C1D603 /* Samples.swift in Sources */,
 				F1EBD00F246B9D3400C1D603 /* MeViewModel.swift in Sources */,
 				F1EBCFEB246B9D3400C1D603 /* MonthPad.swift in Sources */,
@@ -909,21 +922,24 @@
 				F1EBD002246B9D3400C1D603 /* NewsCell.swift in Sources */,
 				F19709292470EC4600910E1B /* VerifyRegisterCodeRequest.swift in Sources */,
 				F1EBCFF2246B9D3400C1D603 /* SliderTap.swift in Sources */,
-				F1EBCFFF246B9D3400C1D603 /* NewsDetail.swift in Sources */,
+				F1EBCFFF246B9D3400C1D603 /* NewsDetailPage.swift in Sources */,
 				F18ED918247CBFE1002C037C /* RefreshableScrollView.swift in Sources */,
 				F1E13D74247142FA0045DBC9 /* PostBlogRequest.swift in Sources */,
 				F1EBD014246B9D3400C1D603 /* Event.swift in Sources */,
 				F1EBCE25246B813F00C1D603 /* SceneDelegate.swift in Sources */,
 				F1EBCFFB246B9D3400C1D603 /* EditUserName.swift in Sources */,
+				F185D644248DF8EC007C4A88 /* BottomMenu.swift in Sources */,
 				F1EBD001246B9D3400C1D603 /* PostNewsPage.swift in Sources */,
 				F1EBCFF7246B9D3400C1D603 /* ButtonList.swift in Sources */,
 				F1EBCFE5246B9D3400C1D603 /* EventsPad.swift in Sources */,
 				F1EBD006246B9D3400C1D603 /* LoginPage.swift in Sources */,
 				F1EBCFF8246B9D3400C1D603 /* ProfileInfo.swift in Sources */,
 				F1E13D7224713E8C0045DBC9 /* PostBlogPage.swift in Sources */,
+				F1537494247E7964002277C5 /* NewsDetailSlider.swift in Sources */,
 				F1EBCFD6246B9D3400C1D603 /* AppState.swift in Sources */,
 				F1EBD012246B9D3400C1D603 /* Blog.swift in Sources */,
 				F1EBCFE6246B9D3400C1D603 /* CaledarPage.swift in Sources */,
+				F185D640248DDB0A007C4A88 /* ClubMemberDetail.swift in Sources */,
 				F1EBD015246B9D3400C1D603 /* User.swift in Sources */,
 				F1EBCFF3246B9D3400C1D603 /* BlogPostHistory.swift in Sources */,
 				F1EBCFFD246B9D3400C1D603 /* ClubInfoPage.swift in Sources */,

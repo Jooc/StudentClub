@@ -12,9 +12,11 @@ import SwiftUI
 class Globals {
     static let screen = UIScreen.main.bounds
 
-    private let host = "http://localhost"
+//    private let host = "http://localhost"
+    private let host = "http://47.100.54.7"
     private let port = "8080"
-    static let serverUrl = "http://localhost:8080"
+//    static let serverUrl = "http://localhost:8080"
+    static let serverUrl = "http://47.100.54.7:8080"
     
     static let OSSPrefix = "https://jooc-studentclub.oss-cn-huhehaote.aliyuncs.com"
     static let defaultAvatarURL = URL(string: Globals.OSSPrefix + "/UserAvatar/defaultAvatat.png")!

@@ -136,6 +136,44 @@ struct LoadMyClubMembersAppCommand: AppCommand {
     }
 }
 
+struct LoadUserAppCommand: AppCommand {
+    let userID: Int
+    
+    func excute(in store: Store) {
+        let token = SubscriptionToken()
+        
+        LoadUserRequest(userID: userID)
+            .publisher
+            .sink(receiveCompletion: { complete in
+                if case .failure(let error) = complete{
+                    store.dispatch(.loadUserDetailDone(result: .failure(error)))
+                }
+                token.unseal()
+            }, receiveValue: { user in
+                store.dispatch(.loadUserDetailDone(result: .success(user)))
+            }).seal(in: token)
+    }
+}
+
+struct LoadClubAppCommand: AppCommand {
+    let clubCode: Int
+    
+    func excute(in store: Store) {
+        let token = SubscriptionToken()
+        
+        LoadClubRequest(clubCode: clubCode)
+            .publisher
+            .sink(receiveCompletion: { complete in
+                if case .failure(let error) = complete{
+                    store.dispatch(.loadClubListDone(result: .failure(error)))
+                }
+                token.unseal()
+            }, receiveValue: { club in
+                store.dispatch(.loadClubDetailDone(result: .success(club)))
+            }).seal(in: token)
+    }
+}
+
 
 struct LoadEventsAppCommand: AppCommand {
     let userId: Int
@@ -212,6 +250,29 @@ struct LoadLPMetaDataAppCommand: AppCommand {
                 token.unseal()
             }, receiveValue: { data in
                 store.dispatch(.loadBlogLPMetaDataDone(blogIndex: self.blogIndex, result: .success(data)))
+            }).seal(in: token)
+    }
+}
+
+struct LoadPostingLPMetaDataAppCommand: AppCommand {
+    let url: String
+    
+    func excute(in store: Store) {
+        let token = SubscriptionToken()
+        guard let url = URL(string: self.url) else{
+            print("[ERROR]: Unavailable URL String @ Blog Posting")
+            return
+        }
+        
+        LoadLPMetaDataRequest(url: url)
+            .publisher
+            .sink(receiveCompletion: { complete in
+                if case .failure(let error) = complete{
+                    store.dispatch(.loadPostingBlogLPMetaDataDone(result: .failure(error)))
+                }
+                token.unseal()
+            }, receiveValue: { data in
+                store.dispatch(.loadPostingBlogLPMetaDataDone(result: .success(data)))
             }).seal(in: token)
     }
 }

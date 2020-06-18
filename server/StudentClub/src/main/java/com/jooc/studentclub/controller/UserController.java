@@ -33,7 +33,7 @@ public class UserController {
     public Object login(@RequestBody HashMap<String, Object> req) throws InterruptedException{
         Date d = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        System.out.println("" + sdf.format(d) + " [Request]: login for" + req.get("email"));
+        System.out.println("" + sdf.format(d) + " [Request]: login for " + req.get("email"));
 
         return userService.login(req);
     }

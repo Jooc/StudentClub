@@ -114,10 +114,14 @@ struct LoginPage: View {
         VStack {
             Spacer()
             HStack(spacing: 40) {
-                Text("view as guest")
-                    .lineLimit(1)
-                    .foregroundColor(Color.gray)
-                    .padding(.trailing, 30)
+                Button(action:{
+                    self.store.dispatch(.loginAsGuest)
+                }){
+                    Text("view as guest")
+                        .lineLimit(1)
+                        .foregroundColor(Color.gray)
+                        .padding(.trailing, 30)
+                }
                 
                 Button(action: {
                     #if DEBUG

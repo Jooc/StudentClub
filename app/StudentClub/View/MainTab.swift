@@ -11,6 +11,10 @@ import SwiftUI
 struct MainTab: View {
     @EnvironmentObject var store: Store
     
+    var showBottomMenu: Bool{
+        self.store.appState.detailsState.detailedUserID != nil
+    }
+    
     var body: some View {
             ZStack {
                 
@@ -24,14 +28,23 @@ struct MainTab: View {
                     .offset(x: self.store.appState.rightSliderPageState == .NONE ?  Globals.screen.width : 0)
                     .animation(.spring())
                 
-                if store.appState.postListState.detailedNews != nil{
-                    NewsDetail(viewModel: self.store.appState.postListState.detailedNews!, show: self.$store.appState.showDetailedNews)
-                }
+                NewsDetailSlider()
+                    .offset(y: self.store.appState.detailedNews == nil ? -Globals.screen.height : 0)
+                    .animation(.spring())
                 
                 if store.appState.loginState.user == nil{
                     LoginPage()
                 }
+//                
+//                if self.showBottomMenu{
+//                    BottomMenu()
+//                }
+                
+                
             }
+            .alert(item: self.$store.appState.loginState.loginError){error in
+                Alert(title: Text(error.localizedDescription))
+        }
     }
     
     var tableView: some View{
@@ -73,7 +86,7 @@ struct MainTab: View {
 
 struct MainTab_Previews: PreviewProvider {
     static var previews: some View {
-        MainTab().environmentObject(Store.Sample())
+        MainTab().environmentObject(Store())
             //            MainTab().environmentObject(Store.Sample()).previewDevice("iPhone 8")
     }
 }

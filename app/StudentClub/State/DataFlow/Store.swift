@@ -36,9 +36,9 @@ class Store: ObservableObject{
     }
     func load() {
         // Simulate async task
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3)) {
+//        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3)) {
             self.dispatch(.loadNews)
-        }
+//        }
     }
     
     func dispatch(_ action: AppAction) {
@@ -59,6 +59,11 @@ class Store: ObservableObject{
             #endif
             command.excute(in: self)
         }
+        
+        if case .logout = action{
+            self.setObservers()
+        }
+        
     }
     
     static func reduce(state: AppState, action: AppAction) -> (AppState, AppCommand?) {
@@ -98,6 +103,8 @@ class Store: ObservableObject{
             }
             appState.loginState.isLogining = true
             appCommand = LoginAppCommand(email: email, password: password)
+        case .loginAsGuest:
+            appCommand = LoginAppCommand(email: "guest", password: "guest")
         case .accountBehaviorDone(let result):
             appState.loginState.isLogining = false
             switch result {
@@ -107,9 +114,12 @@ class Store: ObservableObject{
             case .failure(let error):
                 appState.loginState.loginError = error
                 print("[ERROR]: \(error.localizedDescription)")
+                
             }
         case .logout:
             appState.loginState.user = nil
+            appState = AppState()
+            
         case .register:
             guard !appState.loginState.isRegistering else {
                 break
@@ -126,6 +136,7 @@ class Store: ObservableObject{
             switch result {
             case .success(let loginEmail):
                 appState.loginState.loginAccountChecker.email = loginEmail
+                appState.loginState.isLoginEmailValid = true
                 appState.loginState.loginBehavior = AppState.LoginState.LoginBehavior.login
             case . failure(let error):
                 appState.loginState.registerError = error
@@ -163,6 +174,36 @@ class Store: ObservableObject{
                 appState.postListState.loadNewsError = error
                 print("[ERROR]: \(error.localizedDescription)")
             }
+        case .loadClubDetail(let clubCode):
+            appState.clubState.detailedClub = nil
+            appCommand = LoadClubAppCommand(clubCode: clubCode)
+        case .loadClubDetailDone(let result):
+            switch result {
+            case .success(let club):
+                appState.clubState.detailedClub = club
+            case .failure(let error):
+                appState.clubState.loadError = error
+            }
+        case .loadUserDetail(let userID):
+            appState.clubState.detailedMember = nil
+            appCommand = LoadUserAppCommand(userID: userID)
+        case .loadUserDetailDone(let result):
+            switch result {
+            case .success(let user):
+                appState.clubState.detailedMember = user
+            case .failure(let error):
+                appState.clubState.loadError = error
+            }
+        case .loadUserDetailForMainTab:
+            appCommand = LoadUserAppCommand(userID: appState.detailsState.detailedUserID!)
+        case .loadUserDetailForMainTabDone(let result):
+            switch result {
+            case .success(let user):
+                appState.detailsState.detailedUser = user
+            case .failure(let error):
+                appState.detailsState.loadError = error
+            }
+        
         case .loadBlogLPMetaData(let index):
             appCommand = LoadLPMetaDataAppCommand(blogIndex: index)
         case .loadBlogLPMetaDataDone(blogIndex: let index, result: let result):
@@ -171,6 +212,15 @@ class Store: ObservableObject{
                 appState.postListState.postListViewModel.blogList[index].metaData = data
             case .failure(let error):
                 print("[ERROR]: \(error.localizedDescription)")
+            }
+        case .loadPostingBlogLPMetaData:
+            appCommand = LoadPostingLPMetaDataAppCommand(url: appState.postState.blogURL)
+        case .loadPostingBlogLPMetaDataDone(let result):
+            switch result {
+            case .success(let data):
+                appState.postState.blogMetaData = data
+            case .failure(let error):
+                appState.postState.loadError = error
             }
         case .loadEvents:
             guard !appState.eventState.isLoading else{
@@ -246,6 +296,7 @@ class Store: ObservableObject{
             case .failure(let error):
                 appState.postListState.postNewsError = error
                 print("[ERROR]: \(error.localizedDescription)")
+                appState.upSliderPageState = .NONE
             }
             
         case .postBlog:
@@ -256,7 +307,7 @@ class Store: ObservableObject{
             appCommand = PostBlogAppCommand(
                 userId: appState.loginState.user!.id,
                 blogUrl: appState.postState.blogURL,
-                privilege: 1, tags: "[111]")
+                privilege: 1, tags: "[]")
         case .postBlogDone(let result):
             appState.postState.isPosting = false
             switch result {
@@ -356,9 +407,9 @@ class Store: ObservableObject{
         case .clickDayCell(let day):
             appState.eventState.clickDayCell(dayViewModel: day)
         case .clickNewsCell(let news):
-            appState.postListState.showNewsDetail(news: news)
+            appState.detailedNews = news
         case .closeNewsDetail:
-            appState.postListState.detailedNews = nil
+            appState.detailedNews = nil
         case .nextPage:
             appState.eventState.nextMonth()
         case .lastPage:

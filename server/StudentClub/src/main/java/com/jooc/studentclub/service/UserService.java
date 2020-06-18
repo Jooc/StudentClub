@@ -64,7 +64,7 @@ public class UserService implements UserServiceInterface {
             String password = (String) req.get("password");
 
             String user_name = (String) req.get("name");
-            String avatar = "UserAvatar/defaultAvatar";
+            String avatar = "/UserAvatar/defaultAvatar.png";
             String gender = "undefined";
             String description = "";
 

@@ -22,6 +22,9 @@ struct NewsCell: View {
                     .clipShape(Circle())
                     .frame(height: 50)
                     .padding(.leading, 10)
+                    .onTapGesture {
+                        self.store.appState.detailsState.detailedUserID = self.viewModel.news.publisherInfo.id
+                }
                 
                 VStack(alignment:.leading, spacing: 5) {
                     Text(viewModel.news.publisherInfo.name)
@@ -38,11 +41,12 @@ struct NewsCell: View {
             .frame(height: 60)
             .padding(5)
             
-            //            Image(uiImage: #imageLiteral(resourceName: "news-1"))
+//            Image(uiImage: #imageLiteral(resourceName: "news-1"))
             KFImage(URL(string: Globals.OSSPrefix + viewModel.news.images[0]))
                 .resizable()
                 .aspectRatio(contentMode: .fill)
-                .frame(width: Globals.screen.width*0.9, height: 330)
+                .frame(width: Globals.screen.width*0.9)
+                .frame(maxHeight: 350)
                 .clipShape(Rectangle())
         }
         .background(Color.white)

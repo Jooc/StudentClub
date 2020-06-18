@@ -6,20 +6,20 @@ import org.apache.ibatis.annotations.*;
 
 @Mapper
 public interface UserMapper {
-    @Select("select password from user where login_email=#{email}")
+    @Select("select password from User where login_email=#{email}")
     String getPassword(String email);
 
     @Select("select id, User.name, User.avatar, gender, User.description, club_code, Club.name as club_name, Club.icon as club_avatar, privilege, login_email, password, contact_email, phone_number " +
             "from User join Club on (User.club_code=Club.code) where id=#{id}")
     DBUserModel getUserById(int id);
 
-    @Select("select id from user where login_email=#{email}")
+    @Select("select id from User where login_email=#{email}")
     int getIdByEmail(String email);
 
     @Select("select max(id) from User")
     int getMaxId();
 
-    @Insert({"insert into user(id, name, avatar, gender, description, club_code, privilege, login_email, password, contact_email, phone_number)" +
+    @Insert({"insert into User(id, name, avatar, gender, description, club_code, privilege, login_email, password, contact_email, phone_number)" +
             "values(#{id}, #{name}, #{avatar}, #{gender}, #{description}, #{club_code}, #{privilege}, #{login_email}, #{password}, #{contact_email}, #{phone_number})"})
     void insertUser(@Param("id") int id,
                     @Param("name") String name,
@@ -33,7 +33,7 @@ public interface UserMapper {
                     @Param("contact_email") String contact_email,
                     @Param("phone_number") String phone_number);
 
-    @Select("select id,name,avatar,privilege from user where id=#{id}")
+    @Select("select id,name,avatar,privilege from User where id=#{id}")
     UserInfoModel getUserInfoById(int id);
 
     @Select("select club_code from User where id=#{id}")

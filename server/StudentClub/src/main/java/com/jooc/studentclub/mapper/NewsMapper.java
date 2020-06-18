@@ -23,11 +23,11 @@ public interface NewsMapper {
     @Select("select max(id) from News")
     int getMaxNewsId();
 
-    @Insert("insert into news(id, post_time, title, content, images, publisher_id, privilege, tags) " +
+    @Insert("insert into News(id, post_time, title, content, images, publisher_id, privilege, tags) " +
             "values(#{news.id}, #{news.post_time}, #{news.title}, #{news.content}, #{news.images}, #{news.publisher_id}, #{news.privilege}, #{news.tags})")
     void insertNews(@Param("news")DBNewsModel news);
 
-    @Delete("delete from news where id=#{id}")
+    @Delete("delete from News where id=#{id}")
     void deleteById(int id);
 
 }

@@ -36,7 +36,4 @@ class PostListViewModel{
             self.blogList.append(BlogViewModel(blog: blog))
         }
     }
-    
-    
-    
 }

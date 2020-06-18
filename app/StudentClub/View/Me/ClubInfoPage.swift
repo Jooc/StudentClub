@@ -34,7 +34,7 @@ struct ClubInfoPage: View {
                     
                     ForEach(self.viewModel.myClubMembers, id: \.self){ user in
                         NavigationLink(destination:
-                            Text(user.name)
+                            ClubMemberDetail(detailedMemberID: user.id)
                         ){
                             UserInfoCell(user: user)
                         }

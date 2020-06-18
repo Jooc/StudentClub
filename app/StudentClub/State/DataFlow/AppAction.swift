@@ -21,6 +21,7 @@ enum AppAction {
     case verifyRegisterCode
     case verifyRegisterCodeDone(result: Result<String, AppError>)
     case login(emai: String, password: String)
+    case loginAsGuest
     case accountBehaviorDone(result: Result<User, AppError>)
     case logout
     case register
@@ -33,6 +34,8 @@ enum AppAction {
     case loadBlogDone(result: Result<[Blog], AppError>)
     case loadBlogLPMetaData(index: Int)
     case loadBlogLPMetaDataDone(blogIndex: Int, result: Result<LPLinkMetadata, AppError>)
+    case loadPostingBlogLPMetaData
+    case loadPostingBlogLPMetaDataDone(result: Result<LPLinkMetadata, AppError>)
     case loadEvents
     case loadEventsDone(result: Result<[Event], AppError>)
     
@@ -40,6 +43,12 @@ enum AppAction {
     case loadClubListDone(result: Result<[ClubInfo], AppError>)
     case loadMyClubMembers
     case loadMyClubMembersDone(result: Result<(UserInfo, UserInfo, [UserInfo]), AppError>)
+    case loadUserDetail(userID: Int)
+    case loadUserDetailDone(result: Result<User, AppError>)
+    case loadClubDetail(clubCode: Int)
+    case loadClubDetailDone(result: Result<Club, AppError>)
+    case loadUserDetailForMainTab
+    case loadUserDetailForMainTabDone(result: Result<User, AppError>)
     
     case loadNewsHistory
     case loadNewsHistoryDone(result: Result<[News], AppError>)

@@ -164,3 +164,48 @@ struct LoadMyClubMembersRequest {
         var members: [UserInfo]
     }
 }
+
+struct LoadUserRequest {
+    let userID: Int
+    
+    var publisher: AnyPublisher<User, AppError>{
+        guard let url = URL(string: Globals.serverUrl + "/user/getUserById?id=" + String(userID))else{
+            return Fail<User, AppError>(error: .invalidURL).eraseToAnyPublisher()
+        }
+        print(url)
+        
+        return URLSession.shared
+        .dataTaskPublisher(for: url)
+            .map{$0.data}
+            .decode(type: User.self, decoder: JSONDecoder())
+            .mapError{AppError.networkFailed($0)}
+            .receive(on: DispatchQueue.main)
+            .eraseToAnyPublisher()
+    }
+}
+
+struct LoadClubRequest {
+    let clubCode: Int
+    
+    var publisher: AnyPublisher<Club, AppError>{
+        guard let url = URL(string: Globals.serverUrl + "/club/getByCode?code=" + String(clubCode))else{
+            return Fail<Club, AppError>(error: .invalidURL).eraseToAnyPublisher()
+        }
+        print(url)
+        
+        return URLSession.shared
+            .dataTaskPublisher(for: url)
+            .map{$0.data}
+            .decode(type: ResponseBody.self, decoder: JSONDecoder())
+            .map{$0.club}
+            .mapError{AppError.networkFailed($0)}
+            .receive(on: DispatchQueue.main)
+            .eraseToAnyPublisher()
+    }
+    
+    struct ResponseBody: Decodable {
+        var code: Int
+        var msg: String
+        var club: Club
+    }
+}

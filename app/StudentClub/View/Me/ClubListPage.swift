@@ -23,7 +23,7 @@ struct ClubListPage: View {
             List{
                 ForEach(self.viewModel.clubs){ club in
                     NavigationLink(destination:
-                        Text(club.name)
+                        ClubDetail(clubCode: club.code)
                     ){
                         HStack(spacing: 15) {
                             KFImage(URL(string: Globals.OSSPrefix + club.icon))

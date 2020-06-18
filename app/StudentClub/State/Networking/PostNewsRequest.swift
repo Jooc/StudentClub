@@ -33,7 +33,7 @@ struct PostNewsRequest {
     }
     
     func postNews(image: UIImage?) -> Result<PublishResponse, AppError> {
-        let pars = ["publisher_id": String(self.publsiher_id), "title": self.title, "content": self.content, "tags": self.tags, "privilege": String(self.privilege)]
+        let pars = ["publisher_id": String(self.publsiher_id), "title": self.title, "content": self.content, "tags": "[]", "privilege": String(self.privilege)]
         var result: PublishResponse?
         
         AF.upload(multipartFormData: { multipartFormData in
@@ -43,7 +43,8 @@ struct PostNewsRequest {
             for (key, value) in pars {
                 multipartFormData.append(value.data(using: String.Encoding.utf8)!, withName: key)
             }
-        }, to: "http://localhost:8080/news/publish").responseDecodable(of: PublishResponse.self){response in
+        }, to: Globals.serverUrl + "/news/publish").responseDecodable(of: PublishResponse.self){response in
+            
             result = response.value
         }
         if let unwrappedResult = result{

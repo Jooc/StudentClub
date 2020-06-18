@@ -11,6 +11,7 @@ import Combine
 import Alamofire
 import SwiftUI
 import EventKit
+import LinkPresentation
 
 struct AppState{
     enum UpSliderPageState {
@@ -20,6 +21,8 @@ struct AppState{
         case newsDetail, profile, newsBase, blogBase, NONE
     }
     
+    var testError: AppError?
+    
     var loginState = LoginState()
     var postListState = PostListState()
     var postState = PostState()
@@ -27,12 +30,14 @@ struct AppState{
     var clubState = ClubState()
     var eventState = EventState()
     var postHistoryState = PostHistoryState()
+    var detailsState = DetailsState()
     
     var showMe = true
     var showAddButtons = false
     
 //    var showPostNewsPage = false
-    var showDetailedNews = false
+    var detailedNews: NewsViewModel? = nil
+    
     var upSliderPageState: UpSliderPageState = .NONE
     var rightSliderPageState: RightSliderPageState = .NONE
     
@@ -93,18 +98,11 @@ extension AppState{
     class PostListState {
         @Published var postListViewModel  = PostListViewModel()
         
-        @Published var detailedNews: NewsViewModel? = nil
-        
         @Published var isLoading = false
         
         @Published var loadNewsError: AppError?
         @Published var postNewsError: AppError?
         @Published var postBlogError: AppError?
-        
-        func showNewsDetail(news: NewsViewModel) {
-            self.detailedNews = news
-        }
-        
     }
 }
 
@@ -124,6 +122,8 @@ extension AppState{
         var image: UIImage?
         
         var blogURL: String = ""
+        var blogMetaData = LPLinkMetadata()
+        var loadError: AppError?
     }
 }
 
@@ -161,13 +161,16 @@ extension AppState{
 }
 
 extension AppState{
-    struct ClubState{
-        var viewModel = ClubViewModel()
+    class ClubState{
+        @Published var viewModel = ClubViewModel()
         
         var isDeleting: Bool = false
         
-        var loadError: AppError?
-        var deleteError: AppError?
+        @Published var loadError: AppError?
+        @Published var deleteError: AppError?
+        
+        @Published var detailedMember: User?
+        @Published var detailedClub: Club?
     }
 }
 
@@ -185,7 +188,7 @@ extension AppState{
         @Published var publishEventErrpr: AppError?
         @Published var pqEventError: AppError?
         
-        @Published var currentMonth: Int = 5
+        @Published var currentMonth: Int = 6
         @Published var selectedDay: EDayViewModel? = nil
         @Published var selectedDayPreState: EDayState = .uncover
         
@@ -259,3 +262,10 @@ extension AppState{
     }
 }
 
+extension AppState{
+    class DetailsState {
+        @Published var detailedUserID: Int? = nil
+        @Published var detailedUser: User? = nil
+        @Published var loadError: AppError? = nil
+    }
+}
